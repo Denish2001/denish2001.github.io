@@ -1,5 +1,17 @@
 [
     {
+      "title": "Integrating Design Thinking into Agile Product Development",
+      "by": "Denish Awajo",
+      "Date": "February 2024",
+      "url": "/DesignThinkingAgile"
+    },
+    {
+      "title": "The Cultural Impact of 'Lemonade' as a Visual Album",
+      "by": "Denish Awajo",
+      "Date": "May 2025",
+      "url": "/LemonadePaper"
+    },
+    {
       "title": "Designing Intuitive Interfaces for Mental Health Apps",
       "by": "Your Name",
       "Date": "March 2025",
@@ -34,18 +46,7 @@
       "by": "Your Name",
       "Date": "April 2024",
       "url": "https://example.com/research/inclusive-design-systems"
-    },
-    {
-      "title": "Integrating Design Thinking into Agile Product Development",
-      "by": "Denish Awajo",
-      "Date": "February 2024",
-      "url": "/DesignThinkingAgile"
-    },
-    {
-      "title": "The Cultural Impact of 'Lemonade' as a Visual Album",
-      "by": "Denish Awajo",
-      "Date": "May 2025",
-      "url": "/LemonadePaper"
     }
+    
   ]
   
