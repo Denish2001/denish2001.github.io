@@ -1,16 +1,9 @@
-.App{
-    position: relative;
-    overflow-x:clip;
+/* App.css */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-.App>:nth-child(1){
-    background-color: var(--black);
-    position: relative;
-}
-.white-gradient{
-    position: absolute;
-    height: 20rem;
-    width: 20rem;
-    background: rgba(255 255 255 0.522);
-    filter: blur(100px);
-    border-radius: 100%;
+main {
+  flex: 1;
 }

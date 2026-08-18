@@ -1,130 +1,107 @@
+/* ============================================
+   Minimalist Design System – Charcoal + Whitesmoke
+   ============================================ */
 :root {
-  --primary: #1f3e72;
-  --secondary: rgba(255, 255, 255, 0.78);
-  --black: #131110;
-  --blue-gradient: linear-gradient(97.05deg, #4066ff 3.76%, #2949c6 100%);
-  --orange-gradient: linear-gradient(270deg, #ffb978 0%, #ff922d 100%);
-  --blue: #4066ff;
-  --lightBlue: #eeeeff;
-  --shadow: 0px 23px 21px -8px rgba(136, 160, 255, 0.25);
+  /* Colors – solid, no gradients */
+  --color-charcoal: #3a3a3a;
+  --color-charcoal-light: #5a5a5a;
+  --color-charcoal-dark: #222;
+  --color-whitesmoke: #f5f5f5;
+  --color-white: #ffffff;
+  --color-border: #e0e0e0;
+
+  /* Accent colors (used sparingly for hover, focus) */
+  --color-accent: #ccccff;        /* lavender */
+  --color-accent-hover: #b3b3ff;
+
+  /* Typography */
+  --font-primary: 'Omnes', 'Museo Slab', serif;
+  --font-size-base: 1rem;
+  --line-height-base: 1.6;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Layout */
+  --container-max: 1200px;
+  --header-height: 64px;
+
+  /* Transitions (minimal, only for hover) */
+  --transition-fast: 0.15s ease;
 }
-html{
-  scroll-behavior: smooth;
-}
-* {
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+}
+
+html {
   scroll-behavior: smooth;
 }
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-charcoal);
+  background: var(--color-whitesmoke);
+  -webkit-font-smoothing: antialiased;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
-.paddings {
-  padding: 1.5rem;
+
+/* Focus states – accessible */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-.innerWidth {
-  width: 100%;
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.flexCenter {
-  display: flex;
-  row-gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.flexStart {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+/* Utility */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
 }
 
-.flexEnd {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-sm);
 }
 
-.flexColCenter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.flexColStart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-.flexColEnd {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.primaryText {
-  color: #1f3e72;
-  font-weight: bold;
-  font-size: 2rem;
-}
-
-.secondaryText {
-  color: rgb(140 139 139);
+.section-subtitle {
+  display: block;
   font-size: 0.9rem;
-}
-.orangeText {
-  color: orange;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-.button{
-  font-weight: 500;
-  padding: 0.6rem 1.4rem;
-  color: white;
-  background: var(--blue-gradient);
-  border: none;
-  border-radius: 4px;
-  transition: all 300ms ease-in;
-}
-.button:hover{
-  cursor: pointer;
-  transform: scale(1.1);
-}
-/* media queries */
-@media (min-width: 1536px) {
-  .innerWidth {
-    max-width: 1280px;
-    margin: auto;
-  }
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-charcoal-light);
+  margin-bottom: var(--spacing-xs);
 }
 
-@media (min-width: 640px) {
-  .paddings {
-    padding: 4rem;
-  }
-}
-
-@media (min-width: 1280px), (min-width: 768px) {
-  .paddings {
-    padding: 2rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .primaryText {
-    font-size: 1.5rem;
-  }
-  .orangeText {
-    font-size: 1.2rem;
-  }
-}
-
-section{
-  padding-top: 140px;
+.section-description {
+  max-width: 600px;
+  color: var(--color-charcoal-light);
+  margin-bottom: var(--spacing-lg);
 }

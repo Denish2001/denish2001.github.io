@@ -1,137 +1,28 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+// App.jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
-import Designs from './components/Designs/Designs';
-import Certifications from './components/Credentials/Credentials';
+import Work from './components/Work/Work';
 import Publications from './components/Publications/Publications';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import './App.css';
-import Projects from './components/Projects/Projects';
-import LemonadePaper from './components/Writings/LemonadePaper';
-import DesignThinkingAgile from './components/Writings/DesignThinkingAgile';
 
-const App = () => {
+function App() {
   return (
-    <Router>
-      <div className="app">
-        <Header />
-        
-        <AnimatePresence mode='wait'>
-          <Routes>
-            <Route 
-              path="/" 
-              element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Hero />
-                </motion.div>
-              } 
-            />
-            <Route 
-              path="/Designs" 
-              element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Designs />
-                </motion.div>
-              } 
-            />
-            <Route 
-              path="/Projects" 
-              element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Projects />
-                </motion.div>
-              } 
-            />
-            <Route 
-              path="/Publications" 
-              element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Publications />
-                </motion.div>
-              } 
-            />
-            <Route 
-              path="/Credentials" 
-              element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Certifications />
-                </motion.div>
-              } 
-            />
-            <Route 
-              path="/LemonadePaper" 
-              element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <LemonadePaper />
-                </motion.div>
-              }
-            />
-            <Route 
-              path="/DesignThinkingAgile" 
-              element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <DesignThinkingAgile />
-                </motion.div>
-              }
-            />
-            <Route 
-              path="/contact" 
-              element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Contact />
-                </motion.div>
-              } 
-            />
-          </Routes>
-        </AnimatePresence>
-        
-        <Footer />
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Header />
+      <main>
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/work" element={<Work />} />
+          <Route path="/publications" element={<Publications />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
+      <Footer />
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
