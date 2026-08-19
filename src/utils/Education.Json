@@ -1,5 +1,13 @@
 [
     {
+      "School": "Kenya Institute of Mass & Communication",
+      "Period": "2025 - 2026",
+      "Grade": "Credit",
+      "Major": "Mass Communication",
+      "level": "Postgraduate Diploma",
+      "image": "./kimc.png"
+    },  
+    {
       "School": "Technical University of Kenya",
       "Period": "2020 - 2024",
       "Grade": "First Class Honors",

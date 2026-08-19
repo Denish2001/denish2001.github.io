@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import { FiExternalLink, FiGithub, FiCalendar, FiAward, FiBookOpen, FiUser } from 'react-icons/fi';
 import projectsData from '../../utils/projects.json';
 import designsData from '../../utils/designs.json';
 import eduData from '../../utils/Education.json';
 import certData from '../../utils/Certifications.json';
+import articlesData from '../../utils/Articles.json';
+import researchData from '../../utils/research.json';
 import './Work.css';
 
 // Helper to flatten designs (if they are nested under uiux/graphic)
@@ -19,6 +21,8 @@ const allItems = [
   ...flattenDesigns(designsData).map((d) => ({ ...d, category: 'design' })),
   ...eduData.map((e) => ({ ...e, category: 'education' })),
   ...certData.map((c) => ({ ...c, category: 'certification' })),
+  ...articlesData.map((a) => ({ ...a, category: 'article' })),
+  ...researchData.map((r) => ({ ...r, category: 'research' })),
 ];
 
 const categoryLabels = {
@@ -26,11 +30,13 @@ const categoryLabels = {
   design: 'Designs',
   education: 'Education',
   certification: 'Certifications',
+  article: 'Articles',
+  research: 'Research',
 };
 
 const Work = () => {
   const [filter, setFilter] = useState('all');
-  const filters = ['all', 'project', 'design', 'education', 'certification'];
+  const filters = ['all', 'project', 'design', 'education', 'certification', 'article', 'research'];
 
   // Filter items
   const filteredItems = filter === 'all'
@@ -50,19 +56,11 @@ const Work = () => {
     : null;
 
   // Order of categories in "all" view
-  const categoryOrder = ['education', 'certification','project', 'design'];
+  const categoryOrder = ['education', 'certification', 'project', 'design', 'article', 'research'];
 
   return (
     <section className="work">
       <div className="work__container">
-        <header className="work__header">
-          <span className="section-subtitle">Portfolio</span>
-          <h2 className="section-title">My Work</h2>
-          <p className="section-description">
-            A curated selection of my projects, designs, education, and certifications.
-          </p>
-        </header>
-
         {/* Filter buttons */}
         <div className="work__filters">
           {filters.map((f) => (
@@ -109,43 +107,150 @@ const Work = () => {
 };
 
 // Reusable card component
-const WorkCard = ({ item }) => (
-  <motion.div
-    className="work__card"
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.2 }}
-  >
-    {item.image && (
-      <div className="work__image">
-        <img src={item.image} alt={item.name || item.title || item.School} />
+const WorkCard = ({ item }) => {
+  // Determine what fields to display based on category
+  const renderCardContent = () => {
+    switch (item.category) {
+      case 'education':
+        return (
+          <>
+            <span className="work__category">{item.level || 'Education'}</span>
+            <h3>{item.School}</h3>
+            {item.Major && <p className="work__detail"><FiBookOpen /> {item.Major}</p>}
+            {item.Grade && <p className="work__grade"><FiAward /> {item.Grade}</p>}
+            {item.Period && (
+              <p className="work__period">
+                <FiCalendar /> {item.Period}
+              </p>
+            )}
+          </>
+        );
+      
+      case 'certification':
+        return (
+          <>
+            <span className="work__category">Certification</span>
+            <h3>{item.name}</h3>
+            {item.by && <p className="work__by"><FiUser /> {item.by}</p>}
+            {item.date && (
+              <p className="work__period">
+                <FiCalendar /> {item.date}
+              </p>
+            )}
+            {item.link && (
+              <div className="work__meta">
+                <a href={item.link} target="_blank" rel="noopener noreferrer">
+                  <FiExternalLink /> View Credential
+                </a>
+              </div>
+            )}
+          </>
+        );
+      
+      case 'article':
+        return (
+          <>
+            <span className="work__category">Article</span>
+            <h3>{item.name}</h3>
+            {item.detail && <p className="work__detail">{item.detail}</p>}
+            {item.price && <p className="work__period"><FiCalendar /> {item.price}</p>}
+            {item.url && (
+              <div className="work__meta">
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  <FiExternalLink /> Read Article
+                </a>
+              </div>
+            )}
+          </>
+        );
+      
+      case 'research':
+        return (
+          <>
+            <span className="work__category">Research</span>
+            <h3>{item.title}</h3>
+            {item.by && <p className="work__by"><FiUser /> {item.by}</p>}
+            {item.Date && (
+              <p className="work__period">
+                <FiCalendar /> {item.Date}
+              </p>
+            )}
+            {item.url && (
+              <div className="work__meta">
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  <FiExternalLink /> View Research
+                </a>
+              </div>
+            )}
+          </>
+        );
+      
+      case 'design':
+        return (
+          <>
+            <span className="work__category">{item.category || 'Design'}</span>
+            <h3>{item.title}</h3>
+            {item.description && <p className="work__detail">{item.description}</p>}
+            {item.year && <p className="work__period"><FiCalendar /> {item.year}</p>}
+            {item.tags && (
+              <div className="work__tags">
+                {item.tags.map((tag, i) => (
+                  <span key={i} className="work__tag">{tag}</span>
+                ))}
+              </div>
+            )}
+            {item.link && (
+              <div className="work__meta">
+                <a href={item.link} target="_blank" rel="noopener noreferrer">
+                  <FiExternalLink /> View Design
+                </a>
+              </div>
+            )}
+          </>
+        );
+      
+      case 'project':
+      default:
+        return (
+          <>
+            <span className="work__category">{item.type || 'Project'}</span>
+            <h3>{item.name}</h3>
+            {item.detail && <p className="work__detail">{item.detail}</p>}
+            {item.tech && <p className="work__tech">{item.tech}</p>}
+            <div className="work__meta">
+              {item.url && (
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  <FiExternalLink /> View
+                </a>
+              )}
+              {item.github && (
+                <a href={item.github} target="_blank" rel="noopener noreferrer">
+                  <FiGithub /> Code
+                </a>
+              )}
+            </div>
+          </>
+        );
+    }
+  };
+
+  return (
+    <motion.div
+      className="work__card"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      {item.image && (
+        <div className="work__image">
+          <img src={item.image} alt={item.name || item.title || item.School} />
+        </div>
+      )}
+      <div className="work__content">
+        {renderCardContent()}
       </div>
-    )}
-    <div className="work__content">
-      <span className="work__category">{categoryLabels[item.category] || item.category}</span>
-      <h3>{item.name || item.title || item.School}</h3>
-      {item.detail && <p>{item.detail}</p>}
-      {item.period && <p className="work__period">{item.period}</p>}
-      {item.by && <p className="work__by"><em>{item.by}</em></p>}
-      <div className="work__meta">
-        {item.url && (
-          <a href={item.url} target="_blank" rel="noopener noreferrer">
-            <FiExternalLink /> View
-          </a>
-        )}
-        {item.github && (
-          <a href={item.github} target="_blank" rel="noopener noreferrer">
-            <FiGithub /> Code
-          </a>
-        )}
-        {item.link && (
-          <a href={item.link} target="_blank" rel="noopener noreferrer">
-            <FiExternalLink /> Credential
-          </a>
-        )}
-      </div>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  );
+};
 
 export default Work;
