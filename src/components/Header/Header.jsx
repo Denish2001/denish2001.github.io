@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BiMenuAltRight, BiX } from 'react-icons/bi';
-import './Header.css';
+import './header.css';
 
 // Navigation configuration — defined outside for purity
 const NAV_ITEMS = [
