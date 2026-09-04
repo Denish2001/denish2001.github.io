@@ -1,43 +1,59 @@
 // Header.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BiMenuAltRight, BiX } from 'react-icons/bi';
-import './header.css';
+import './Header.css';
+
+// Navigation configuration — defined outside for purity
+const NAV_ITEMS = [
+  { path: '/', label: 'Home' },
+  { path: '/work', label: 'Resume' },
+  { path: '/publications', label: 'Publications' },
+  { path: '/contact', label: 'Contact' },
+];
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  // Memoized scroll handler — cleans up on unmount
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => setMenuOpen(false), [location]);
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
 
-  const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/work', label: 'Resume' },
-    { path: '/publications', label: 'Publications' },
-    { path: '/contact', label: 'Contact' },
-  ];
+  const toggleMenu = useCallback(() => {
+    setMenuOpen((prev) => !prev);
+  }, []);
 
   return (
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header__container">
-        <Link to="/" className="header__logo" aria-label="Home">Denish Awajo</Link>
+        {/* Logo — links to home */}
+        <Link to="/" className="header__logo" aria-label="Home">
+          Denish Awajo
+        </Link>
 
-        <nav className="header__nav" aria-label="Main">
+        {/* Desktop Navigation */}
+        <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__list">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
                   className={`header__link ${
                     location.pathname === item.path ? 'header__link--active' : ''
                   }`}
+                  aria-current={location.pathname === item.path ? 'page' : undefined}
                 >
                   {item.label}
                 </Link>
@@ -46,24 +62,28 @@ const Header = () => {
           </ul>
         </nav>
 
+        {/* Mobile Toggle Button */}
         <button
           className="header__toggle"
-          onClick={() => setMenuOpen((prev) => !prev)}
+          onClick={toggleMenu}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
         >
           {menuOpen ? <BiX size={28} /> : <BiMenuAltRight size={28} />}
         </button>
 
-        {/* Mobile menu – simple slide */}
+        {/* Mobile Navigation Overlay */}
         <div className={`header__mobile ${menuOpen ? 'header__mobile--open' : ''}`}>
           <ul className="header__list header__list--mobile">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className="header__link"
+                  className={`header__link ${
+                    location.pathname === item.path ? 'header__link--active' : ''
+                  }`}
                   onClick={() => setMenuOpen(false)}
+                  aria-current={location.pathname === item.path ? 'page' : undefined}
                 >
                   {item.label}
                 </Link>

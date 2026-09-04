@@ -1,23 +1,44 @@
 /* Header.css */
+
+/* ── Base ── */
+:root {
+  --color-background: #fcfcfc;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #444444;
+  --color-text-muted: #888888;
+  --color-border: #e0e0e0;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --max-width: 1000px;
+  --header-height: 70px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 24px;
+  --spacing-lg: 40px;
+}
+
+/* ── Header Container ── */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: transparent;
-  transition: background var(--transition-fast), box-shadow var(--transition-fast);
   height: var(--header-height);
+  background: transparent;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+  font-family: var(--font-family);
 }
 
 .header--scrolled {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: rgba(252, 252, 252, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
+/* ── Inner Container ── */
 .header__container {
-  max-width: var(--container-max);
+  max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--spacing-lg);
   display: flex;
@@ -26,13 +47,21 @@
   height: 100%;
 }
 
+/* ── Logo ── */
 .header__logo {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 300;
   letter-spacing: -0.02em;
-  color: var(--color-charcoal);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
+.header__logo:hover {
+  opacity: 0.7;
+}
+
+/* ── Desktop Navigation ── */
 .header__nav {
   display: none;
 }
@@ -41,44 +70,68 @@
   display: flex;
   gap: var(--spacing-md);
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .header__link {
   padding: var(--spacing-xs) 0;
-  font-weight: 500;
-  color: var(--color-charcoal);
-  border-bottom: 2px solid transparent;
-  transition: border-color var(--transition-fast);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.header__link:hover,
+.header__link:hover {
+  color: var(--color-text-primary);
+}
+
 .header__link--active {
-  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+  font-weight: 500;
+  border-bottom-color: var(--color-text-primary);
 }
 
+/* ── Hamburger Toggle ── */
 .header__toggle {
   display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-charcoal);
+  color: var(--color-text-primary);
+  padding: var(--spacing-xs);
+  border-radius: 2px;
+  transition: background 0.2s ease;
 }
 
+.header__toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* ── Mobile Menu ── */
 .header__mobile {
   position: fixed;
   top: var(--header-height);
   left: 0;
   width: 100%;
-  background: var(--color-white);
+  background: rgba(252, 252, 252, 0.98);
+  backdrop-filter: blur(12px);
   padding: var(--spacing-md) var(--spacing-lg);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-  transform: translateY(-120%);
-  transition: transform var(--transition-fast);
+  border-top: 1px solid var(--color-border);
+  transform: translateY(-10px);
+  opacity: 0;
   visibility: hidden;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
 .header__mobile--open {
   transform: translateY(0);
+  opacity: 1;
   visibility: visible;
 }
 
@@ -87,6 +140,19 @@
   gap: var(--spacing-sm);
 }
 
+.header__list--mobile .header__link {
+  display: block;
+  padding: var(--spacing-sm) 0;
+  font-size: 1.1rem;
+  border-bottom: none;
+}
+
+.header__list--mobile .header__link--active {
+  border-bottom: none;
+  font-weight: 500;
+}
+
+/* ── Responsive ── */
 @media (min-width: 768px) {
   .header__nav {
     display: block;
@@ -96,5 +162,17 @@
   }
   .header__mobile {
     display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .header__container {
+    padding: 0 var(--spacing-md);
+  }
+  .header__logo {
+    font-size: 1.2rem;
+  }
+  .header__mobile {
+    padding: var(--spacing-sm) var(--spacing-md);
   }
 }

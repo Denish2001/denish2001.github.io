@@ -1,52 +1,9 @@
 [
     {
-      "title": "Integrating Design Thinking into Agile Product Development",
-      "by": "Denish Awajo",
-      "Date": "February 2024",
-      "url": "/DesignThinkingAgile"
-    },
-    {
-      "title": "The Cultural Impact of 'Lemonade' as a Visual Album",
-      "by": "Denish Awajo",
-      "Date": "May 2025",
-      "url": "/LemonadePaper"
-    },
-    {
-      "title": "Designing Intuitive Interfaces for Mental Health Apps",
-      "by": "Your Name",
-      "Date": "March 2025",
-      "url": "https://example.com/research/intuitive-interfaces-mental-health"
-    },
-    {
-      "title": "Integrating Design Thinking into Agile Product Development",
-      "by": "Your Name",
-      "Date": "January 2025",
-      "url": "https://example.com/research/design-thinking-agile"
-    },
-    {
-      "title": "Data-Driven UX: A Case Study in Healthcare App Optimization",
-      "by": "Your Name",
-      "Date": "November 2024",
-      "url": "https://example.com/research/data-driven-ux-healthcare"
-    },
-    {
-      "title": "AI-Assisted Design: Leveraging GPT Models for Prototyping",
-      "by": "Your Name",
-      "Date": "August 2024",
-      "url": "https://example.com/research/ai-assisted-design-gpt"
-    },
-    {
-      "title": "The Role of User Research in Product Development",
-      "by": "Your Name",
-      "Date": "June 2024",
-      "url": "https://example.com/research/user-research-product-development"
-    },
-    {
-      "title": "Creating Inclusive Design Systems for Diverse Users",
-      "by": "Your Name",
-      "Date": "April 2024",
-      "url": "https://example.com/research/inclusive-design-systems"
+      "title": "Safe Mom: A Data Science Approach to Predicting and Mitigating Maternal Morbidity and Mortality Caused by Preeclampsia",
+      "by": "Denish Awajo, Sebatian Chanzu & Eddah Chepchirchir",
+      "Date": "September 2024",
+      "url": "https://github.com/SebbieMzingKe/Safe-Mom"
     }
-    
   ]
   

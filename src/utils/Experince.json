@@ -1,0 +1,59 @@
+{
+  "work_experience": [
+    
+    {
+      "category": "experience",
+      "company": "Otieno Atuti & Company Advocates",
+      "position": "Software Engineer",
+      "type": "Part-time",
+      "period": "Jun 2024 - Present",
+      "location": "Nairobi, Kenya",
+      "description": "Building websites, maintaining ICT assets, and social media marketing."
+    },
+    {
+      "category": "experience",
+      "company": "ICON RADIO KENYA",
+      "position": "Head of Production",
+      "type": "Internship",
+      "period": "Apr 2026 - Jul 2026",
+      "location": "Nairobi, Kenya",
+      "description": "Led live radio production, grew social media following by 3,000, managed multimedia production, and trained interns."
+    },
+    {
+      "category": "experience",
+      "company": "KamiLimu",
+      "position": "Mentee",
+      "type": "Part-time",
+      "period": "Mar 2024 - Nov 2024",
+      "location": "Nairobi, Kenya",
+      "description": "Built a preeclampsia prediction web app, mastered public speaking, and graduated from the mentorship program."
+    },
+    {
+      "category": "experience",
+      "company": "McKinsey & Company",
+      "position": "Forward Apprentice",
+      "type": "Part-time",
+      "period": "May 2024 - Jul 2024",
+      "location": "Nairobi, Kenya (Remote)",
+      "description": "Developed skills in adaptability, communication, problem-solving, teamwork, and digital literacy."
+    },
+    {
+      "category": "experience",
+      "company": "The National Treasury",
+      "position": "Technical Support Attachee",
+      "type": "Full-time",
+      "period": "Apr 2024 - Jul 2024",
+      "location": "Nairobi, Kenya",
+      "description": "Built an asset management system (SQL, Flask, React), improved network performance by 35%, provided user support, and reduced downtime by 30%."
+    },
+    {
+      "category": "experience",
+      "company": "The Technical University of Kenya",
+      "position": "Deputy President, Debate Society",
+      "type": "Part-time",
+      "period": "Jan 2021 - Jan 2022",
+      "location": "Nairobi, Kenya",
+      "description": "Managed 25+ debaters, trained members, achieved semifinal placements, and managed the society's social media."
+    }
+  ]
+}

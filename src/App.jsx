@@ -6,6 +6,7 @@ import Work from './components/Work/Work';
 import Publications from './components/Publications/Publications';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
+import MagazineShowcase from './components/Designs/Magazine'
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/work" element={<Work />} />
           <Route path="/publications" element={<Publications />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/magazine" element={<MagazineShowcase />} />
         </Routes>
       </main>
       <Footer />

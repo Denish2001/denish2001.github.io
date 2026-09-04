@@ -2,9 +2,9 @@
     "uiux": [
       {
         "id": 1,
-        "title": "Safe Mom App Design",
-        "year": "2024",
-        "image": "./Settings.jpeg",
+        "title": "The Trend Magazine",
+        "year": "2026",
+        "image": "./trend.jpg",
         "category": "UI/UX",
         "description": "A complete redesign of a health tracking app to improve user experience and engagement.",
         "features": [
@@ -13,55 +13,10 @@
           "Real-time health stats"
         ],
         "tags": ["Figma", "Adobe XD", "User Testing"],
-        "link": "https://example.com/health-app"
-      },
-      {
-        "id": 2,
-        "title": "Otieno Atuti Website Redesign",
-        "year": "2023",
-        "image": "/images/ecommerce-dashboard.png",
-        "category": "UI/UX",
-        "description": "Admin dashboard for managing orders, customers, and inventory in an e-commerce platform.",
-        "features": [
-          "Analytics visualization",
-          "Custom filters",
-          "Bulk actions"
-        ],
-        "tags": ["Figma", "UX Research", "Wireframing"],
-        "link": "https://example.com/ecommerce-dashboard"
+        "link": "/Magazine"
       }
-    ],
-    "graphic": [
-      {
-        "id": 1,
-        "title": "Graduation Day Poster",
-        "year": "2023",
-        "image": "/images/festival-poster.png",
-        "category": "Graphic Design",
-        "description": "A vibrant and colorful poster designed for a summer music festival.",
-        "features": [
-          "Bold typography",
-          "Vibrant colors",
-          "Layered textures"
-        ],
-        "tags": ["Illustrator", "Photoshop"],
-        "link": "https://example.com/festival-poster"
-      },
-      {
-        "id": 2,
-        "title": "Otieno Atuti Brand Identity Pack",
-        "year": "2024",
-        "image": "/images/brand-identity.png",
-        "category": "Graphic Design",
-        "description": "Complete brand identity design including logo, business card, and letterhead.",
-        "features": [
-          "Logo design",
-          "Stationery design",
-          "Color palette guide"
-        ],
-        "tags": ["Photoshop", "Illustrator", "Branding"],
-        "link": "https://example.com/brand-identity"
-      }
+      
+    
     ]
   }
   

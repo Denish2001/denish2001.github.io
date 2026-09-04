@@ -5,8 +5,7 @@ import projectsData from '../../utils/projects.json';
 import designsData from '../../utils/designs.json';
 import eduData from '../../utils/Education.json';
 import certData from '../../utils/Certifications.json';
-import articlesData from '../../utils/Articles.json';
-import researchData from '../../utils/research.json';
+import experienceData from '../../utils/Experince.json';
 import './Work.css';
 
 // Helper to flatten designs (if they are nested under uiux/graphic)
@@ -15,28 +14,29 @@ const flattenDesigns = (data) => {
   return Object.values(data).flat();
 };
 
+// Extract the experience array from the JSON object
+const experienceItems = experienceData.work_experience || [];
+
 // Build full list with category labels
 const allItems = [
+  ...experienceItems.map((e) => ({ ...e, category: 'experience' })),
   ...projectsData.map((p) => ({ ...p, category: 'project' })),
   ...flattenDesigns(designsData).map((d) => ({ ...d, category: 'design' })),
   ...eduData.map((e) => ({ ...e, category: 'education' })),
   ...certData.map((c) => ({ ...c, category: 'certification' })),
-  ...articlesData.map((a) => ({ ...a, category: 'article' })),
-  ...researchData.map((r) => ({ ...r, category: 'research' })),
 ];
 
 const categoryLabels = {
+  experience: 'Experience',
   project: 'Projects',
   design: 'Designs',
   education: 'Education',
   certification: 'Certifications',
-  article: 'Articles',
-  research: 'Research',
 };
 
 const Work = () => {
   const [filter, setFilter] = useState('all');
-  const filters = ['all', 'project', 'design', 'education', 'certification', 'article', 'research'];
+  const filters = ['all', 'experience', 'project', 'design', 'education', 'certification'];
 
   // Filter items
   const filteredItems = filter === 'all'
@@ -56,7 +56,7 @@ const Work = () => {
     : null;
 
   // Order of categories in "all" view
-  const categoryOrder = ['education', 'certification', 'project', 'design', 'article', 'research'];
+  const categoryOrder = [ 'education', 'experience', 'certification', 'project', 'design'];
 
   return (
     <section className="work">
@@ -111,6 +111,22 @@ const WorkCard = ({ item }) => {
   // Determine what fields to display based on category
   const renderCardContent = () => {
     switch (item.category) {
+      case 'experience':
+        return (
+          <>
+            <span className="work__category">{item.type || 'Experience'}</span>
+            <h3>{item.company}</h3>
+            <p className="work__position">{item.position}</p>
+            {item.location && <p className="work__location"><FiUser /> {item.location}</p>}
+            {item.period && (
+              <p className="work__period">
+                <FiCalendar /> {item.period}
+              </p>
+            )}
+            {item.description && <p className="work__detail">{item.description}</p>}
+          </>
+        );
+
       case 'education':
         return (
           <>
@@ -243,7 +259,7 @@ const WorkCard = ({ item }) => {
     >
       {item.image && (
         <div className="work__image">
-          <img src={item.image} alt={item.name || item.title || item.School} />
+          <img src={item.image} alt={item.name || item.title || item.School || item.company} />
         </div>
       )}
       <div className="work__content">
