@@ -1,0 +1,27 @@
+[
+    {
+      "School": "Kenya Institute of Mass & Communication",
+      "Period": "2025 - 2026",
+      "Grade": "Credit",
+      "Major": "PGD Mass Communication",
+      "level": "Postgraduate Diploma",
+      "image": "./kimc.png"
+    },  
+    {
+      "School": "Technical University of Kenya",
+      "Period": "2020 - 2024",
+      "Grade": "First Class Honors",
+      "Major": "B.Tech Business Information Technology",
+      "level": "Bachelor's Degree",
+      "image": "./tuk.jpg"
+    },
+    {
+      "School": "Mbita High School",
+      "Period": "2017 - 2019",
+      "Grade": "A-Levels",
+      "Major": "Science",
+      "level": "High School",
+      "image": "./mbita.jpg"
+    }
+  ]
+  

@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { FiExternalLink, FiGithub, FiCalendar, FiAward, FiBookOpen, FiUser } from 'react-icons/fi';
 import projectsData from '../../utils/projects.json';
 import designsData from '../../utils/designs.json';
-import eduData from '../../utils/Education.json';
+//import eduData from '../../utils/Education.json';
+
 import certData from '../../utils/Certifications.json';
 import experienceData from '../../utils/Experince.json';
+import eduData from '../../utils/Schooling.json';
 import './Work.css';
 
 // Helper to flatten designs (if they are nested under uiux/graphic)
