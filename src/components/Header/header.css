@@ -27,6 +27,7 @@
   background: transparent;
   transition: background 0.25s ease, box-shadow 0.25s ease;
   font-family: var(--font-family);
+
 }
 
 .header--scrolled {
@@ -43,7 +44,7 @@
   padding: 0 var(--spacing-lg);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content:center;
   height: 100%;
 }
 
@@ -157,6 +158,13 @@
   .header__nav {
     display: block;
   }
+  .header_container{
+    justify-content:flex-end;
+    
+  }
+  .header__logo {
+    display:none;
+  }
   .header__toggle {
     display: none;
   }
@@ -168,9 +176,11 @@
 @media (max-width: 640px) {
   .header__container {
     padding: 0 var(--spacing-md);
+    justify-content:flex-end;
+    
   }
   .header__logo {
-    font-size: 1.2rem;
+    display:none;
   }
   .header__mobile {
     padding: var(--spacing-sm) var(--spacing-md);
