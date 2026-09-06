@@ -11,7 +11,6 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(form);
-    // reset
     setForm({ name: '', phone: '', email: '', message: '' });
   };
 
@@ -24,13 +23,20 @@ const Contact = () => {
   return (
     <section className="contact">
       <div className="contact__container">
+        {/* Left – Info */}
         <div className="contact__info">
           <span className="section-subtitle">Get in touch</span>
           <h2 className="section-title">Contact</h2>
           <p className="section-description">I’m always open to collaboration.</p>
           <div className="contact__methods">
             {methods.map((m) => (
-              <a key={m.label} href={m.href} className="contact__method" target="_blank" rel="noreferrer">
+              <a
+                key={m.label}
+                href={m.href}
+                className="contact__method"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <m.icon size={20} />
                 <div>
                   <strong>{m.label}</strong>
@@ -41,26 +47,60 @@ const Contact = () => {
           </div>
         </div>
 
+        {/* Right – Form */}
         <div className="contact__form-wrapper">
-          <h3>Send a message</h3>
+          <h3 className="contact__form-title">Send a message</h3>
           <form onSubmit={handleSubmit} className="contact__form">
             <div className="contact__field">
-              <input type="text" name="name" value={form.name} onChange={handleChange} required />
-              <label>Name</label>
+              <input
+                type="text"
+                name="name"
+                id="contact-name"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="contact-name">Name</label>
             </div>
             <div className="contact__field">
-              <input type="tel" name="phone" value={form.phone} onChange={handleChange} required />
-              <label>Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                id="contact-phone"
+                value={form.phone}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="contact-phone">Phone</label>
             </div>
             <div className="contact__field">
-              <input type="email" name="email" value={form.email} onChange={handleChange} required />
-              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                id="contact-email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="contact-email">Email</label>
             </div>
             <div className="contact__field">
-              <textarea name="message" rows={4} value={form.message} onChange={handleChange} required />
-              <label>Message</label>
+              <textarea
+                name="message"
+                id="contact-message"
+                rows={4}
+                value={form.message}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="contact-message">Message</label>
             </div>
-            <button type="submit" className="contact__submit">Send</button>
+            <button
+              type="submit"
+              className="hero__button hero__button--primary"
+            >
+              Send
+            </button>
           </form>
         </div>
       </div>

@@ -1,42 +1,46 @@
 /* ============================================
-   Minimalist Design System – Charcoal + Whitesmoke
+   Minimalist Design System – Dieter Rams Inspired
+   Charcoal + Whitesmoke · Less but better
    ============================================ */
+
+/* ---------- CSS Variables ---------- */
 :root {
   /* Colors – solid, no gradients */
   --color-charcoal: #3a3a3a;
   --color-charcoal-light: #5a5a5a;
-  --color-charcoal-dark: #222;
+  --color-charcoal-dark: #222222;
   --color-whitesmoke: #f5f5f5;
   --color-white: #ffffff;
   --color-border: #e0e0e0;
 
-  /* Accent colors (used sparingly for hover, focus) */
-  --color-accent: #ccccff;        /* lavender */
+  /* Accent – used sparingly for hover, focus */
+  --color-accent: #ccccff;
   --color-accent-hover: #b3b3ff;
 
   /* Typography */
-  --font-primary: 'Omnes', 'Museo Slab', serif;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', sans-serif;
   --font-size-base: 1rem;
   --line-height-base: 1.6;
-   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    sans-serif;
 
-  /* Spacing */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
+  /* Spacing – 8pt system */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 1.5rem;   /* 24px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
+  --spacing-2xl: 4rem;    /* 64px */
 
   /* Layout */
   --container-max: 1200px;
   --header-height: 64px;
 
-  /* Transitions (minimal, only for hover) */
+  /* Transitions – minimal, only for interaction */
   --transition-fast: 0.15s ease;
+  --transition-smooth: 0.3s ease;
 }
 
-/* Reset */
+/* ---------- Reset ---------- */
 *,
 *::before,
 *::after {
@@ -50,12 +54,13 @@ html {
 }
 
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-family);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
   color: var(--color-charcoal);
   background: var(--color-whitesmoke);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -63,13 +68,17 @@ a {
   text-decoration: none;
 }
 
-/* Focus states – accessible */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- Focus & Accessibility ---------- */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -79,7 +88,7 @@ a {
   }
 }
 
-/* Utility */
+/* ---------- Utility Classes (from design‑system file) ---------- */
 .container {
   max-width: var(--container-max);
   margin: 0 auto;
@@ -107,3 +116,4 @@ a {
   color: var(--color-charcoal-light);
   margin-bottom: var(--spacing-lg);
 }
+
