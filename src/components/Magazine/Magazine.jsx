@@ -167,7 +167,7 @@ const Magazine = () => {
       <div className="container">
         {/* Header */}
         <header className="showcase-header">
-          <div className="header-label">Lead Designer & Layout</div>
+          
           <h1 className="main-title">
             <span className="light">The</span> Trend
             <span className="issue">· 2026</span>
@@ -177,22 +177,18 @@ const Magazine = () => {
           </p>
         </header>
 
-        {/* Cover mockup */}
+        {/* Cover image */}
         <a
           href={downloadUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
           <div className="cover-mockup">
-            <div className="cover-inner">
-              <div className="cover-text">
-                <span className="cover-issue">2026</span>
-                <span className="cover-title">
-                  <span className="light">The</span> Trend
-                </span>
-                <span className="cover-tagline">More Than Life</span>
-              </div>
-            </div>
+            <img
+              src="/trend.jpg"
+              alt="The Trend Magazine Cover 2026"
+              className="cover-image"
+            />
           </div>
         </a>
 
