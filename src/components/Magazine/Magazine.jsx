@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './MagazineShowcase.css';
 
-const MagazineShowcase = () => {
+const Magazine = () => {
   const downloadUrl =
     'https://drive.google.com/file/d/1xX-1NFq3T21pt4pi_2JNgzKtgjmeeGNB/view?usp=drive_link';
 
@@ -360,4 +360,4 @@ const MagazineShowcase = () => {
   );
 };
 
-export default MagazineShowcase;
+export default Magazine;
