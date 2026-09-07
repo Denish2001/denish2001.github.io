@@ -165,43 +165,7 @@ const WorkCard = ({ item }) => {
           </>
         );
       
-      case 'article':
-        return (
-          <>
-            <span className="work__category">Article</span>
-            <h3>{item.name}</h3>
-            {item.detail && <p className="work__detail">{item.detail}</p>}
-            {item.price && <p className="work__period"><FiCalendar /> {item.price}</p>}
-            {item.url && (
-              <div className="work__meta">
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  <FiExternalLink /> Read Article
-                </a>
-              </div>
-            )}
-          </>
-        );
       
-      case 'research':
-        return (
-          <>
-            <span className="work__category">Research</span>
-            <h3>{item.title}</h3>
-            {item.by && <p className="work__by"><FiUser /> {item.by}</p>}
-            {item.Date && (
-              <p className="work__period">
-                <FiCalendar /> {item.Date}
-              </p>
-            )}
-            {item.url && (
-              <div className="work__meta">
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  <FiExternalLink /> View Research
-                </a>
-              </div>
-            )}
-          </>
-        );
       
       case 'design':
         return (
