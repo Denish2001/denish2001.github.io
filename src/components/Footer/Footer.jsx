@@ -30,7 +30,7 @@ const Footer = () => {
           ))}
         </div>
         <p className="footer__copyright">&copy; {year} Denish Awajo</p>
-        <a href="#top" className="footer__back">↑ Back to top</a>
+        
       </div>
     </footer>
   );
