@@ -30,7 +30,6 @@ const Footer = () => {
           ))}
         </div>
         <p className="footer__copyright">&copy; {year} Denish Awajo</p>
-        
       </div>
     </footer>
   );

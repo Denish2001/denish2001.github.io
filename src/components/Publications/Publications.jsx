@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { FaBookOpen, FaFlask } from 'react-icons/fa';
 import { FiExternalLink } from 'react-icons/fi';
-import articles from '../../utils/Articles.json'
+import articles from '../../utils/Articles.json';
 import research from '../../utils/Research.json';
 import './Publications.css';
 
@@ -37,7 +37,9 @@ const Publications = () => {
           {data.map((item, i) => (
             <div key={i} className="publications__card">
               <h3>{item.name || item.title}</h3>
-              <p><em>{item.by}</em> · {item.Date}</p>
+              <p>
+                <em>{item.by}</em> · {item.Date}
+              </p>
               <a href={item.url} target="_blank" rel="noopener noreferrer">
                 Read <FiExternalLink />
               </a>

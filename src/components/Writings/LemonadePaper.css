@@ -1,183 +1,184 @@
 /* LemonadePaper.css */
 .paper-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem;
-    font-family: 'Georgia', serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #fff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    padding: 7rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 7rem 2rem;
+}
+
+.paper-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #6d4c41;
+  padding-bottom: 1rem;
+}
+
+.paper-header h1 {
+  font-size: 2.2rem;
+  color: #3e2723;
+  margin-bottom: 0.5rem;
+}
+
+.meta-info {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  color: #6d4c41;
+  font-style: italic;
+}
+
+.abstract {
+  background-color: #f5f5f5;
+  padding: 1.5rem;
+  border-left: 4px solid #8d6e63;
+  margin-bottom: 2rem;
+}
+
+.abstract h2 {
+  margin-top: 0;
+  color: #5d4037;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section h2 {
+  color: #5d4037;
+  border-bottom: 1px solid #bcaaa4;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.quote {
+  background-color: #efebe9;
+  padding: 1rem;
+  border-left: 3px solid #8d6e63;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.image-container {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.image-placeholder {
+  height: 300px;
+  background-color: #d7ccc8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5d4037;
+  margin-bottom: 0.5rem;
+}
+
+.image-caption {
+  font-size: 0.9rem;
+  color: #6d4c41;
+  text-align: center;
+  font-style: italic;
+}
+
+.timeline {
+  background-color: #efebe9;
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin: 1.5rem 0;
+}
+
+.timeline h3 {
+  margin-top: 0;
+  color: #5d4037;
+}
+
+.timeline ul {
+  padding-left: 1.5rem;
+}
+
+.timeline li {
+  margin-bottom: 0.5rem;
+}
+
+.reviews-table {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #d7ccc8;
+}
+
+th {
+  background-color: #5d4037;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #efebe9;
+}
+
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.award-item {
+  background-color: #efebe9;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.award-item h3 {
+  margin-top: 0;
+  color: #5d4037;
+}
+
+.award-item ul {
+  padding-left: 1.25rem;
+}
+
+.conclusion {
+  background-color: #f5f5f5;
+  padding: 1.5rem;
+  border-left: 4px solid #8d6e63;
+  margin: 2rem 0;
+}
+
+.references ol {
+  padding-left: 1.5rem;
+}
+
+.references li {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .paper-container {
+    padding: 1rem;
   }
-  
-  .paper-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid #6d4c41;
-    padding-bottom: 1rem;
-  }
-  
+
   .paper-header h1 {
-    font-size: 2.2rem;
-    color: #3e2723;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
   }
-  
-  .meta-info {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    color: #6d4c41;
-    font-style: italic;
-  }
-  
-  .abstract {
-    background-color: #f5f5f5;
-    padding: 1.5rem;
-    border-left: 4px solid #8d6e63;
-    margin-bottom: 2rem;
-  }
-  
-  .abstract h2 {
-    margin-top: 0;
-    color: #5d4037;
-  }
-  
-  .section {
-    margin-bottom: 3rem;
-  }
-  
-  .section h2 {
-    color: #5d4037;
-    border-bottom: 1px solid #bcaaa4;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .quote {
-    background-color: #efebe9;
-    padding: 1rem;
-    border-left: 3px solid #8d6e63;
-    margin: 1.5rem 0;
-    font-style: italic;
-  }
-  
-  .image-container {
-    margin: 1.5rem 0;
-    text-align: center;
-  }
-  
-  .image-placeholder {
-    height: 300px;
-    background-color: #d7ccc8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #5d4037;
-    margin-bottom: 0.5rem;
-  }
-  
-  .image-caption {
-    font-size: 0.9rem;
-    color: #6d4c41;
-    text-align: center;
-    font-style: italic;
-  }
-  
-  .timeline {
-    background-color: #efebe9;
-    padding: 1.5rem;
-    border-radius: 4px;
-    margin: 1.5rem 0;
-  }
-  
-  .timeline h3 {
-    margin-top: 0;
-    color: #5d4037;
-  }
-  
-  .timeline ul {
-    padding-left: 1.5rem;
-  }
-  
-  .timeline li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .reviews-table {
-    overflow-x: auto;
-    margin: 1.5rem 0;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #d7ccc8;
-  }
-  
-  th {
-    background-color: #5d4037;
-    color: white;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #efebe9;
-  }
-  
+
   .awards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin: 1.5rem 0;
+    grid-template-columns: 1fr;
   }
-  
-  .award-item {
-    background-color: #efebe9;
-    padding: 1rem;
-    border-radius: 4px;
-  }
-  
-  .award-item h3 {
-    margin-top: 0;
-    color: #5d4037;
-  }
-  
-  .award-item ul {
-    padding-left: 1.25rem;
-  }
-  
-  .conclusion {
-    background-color: #f5f5f5;
-    padding: 1.5rem;
-    border-left: 4px solid #8d6e63;
-    margin: 2rem 0;
-  }
-  
-  .references ol {
-    padding-left: 1.5rem;
-  }
-  
-  .references li {
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
-  }
-  
-  @media (max-width: 768px) {
-    .paper-container {
-      padding: 1rem;
-    }
-    
-    .paper-header h1 {
-      font-size: 1.8rem;
-    }
-    
-    .awards-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+}

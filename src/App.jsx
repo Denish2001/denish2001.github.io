@@ -6,7 +6,7 @@ import Work from './components/Work/Work';
 import Publications from './components/Publications/Publications';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
-import Magazine from './components/Magazine/Magazine'
+import Magazine from './components/Magazine/Magazine';
 import './App.css';
 
 function App() {

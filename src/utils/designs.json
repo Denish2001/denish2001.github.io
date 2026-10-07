@@ -1,22 +1,15 @@
 {
-    "uiux": [
-      {
-        "id": 1,
-        "title": "The Trend Magazine",
-        "year": "2026",
-        "image": "./trend.jpg",
-        "category": "UI/UX",
-        "description": "A complete redesign of a health tracking app to improve user experience and engagement.",
-        "features": [
-          "Simplified navigation",
-          "Dark mode support",
-          "Real-time health stats"
-        ],
-        "tags": ["Affinity", "Adobe Indesign", "User Testing"],
-        "link": "/#/magazine"
-      }
-      
-    
-    ]
-  }
-  
+  "uiux": [
+    {
+      "id": 1,
+      "title": "The Trend Magazine",
+      "year": "2026",
+      "image": "./trend.jpg",
+      "category": "UI/UX",
+      "description": "A complete redesign of a health tracking app to improve user experience and engagement.",
+      "features": ["Simplified navigation", "Dark mode support", "Real-time health stats"],
+      "tags": ["Affinity", "Adobe Indesign", "User Testing"],
+      "link": "/#/magazine"
+    }
+  ]
+}

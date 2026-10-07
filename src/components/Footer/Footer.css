@@ -29,7 +29,9 @@
   height: 40px;
   border-radius: 50%;
   color: var(--color-charcoal);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
 }
 .footer__social-link:hover {
   background: var(--color-accent);
@@ -40,4 +42,3 @@
   font-size: 0.9rem;
   color: var(--color-charcoal-light);
 }
-

@@ -16,18 +16,34 @@ const LemonadePaper = () => {
         <section className="abstract">
           <h2>Abstract</h2>
           <p>
-            Beyoncé Knowles-Carter's 2016 release, 'Lemonade', stands as a seminal work that transcended the traditional boundaries of a music album. Presented as a visual album, it intertwined music videos, spoken word poetry, and narrative interludes to craft a cohesive and deeply resonant artistic statement. This innovative format, combined with its exploration of complex themes such as race, infidelity, and empowerment, propelled 'Lemonade' to the status of a cultural phenomenon. This report aims to analyze the multifaceted cultural impact of 'Lemonade', examining its profound influence on visual storytelling within the music industry and its pivotal role in igniting crucial conversations surrounding Black womanhood.
+            Beyoncé Knowles-Carter's 2016 release, 'Lemonade', stands as a seminal work that
+            transcended the traditional boundaries of a music album. Presented as a visual album, it
+            intertwined music videos, spoken word poetry, and narrative interludes to craft a
+            cohesive and deeply resonant artistic statement. This innovative format, combined with
+            its exploration of complex themes such as race, infidelity, and empowerment, propelled
+            'Lemonade' to the status of a cultural phenomenon. This report aims to analyze the
+            multifaceted cultural impact of 'Lemonade', examining its profound influence on visual
+            storytelling within the music industry and its pivotal role in igniting crucial
+            conversations surrounding Black womanhood.
           </p>
         </section>
 
         <section className="section">
           <h2>1. The Release and Initial Reception</h2>
           <p>
-            The release of 'Lemonade' itself marked a departure from conventional music industry practices. Unlike typical album rollouts with pre-release singles and extensive marketing campaigns, 'Lemonade' debuted unexpectedly as an hour-long film on HBO, simultaneously becoming available for streaming on Tidal. This strategy echoed the surprise release of Beyoncé's self-titled album in 2013. This calculated move challenged established music distribution models and instantly generated immense public attention and critical discussion, positioning Beyoncé as an artist willing to innovate and disrupt the status quo.
+            The release of 'Lemonade' itself marked a departure from conventional music industry
+            practices. Unlike typical album rollouts with pre-release singles and extensive
+            marketing campaigns, 'Lemonade' debuted unexpectedly as an hour-long film on HBO,
+            simultaneously becoming available for streaming on Tidal. This strategy echoed the
+            surprise release of Beyoncé's self-titled album in 2013. This calculated move challenged
+            established music distribution models and instantly generated immense public attention
+            and critical discussion, positioning Beyoncé as an artist willing to innovate and
+            disrupt the status quo.
           </p>
           <div className="quote">
             <blockquote>
-              "Initial reactions to 'Lemonade' highlighted a strong sense of narrative cohesion that extended beyond a mere collection of individual music videos."
+              "Initial reactions to 'Lemonade' highlighted a strong sense of narrative cohesion that
+              extended beyond a mere collection of individual music videos."
             </blockquote>
           </div>
         </section>
@@ -35,12 +51,14 @@ const LemonadePaper = () => {
         <section className="section">
           <h2>2. Themes of Race and Black Womanhood</h2>
           <p>
-            'Lemonade' directly and powerfully engaged with themes of race and Black womanhood through its visual and lyrical content. The album features an unapologetic celebration of Black identity, heritage, and culture. The lead single, "Formation," released prior to the album, served as a potent anthem of Black pride, incorporating references to Southern culture, New Orleans, and African American vernacular.
+            'Lemonade' directly and powerfully engaged with themes of race and Black womanhood
+            through its visual and lyrical content. The album features an unapologetic celebration
+            of Black identity, heritage, and culture. The lead single, "Formation," released prior
+            to the album, served as a potent anthem of Black pride, incorporating references to
+            Southern culture, New Orleans, and African American vernacular.
           </p>
           <div className="image-container">
-            <div className="image-placeholder">
-              [Visual Album Still - Formation]
-            </div>
+            <div className="image-placeholder">[Visual Album Still - Formation]</div>
             <p className="image-caption">Iconic imagery from the "Formation" music video</p>
           </div>
         </section>
@@ -48,15 +66,27 @@ const LemonadePaper = () => {
         <section className="section">
           <h2>3. Narrative of Betrayal and Healing</h2>
           <p>
-            At its core, 'Lemonade' navigated the complex terrain of betrayal through the intensely personal narrative of infidelity. The album explicitly addressed the alleged unfaithfulness of Beyoncé's husband, Jay-Z, laying bare a range of raw and unfiltered emotions. Feelings of hurt, anger, suspicion, and ultimately, forgiveness were palpable throughout the lyrics and visuals.
+            At its core, 'Lemonade' navigated the complex terrain of betrayal through the intensely
+            personal narrative of infidelity. The album explicitly addressed the alleged
+            unfaithfulness of Beyoncé's husband, Jay-Z, laying bare a range of raw and unfiltered
+            emotions. Feelings of hurt, anger, suspicion, and ultimately, forgiveness were palpable
+            throughout the lyrics and visuals.
           </p>
           <div className="timeline">
             <h3>Emotional Journey of 'Lemonade'</h3>
             <ul>
-              <li><strong>Intuition</strong> - "Pray You Catch Me"</li>
-              <li><strong>Anger</strong> - "Don't Hurt Yourself"</li>
-              <li><strong>Forgiveness</strong> - "All Night"</li>
-              <li><strong>Redemption</strong> - Final chapter</li>
+              <li>
+                <strong>Intuition</strong> - "Pray You Catch Me"
+              </li>
+              <li>
+                <strong>Anger</strong> - "Don't Hurt Yourself"
+              </li>
+              <li>
+                <strong>Forgiveness</strong> - "All Night"
+              </li>
+              <li>
+                <strong>Redemption</strong> - Final chapter
+              </li>
             </ul>
           </div>
         </section>
@@ -127,7 +157,16 @@ const LemonadePaper = () => {
         <section className="conclusion">
           <h2>Conclusion</h2>
           <p>
-            Beyoncé's 'Lemonade' stands as a monumental achievement in contemporary popular culture. Its innovative visual album format, coupled with its unflinching exploration of race, infidelity, and empowerment, cemented its status as a cultural phenomenon. The album's profound influence on visual storytelling in music is undeniable, setting a new benchmark for artistic ambition and narrative complexity within the medium. Furthermore, 'Lemonade' played a pivotal role in sparking crucial conversations about Black womanhood, providing a powerful platform for Black female voices and experiences to be heard and acknowledged. The album's critical acclaim, commercial success, and lasting impact on popular culture solidify its enduring legacy as a transformative work of art that continues to resonate with audiences and inspire critical discourse.
+            Beyoncé's 'Lemonade' stands as a monumental achievement in contemporary popular culture.
+            Its innovative visual album format, coupled with its unflinching exploration of race,
+            infidelity, and empowerment, cemented its status as a cultural phenomenon. The album's
+            profound influence on visual storytelling in music is undeniable, setting a new
+            benchmark for artistic ambition and narrative complexity within the medium. Furthermore,
+            'Lemonade' played a pivotal role in sparking crucial conversations about Black
+            womanhood, providing a powerful platform for Black female voices and experiences to be
+            heard and acknowledged. The album's critical acclaim, commercial success, and lasting
+            impact on popular culture solidify its enduring legacy as a transformative work of art
+            that continues to resonate with audiences and inspire critical discourse.
           </p>
         </section>
 

@@ -1,45 +1,44 @@
 [
-    {
-      "name": "User Experience Design Fundamentals",
-      "by": "IBM",
-      "date": "Apr 2025",
-      "link": ""
-    },
-    {
-      "name": "Agile Project Management Foundation",
-      "by": "HP LIFE",
-      "date": "Feb 2025",
-      "link": ""
-    },
-    {
-      "name": "Basic Principles of Design",
-      "by": "IBM",
-      "date": "Feb 2025",
-      "link": ""
-    },
-    {
-      "name": "Basics of Data Structures and Algorithms",
-      "by": "Simplilearn",
-      "date": "Feb 2025",
-      "link": ""
-    },
-    {
-      "name": "Design Thinking",
-      "by": "HP LIFE",
-      "date": "Jan 2025",
-      "link": ""
-    },
-    {
-      "name": "Enterprise Design Thinking Practitioner",
-      "by": "IBM",
-      "date": "Sep 2024",
-      "link": ""
-    },
-    {
-      "name": "McKinsey Forward Program",
-      "by": "McKinsey & Company",
-      "date": "Jul 2024",
-      "link": ""
-    }
-  ]
-  
+  {
+    "name": "User Experience Design Fundamentals",
+    "by": "IBM",
+    "date": "Apr 2025",
+    "link": ""
+  },
+  {
+    "name": "Agile Project Management Foundation",
+    "by": "HP LIFE",
+    "date": "Feb 2025",
+    "link": ""
+  },
+  {
+    "name": "Basic Principles of Design",
+    "by": "IBM",
+    "date": "Feb 2025",
+    "link": ""
+  },
+  {
+    "name": "Basics of Data Structures and Algorithms",
+    "by": "Simplilearn",
+    "date": "Feb 2025",
+    "link": ""
+  },
+  {
+    "name": "Design Thinking",
+    "by": "HP LIFE",
+    "date": "Jan 2025",
+    "link": ""
+  },
+  {
+    "name": "Enterprise Design Thinking Practitioner",
+    "by": "IBM",
+    "date": "Sep 2024",
+    "link": ""
+  },
+  {
+    "name": "McKinsey Forward Program",
+    "by": "McKinsey & Company",
+    "date": "Jul 2024",
+    "link": ""
+  }
+]

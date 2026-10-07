@@ -16,8 +16,18 @@ const Contact = () => {
 
   const methods = [
     { icon: MdCall, label: 'Phone', value: '+254 705 369 048', href: 'tel:+254705369048' },
-    { icon: BsWhatsapp, label: 'WhatsApp', value: '+254 705 369 048', href: 'https://wa.me/+254705369048' },
-    { icon: MdEmail, label: 'Email', value: 'awajodenish@gmail.com', href: 'mailto:awajodenish@gmail.com' },
+    {
+      icon: BsWhatsapp,
+      label: 'WhatsApp',
+      value: '+254 705 369 048',
+      href: 'https://wa.me/+254705369048',
+    },
+    {
+      icon: MdEmail,
+      label: 'Email',
+      value: 'awajodenish@gmail.com',
+      href: 'mailto:awajodenish@gmail.com',
+    },
   ];
 
   return (
@@ -27,7 +37,7 @@ const Contact = () => {
         <div className="contact__info">
           <span className="section-subtitle">Get in touch</span>
           <h2 className="section-title">Contact</h2>
-          <p className="section-description">I’m always open to collaboration.</p>
+
           <div className="contact__methods">
             {methods.map((m) => (
               <a
@@ -95,10 +105,7 @@ const Contact = () => {
               />
               <label htmlFor="contact-message">Message</label>
             </div>
-            <button
-              type="submit"
-              className="hero__button hero__button--primary"
-            >
+            <button type="submit" className="hero__button hero__button--primary">
               Send
             </button>
           </form>

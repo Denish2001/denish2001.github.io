@@ -41,24 +41,24 @@ const Work = () => {
   const filters = ['all', 'experience', 'project', 'design', 'education', 'certification'];
 
   // Filter items
-  const filteredItems = filter === 'all'
-    ? allItems
-    : allItems.filter((item) => item.category === filter);
+  const filteredItems =
+    filter === 'all' ? allItems : allItems.filter((item) => item.category === filter);
 
   // Group items by category when showing "all"
-  const grouped = filter === 'all'
-    ? Object.entries(
-        allItems.reduce((acc, item) => {
-          const cat = item.category;
-          if (!acc[cat]) acc[cat] = [];
-          acc[cat].push(item);
-          return acc;
-        }, {})
-      )
-    : null;
+  const grouped =
+    filter === 'all'
+      ? Object.entries(
+          allItems.reduce((acc, item) => {
+            const cat = item.category;
+            if (!acc[cat]) acc[cat] = [];
+            acc[cat].push(item);
+            return acc;
+          }, {})
+        )
+      : null;
 
   // Order of categories in "all" view
-  const categoryOrder = [ 'education', 'experience', 'certification', 'project', 'design'];
+  const categoryOrder = ['education', 'experience', 'certification', 'project', 'design'];
 
   return (
     <section className="work">
@@ -119,7 +119,11 @@ const WorkCard = ({ item }) => {
             <span className="work__category">{item.type || 'Experience'}</span>
             <h3>{item.company}</h3>
             <p className="work__position">{item.position}</p>
-            {item.location && <p className="work__location"><FiUser /> {item.location}</p>}
+            {item.location && (
+              <p className="work__location">
+                <FiUser /> {item.location}
+              </p>
+            )}
             {item.period && (
               <p className="work__period">
                 <FiCalendar /> {item.period}
@@ -134,8 +138,16 @@ const WorkCard = ({ item }) => {
           <>
             <span className="work__category">{item.level || 'Education'}</span>
             <h3>{item.School}</h3>
-            {item.Major && <p className="work__detail"><FiBookOpen /> {item.Major}</p>}
-            {item.Grade && <p className="work__grade"><FiAward /> {item.Grade}</p>}
+            {item.Major && (
+              <p className="work__detail">
+                <FiBookOpen /> {item.Major}
+              </p>
+            )}
+            {item.Grade && (
+              <p className="work__grade">
+                <FiAward /> {item.Grade}
+              </p>
+            )}
             {item.Period && (
               <p className="work__period">
                 <FiCalendar /> {item.Period}
@@ -143,13 +155,17 @@ const WorkCard = ({ item }) => {
             )}
           </>
         );
-      
+
       case 'certification':
         return (
           <>
             <span className="work__category">Certification</span>
             <h3>{item.name}</h3>
-            {item.by && <p className="work__by"><FiUser /> {item.by}</p>}
+            {item.by && (
+              <p className="work__by">
+                <FiUser /> {item.by}
+              </p>
+            )}
             {item.date && (
               <p className="work__period">
                 <FiCalendar /> {item.date}
@@ -164,20 +180,24 @@ const WorkCard = ({ item }) => {
             )}
           </>
         );
-      
-      
-      
+
       case 'design':
         return (
           <>
             <span className="work__category">{item.category || 'Design'}</span>
             <h3>{item.title}</h3>
             {item.description && <p className="work__detail">{item.description}</p>}
-            {item.year && <p className="work__period"><FiCalendar /> {item.year}</p>}
+            {item.year && (
+              <p className="work__period">
+                <FiCalendar /> {item.year}
+              </p>
+            )}
             {item.tags && (
               <div className="work__tags">
                 {item.tags.map((tag, i) => (
-                  <span key={i} className="work__tag">{tag}</span>
+                  <span key={i} className="work__tag">
+                    {tag}
+                  </span>
                 ))}
               </div>
             )}
@@ -190,7 +210,7 @@ const WorkCard = ({ item }) => {
             )}
           </>
         );
-      
+
       case 'project':
       default:
         return (
@@ -228,9 +248,7 @@ const WorkCard = ({ item }) => {
           <img src={item.image} alt={item.name || item.title || item.School || item.company} />
         </div>
       )}
-      <div className="work__content">
-        {renderCardContent()}
-      </div>
+      <div className="work__content">{renderCardContent()}</div>
     </motion.div>
   );
 };

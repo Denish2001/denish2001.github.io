@@ -54,7 +54,9 @@
   border-radius: 2px;
   background: transparent;
   cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
   font-family: inherit;
   font-size: 0.9rem;
   color: var(--color-charcoal);
@@ -111,16 +113,18 @@
   background: var(--color-white);
   border-radius: 2px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   border: 1px solid var(--color-border);
-  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  transition:
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
 .work__card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   transform: translateY(-2px);
 }
 
@@ -247,7 +251,9 @@
   border: 1px solid var(--color-border);
   padding: 0.3rem 0.75rem;
   border-radius: 4px;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
   text-decoration: none;
 }
 
@@ -261,24 +267,24 @@
   .work {
     padding: calc(var(--header-height) + var(--spacing-lg)) 0 var(--spacing-lg);
   }
-  
+
   .work__container {
     padding: 0 var(--spacing-md);
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .section-description {
     font-size: 1rem;
   }
-  
+
   .work__filter {
     padding: 0.25rem 0.75rem;
     font-size: 0.8rem;
   }
-  
+
   .work__group-title {
     font-size: 1.2rem;
   }
@@ -288,25 +294,25 @@
   .work__grid {
     grid-template-columns: 1fr;
   }
-  
+
   .work__filters {
     gap: var(--spacing-xs);
   }
-  
+
   .work__filter {
     font-size: 0.75rem;
     padding: 0.2rem 0.6rem;
   }
-  
+
   .work__content {
     padding: var(--spacing-xs);
   }
-  
+
   .work__meta {
     flex-direction: column;
     gap: var(--spacing-xs);
   }
-  
+
   .work__meta a {
     justify-content: center;
   }

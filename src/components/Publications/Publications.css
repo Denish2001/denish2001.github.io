@@ -25,7 +25,9 @@
   border-radius: 4px;
   background: transparent;
   cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
 }
 .publications__tab.active {
   background: var(--color-charcoal);
@@ -67,7 +69,9 @@
   padding: 0.2rem 0.8rem;
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
 }
 .publications__card a:hover {
   background: var(--color-charcoal);
