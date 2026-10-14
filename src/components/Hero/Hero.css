@@ -132,6 +132,7 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--color-border);
   transition: transform 0.3s ease;
+  filter: grayscale(100%);
 }
 
 .hero__image:hover {

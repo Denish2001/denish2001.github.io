@@ -48,7 +48,7 @@ const Hero = () => {
           </div>
         </div>
         <div className="hero__visual">
-          <img src="/contact.jpg" alt="Denish Awajo" className="hero__image" />
+          <img src="/Denish.jpg" alt="Denish Awajo" className="hero__image" />
         </div>
       </div>
     </section>

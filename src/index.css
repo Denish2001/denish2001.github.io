@@ -116,3 +116,6 @@ img {
   color: var(--color-charcoal-light);
   margin-bottom: var(--spacing-lg);
 }
+img {
+  filter: grayscale(100%);
+}
