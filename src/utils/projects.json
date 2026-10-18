@@ -4,7 +4,7 @@
     "type": "backend",
     "tech": "Python, SQL, Flask",
     "detail": "A web application designed to enhance the safety of mothers and children, featuring a Flask backend and SQL database for data management.",
-    "image": "./mom.jpeg",
+    "image": "./SafeMom.png",
     "url": "https://github.com/SebbieMzingKe/Safe-Mom",
     "github": "https://github.com/SebbieMzingKe/Safe-Mom"
   },

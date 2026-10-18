@@ -17,9 +17,9 @@ const Hero = () => {
               in Business Information Technology and postgraduate training in Mass Communication. I
               combine software development, UX/UI design, data, and digital storytelling to build
               technology that is functional, intuitive, and meaningful. Experienced in developing
-              web applications using React, JavaScript, Python, Django, Flask, SQL, and modern
-              development tools, alongside designing user experiences and digital products using
-              Figma and other creative tools.
+              web applications using React, JavaScript, Python, .NET, Springboot, Flask, SQL, and
+              modern development tools, alongside designing user experiences and digital products
+              using Figma and other creative tools.
             </p>
             <p>
               My experience spans software engineering, UX/UI design, digital media, radio

@@ -10,6 +10,21 @@
       "features": ["Simplified navigation", "Dark mode support", "Real-time health stats"],
       "tags": ["Affinity", "Adobe Indesign", "User Testing"],
       "link": "/#/magazine"
+    },
+    {
+      "id": 2,
+      "title": "SafeMom",
+      "year": "2026",
+      "image": "./SafeMom.png",
+      "category": "UI/UX",
+      "description": "A clinician-facing early-warning flow for preeclampsia risk in Kenyan antenatal clinics, designed to fit inside a routine visit instead of adding work to it.",
+      "features": [
+        "Short data entry using only inputs available at the visit",
+        "Neutral risk flag with the reasons behind it",
+        "Result page redesigned from a usability and clinical-safety audit"
+      ],
+      "tags": ["Figma", "User Research", "5 Whys", "Design Thinking"],
+      "link": "/#/safemom"
     }
   ]
 }
