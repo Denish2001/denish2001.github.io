@@ -554,7 +554,7 @@ function EmpathizeSection() {
       <Figure figure={FIGURES.researchSynthesis} />
       <Subheading>What we heard</Subheading>
       <DataTable columns={FINDING_COLUMNS} rows={FINDINGS} />
-      <Figure figure={FIGURES.currentWorkflow} />
+      <Figure figure={FIGURES.currentWorkflow} src="/review.png" />
     </Section>
   );
 }
@@ -568,7 +568,7 @@ function DefineSection() {
         worker. These requirements follow from the findings. <EvidenceTag status="proposed" />
       </p>
       <BulletList items={REQUIREMENTS} />
-      <Figure figure={FIGURES.persona} />
+      <Figure figure={FIGURES.persona} src="/persona.png" />
     </Section>
   );
 }
@@ -606,7 +606,7 @@ function IdeateSection() {
           <JourneyStep key={step.title} step={step} />
         ))}
       </ol>
-      <Figure figure={FIGURES.userJourney} />
+      <Figure figure={FIGURES.userJourney} src="/Journey.png" />
       <Subheading>Three design decisions</Subheading>
       <DecisionList decisions={DESIGN_DECISIONS} />
     </Section>
@@ -621,10 +621,10 @@ function PrototypeSection() {
       </p>
       <BulletList items={PROTOTYPE_CAPABILITIES} />
       <div className="cs-figure-row">
-        <Figure figure={FIGURES.loginScreen} />
-        <Figure figure={FIGURES.entryForm} />
+        <Figure figure={FIGURES.loginScreen} src="/login.png" />
+        <Figure figure={FIGURES.entryForm} src="/dashboard.png" />
       </div>
-      <Figure figure={FIGURES.architecture} />
+      <Figure figure={FIGURES.architecture} src="/patient.png" />
     </Section>
   );
 }
