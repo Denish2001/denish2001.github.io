@@ -226,20 +226,20 @@ export default function SafeMomCaseStudy() {
               According to the World Health Organization (WHO), the condition affects approximately
               3–8% of women who give birth worldwide, while hypertensive disorders of pregnancy were
               responsible for an estimated 42,000 maternal deaths globally in 2023, accounting for
-              about 16% of all maternal deaths. World Health Organization The wider maternal
-              mortality burden remains particularly severe in low- and middle-income countries: in
-              2023, approximately 260,000 women died from causes related to pregnancy and
-              childbirth, with around 70% of these deaths occurring in sub-Saharan Africa.
+              about 16% of all maternal deaths. The wider maternal mortality burden remains
+              particularly severe in low- and middle-income countries: in 2023, approximately
+              260,000 women died from causes related to pregnancy and childbirth, with around 70% of
+              these deaths occurring in sub-Saharan Africa.
             </p>
             <p>
-              World Health Organization In Kenya, the estimated maternal mortality ratio was
-              approximately 379 deaths per 100,000 live births in 2023, highlighting the continuing
-              challenge of protecting women during pregnancy and childbirth. datadot +1 Preeclampsia
-              can progress to eclampsia, stroke and organ failure, making early detection and timely
-              treatment essential. Yet identifying women at risk remains a clinical challenge,
-              particularly where access to consistent antenatal monitoring and emergency obstetric
-              care is limited. These figures underscore the need to strengthen early risk assessment
-              and clinical decision-making to help prevent avoidable maternal deaths.
+              In Kenya, the estimated maternal mortality ratio was approximately 379 deaths per
+              100,000 live births in 2023, highlighting the continuing challenge of protecting women
+              during pregnancy and childbirth. datadot +1 Preeclampsia can progress to eclampsia,
+              stroke and organ failure, making early detection and timely treatment essential. Yet
+              identifying women at risk remains a clinical challenge, particularly where access to
+              consistent antenatal monitoring and emergency obstetric care is limited. These figures
+              underscore the need to strengthen early risk assessment and clinical decision-making
+              to help prevent avoidable maternal deaths.
             </p>
             <p>
               But predicting a condition is not the same as diagnosing it. A model can return a
