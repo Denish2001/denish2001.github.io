@@ -1,714 +1,807 @@
 import { useEffect, useState } from 'react';
 import './SafeMom.css';
 
-/* ------------------------------------------------------------------ */
-/* Content                                                             */
-/* ------------------------------------------------------------------ */
-
-const EVIDENCE_LABELS = {
-  established: 'Established',
-  teamReported: 'Team-reported',
-  prototype: 'Prototype',
-  proposed: 'Proposed',
-};
-
 const SECTIONS = [
   { id: 'overview', title: 'Overview' },
-  { id: 'problem', title: 'Problem' },
-  { id: 'empathize', title: 'Empathize' },
+  { id: 'context', title: 'The context' },
+  { id: 'discovery', title: 'Discovery' },
   { id: 'define', title: 'Define' },
-  { id: 'ideate', title: 'Ideate' },
+  { id: 'ideation', title: 'Ideation' },
   { id: 'prototype', title: 'Prototype' },
-  { id: 'test', title: 'Test' },
+  { id: 'evaluation', title: 'Review & evaluation' },
+  { id: 'evidence', title: 'Evidence & limitations' },
   { id: 'reflection', title: 'Reflection' },
 ];
 
-const SECTION_IDS = SECTIONS.map((section) => section.id);
-
 const PROJECT = {
-  title: 'SafeMom: an early-warning flow for preeclampsia risk in Kenyan antenatal clinics',
+  title: 'SafeMom',
+  subtitle: 'Designing an earlier signal for a serious pregnancy complication',
   summary:
-    'A clinician-facing web tool that turns routine visit data into a risk flag. I designed it to fit inside a clinic visit instead of interrupting it.',
-  facts: [
-    { label: 'Role', value: 'Project Lead, UI UX Designer' },
-    {
-      label: 'Team',
-      value:
-        'Denish Awajo (lead, engineering), Sebastian Chanzu (data), Eddah Chepchirchir (AI research)',
-    },
-    { label: 'Programme', value: 'KamiLimu Data Science Group 2' },
-    { label: 'Timeline', value: 'July 2024 - December 2024' },
-    { label: 'Tools', value: 'Figma, Flask, MySQL, XGBoost' },
-    { label: 'Status', value: 'Working prototype. Not clinically validated.' },
-  ],
+    "A clinician-facing web prototype exploring how routine antenatal information might support earlier identification of preeclampsia risk—without confusing a model's output with a diagnosis.",
+  role: 'Project Lead · UI/UX Designer',
+  team: 'KamiLimu Data Science Group 2',
+  timeline: 'July–December 2024',
+  tools: 'Figma, Pen & Paper, Slack',
+  status: 'Working prototype',
 };
 
-const OVERVIEW_CONTEXT = [
-  'Preeclampsia is new-onset high blood pressure in pregnancy, usually after 20 weeks. Left unrecognised, it can progress to severe disease for mother and baby.',
-  "WHO-led estimates put Kenya's 2020 maternal mortality ratio at 530 per 100,000 live births, against 223 globally. Most Kenyan women attend antenatal care, so the visit already happens. What is missing is a trustworthy way to use it.",
-];
-
-const FIVE_WHYS = [
-  {
-    question: 'Why do at-risk mothers get closer care late?',
-    answer: 'Preeclampsia is usually recognised around week 20, after it has appeared.',
-    evidence: 'teamReported',
-  },
-  {
-    question: 'Why is it recognised only after it appears?',
-    answer:
-      'Clinicians judge from blood pressure, urine protein and gestational age. These detect the condition. They do not anticipate it.',
-    evidence: 'teamReported',
-  },
-  {
-    question: 'Why do clinics have nothing that anticipates it?',
-    answer:
-      'Clinicians report no technological support for early risk identification, and no locally validated early-risk model exists for Kenyan antenatal populations.',
-    evidence: 'teamReported',
-  },
-  {
-    question: 'Why has no such tool reached the clinic?',
-    answer:
-      'Published early-prediction models come from hospital records elsewhere. None was built around a Kenyan clinic visit.',
-    evidence: 'established',
-  },
-  {
-    question: 'Why has this not been treated as a design problem?',
-    answer:
-      'Effort goes to the model. The constraints that decide whether a tool gets used are interaction design problems: minutes per visit, data available at the visit, and clinician trust.',
-    evidence: 'proposed',
-  },
-];
-
-const ROOT_CAUSE =
-  'No risk tool was designed around the time, data and trust available in an antenatal visit.';
-
-const HOW_MIGHT_WE =
-  'How might we give an antenatal clinician an early, trustworthy risk signal inside the visit they are already conducting, without adding work?';
-
-const RESEARCH_METHODS = [
-  'Interviews with clinicians in Kenya',
-  'Literature review',
-  'Consultations with maternal-health, obstetrics and health-technology experts',
-];
-
-const RESEARCH_LIMITATION =
-  'The number of interviewees, facilities, consent steps and analysis method were not recorded in detail. I treat this as early discovery, not a formal needs assessment.';
-
-const FINDING_COLUMNS = [
-  { key: 'finding', label: 'What clinicians reported' },
-  { key: 'evidence', label: 'Evidence', render: (status) => <EvidenceTag status={status} /> },
-  { key: 'implication', label: 'What it means for the design' },
-];
-
-const FINDINGS = [
-  {
-    finding: 'Judgement rests on blood pressure, urine protein and pregnancy status.',
-    evidence: 'teamReported',
-    implication:
-      'Inputs must be simple and available at routine visits. Any extra test needs a reason.',
-  },
-  {
-    finding: 'Diagnosis happens around week 20.',
-    evidence: 'teamReported',
-    implication: 'The tool must state when its prediction is made.',
-  },
-  {
-    finding: 'Current methods take time.',
-    evidence: 'teamReported',
-    implication: 'The tool must save time. A long form works against that.',
-  },
-  {
-    finding: 'No technological support exists.',
-    evidence: 'teamReported',
-    implication: 'Supports the need. It does not show clinicians will trust a tool.',
-  },
-  {
-    finding: 'Clinicians would adopt a tool that fits their e-medical systems.',
-    evidence: 'teamReported',
-    implication: 'Integration is a requirement. Nothing is built yet.',
-  },
-];
-
-const REQUIREMENTS = [
-  'Short data entry. Ask only for inputs that exist at the visit.',
-  'Plain-language output that says what the estimate means and what it does not.',
-  'A visible warning for missing or implausible values, never silent substitution.',
-  'Works on low-specification devices and unreliable connections.',
-  'A record of who entered what and what the tool returned.',
-  'A defined role for community health workers, who may lack laboratory inputs.',
-];
-
-const VALUE_PROPOSITION =
-  'Safe Mom helps antenatal clinicians identify, at routine visits, which women may need closer monitoring for preeclampsia. It supports clinical judgement and never replaces it.';
-
-const JOURNEY_STEPS = [
-  { title: 'Sign in', detail: 'The clinician uses secure credentials.' },
-  { title: 'Enter visit data', detail: 'Only values taken at the visit.' },
-  { title: 'Read the risk flag', detail: 'A clear flag with the reason behind it.' },
-  { title: 'Decide', detail: 'The clinician chooses the next step.' },
-];
-
-const DESIGN_DECISIONS = [
-  {
-    decision: 'Show a flag, not a verdict.',
-    reason: 'A model can miss cases, so the screen never says a woman is safe.',
-  },
-  {
-    decision: 'Keep the clinician in charge.',
-    reason: 'The tool suggests closer monitoring. The clinician decides.',
-  },
-  {
-    decision: 'Ask only for what the visit provides.',
-    reason: 'Fewer fields save time and keep inputs real.',
-  },
-];
-
-const PROTOTYPE_CAPABILITIES = [
-  'Clinician sign-in with hashed passwords',
-  'A data-entry form of about two dozen fields',
-  'Storage of each entry against the signed-in clinician',
-  'A binary risk class from a saved XGBoost model',
-  'A result page with advice text',
-];
-
-const AUDIT_COLUMNS = [
-  { key: 'found', label: 'What I found' },
-  { key: 'principle', label: 'Principle' },
-  { key: 'change', label: 'Change' },
-];
-
-const AUDIT_FINDINGS = [
-  {
-    found: 'A negative result told the user she was "doing great".',
-    principle: 'Error prevention',
-    change:
-      'Replace with a neutral flag: consider closer monitoring in line with national guidelines.',
-  },
-  {
-    found: 'Wording addressed the mother, but the user is the clinician.',
-    principle: 'Match with the real world',
-    change: 'Rewrite every line for clinicians.',
-  },
-  {
-    found: 'Treatment advice appeared without clinical review.',
-    principle: 'Error prevention',
-    change: 'Remove until a clinical panel reviews it against national guidance.',
-  },
-  {
-    found: 'Every positive result showed the same message.',
-    principle: 'Visibility of system status',
-    change: 'Show the risk level and the inputs that drove it.',
-  },
-  {
-    found: 'Missing values were silently set to zero. No clinical range checks.',
-    principle: 'Error prevention',
-    change: 'Warn on missing or implausible values and ask for correction.',
-  },
-  {
-    found: 'The entry form had about two dozen fields.',
-    principle: 'Flexibility and efficiency',
-    change: 'Cut to inputs available at the visit.',
-  },
-];
-
-const EVIDENCE_GAPS = [
-  'The reported accuracy of 0.9875 comes from one test on an undescribed sample. I treat it as a prototype signal, not clinical performance.',
-  'The proposed prediction time (week 8) conflicts with the week-20 diagnosis clinicians described. The team must settle this before any claim of early prediction.',
-  'No usability sessions with clinicians have taken place yet.',
-];
-
-const NEXT_STEPS = [
-  'Define the prediction target, time-point and inputs.',
-  'Run usability sessions with clinicians on the short-form entry and the neutral flag.',
-  'Have a clinical panel review all output text.',
-  'Validate the model independently and externally, reported to TRIPOD+AI.',
-];
-
-const LESSONS = [
-  'Record research method from the first interview, so findings can be defended.',
-  'Bring clinicians into co-design earlier, before the form is built.',
-  "Treat the model's output as content, and review its words as carefully as its numbers.",
-];
-
-const SOURCES = [
-  'WHO, UNICEF, UNFPA, World Bank Group, UNDESA. Trends in maternal mortality 2000 to 2020. 2023.',
-  'ACOG. Gestational hypertension and preeclampsia. Practice Bulletin No. 222. Obstet Gynecol. 2020.',
-  'Jhee et al. Prediction model development of late-onset preeclampsia using machine learning-based methods. PLoS One. 2019.',
-  'Collins et al. TRIPOD+AI statement. BMJ. 2024;385:e078378.',
-];
-
-const FIGURES = {
-  hero: {
-    alt: 'The SafeMom result screen shown on a laptop.',
-    brief:
-      'Hero: your final result screen inside a laptop or tablet frame. Show the risk flag clearly.',
-    caption: 'The result screen after the redesign.',
-    ratio: '16 / 9',
-  },
-  currentWorkflow: {
-    alt: 'Diagram of the current antenatal visit workflow.',
-    brief:
-      "Diagram of today's visit: blood pressure, urine test, gestational age, judgement, week-20 diagnosis.",
-    caption: 'The current visit, as clinicians described it.',
-    ratio: '16 / 9',
-  },
-  researchSynthesis: {
-    alt: 'Affinity map from clinician interviews.',
-    brief:
-      'Photo or screenshot of your interview notes or affinity map. Blur names and clinic details.',
-    caption: 'Synthesis of the clinician interviews.',
-    ratio: '4 / 3',
-  },
-  persona: {
-    alt: 'Proto-persona of an antenatal clinician.',
-    brief:
-      'Proto-persona card: role, setting, goals, frustrations, device. Label it as an assumption if not research-backed.',
-    caption: 'The primary user: an antenatal clinician.',
-    ratio: '4 / 3',
-  },
-  sketches: {
-    alt: 'Low-fidelity sketches of the entry form and result states.',
-    brief: 'Photos of your paper sketches or Crazy 8s for the entry form and result states.',
-    caption: 'Early sketches of entry and result states.',
-    ratio: '16 / 9',
-  },
-  userJourney: {
-    alt: 'Clinician user journey from sign-in to decision.',
-    brief:
-      'Clinician journey diagram: sign in, enter data, read the flag, decide. Mark which steps exist in the prototype.',
-    caption: 'The clinician journey.',
-    ratio: '16 / 9',
-  },
-  loginScreen: {
-    alt: 'The SafeMom sign-in screen.',
-    brief: 'Sign-in screen. Crop out any credentials or personal data.',
-    caption: 'Sign in.',
-    ratio: '4 / 3',
-  },
-  entryForm: {
-    alt: 'The SafeMom data-entry form.',
-    brief: 'Data-entry form as built. Add a second image of the shortened version if you have one.',
-    caption: 'Enter visit data.',
-    ratio: '4 / 3',
-  },
-  resultBefore: {
-    alt: 'The original result page with patient-facing advice.',
-    brief: 'The original result page, with the reassurance and advice text visible.',
-    caption: 'Before: reassurance and unreviewed advice.',
-    ratio: '4 / 3',
-  },
-  resultAfter: {
-    alt: 'The redesigned result screen with a neutral risk flag.',
-    brief: 'Your redesigned result screen with the neutral flag and the inputs that drove it.',
-    caption: 'After: a neutral flag for the clinician.',
-    ratio: '4 / 3',
-  },
-  architecture: {
-    alt: 'System architecture of the prototype.',
-    brief: 'Simple diagram: browser, Flask app, MySQL, saved model. Do not show credentials.',
-    caption: 'How the prototype fits together.',
-    ratio: '16 / 9',
-  },
-};
-
-/* ------------------------------------------------------------------ */
-/* Hooks                                                               */
-/* ------------------------------------------------------------------ */
-
-const OBSERVER_OPTIONS = { rootMargin: '-20% 0px -70% 0px' };
-
-function reportIntersectingSection(entries, onActive) {
-  const visible = entries.find((entry) => entry.isIntersecting);
-  if (visible) onActive(visible.target.id);
-}
-
-function observeSections(sectionIds, onActive) {
-  const observer = new IntersectionObserver(
-    (entries) => reportIntersectingSection(entries, onActive),
-    OBSERVER_OPTIONS
-  );
-  sectionIds
-    .map((id) => document.getElementById(id))
-    .filter(Boolean)
-    .forEach((element) => observer.observe(element));
-  return () => observer.disconnect();
-}
-
-function useActiveSectionId(sectionIds) {
+function useActiveSection(sectionIds) {
   const [activeId, setActiveId] = useState(sectionIds[0]);
-  useEffect(() => observeSections(sectionIds, setActiveId), [sectionIds]);
+
+  useEffect(() => {
+    const nodes = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+
+    if (!('IntersectionObserver' in window)) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveId(visible.target.id);
+      },
+      { rootMargin: '-15% 0px -65% 0px', threshold: [0, 0.1, 0.25, 0.5] }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, [sectionIds]);
+
   return activeId;
 }
 
-/* ------------------------------------------------------------------ */
-/* Building blocks                                                     */
-/* ------------------------------------------------------------------ */
-
-function EvidenceTag({ status }) {
+function SectionNav({ sections, activeId }) {
   return (
-    <span className="cs-evidence" data-status={status}>
-      {EVIDENCE_LABELS[status]}
-    </span>
+    <aside className="sm-sidebar">
+      <a className="sm-brand" href="#overview" aria-label="SafeMom case study home">
+        <span className="sm-brand-mark">S</span>
+        <span>
+          CASE STUDY <small>HEALTH TECHNOLOGY</small>
+        </span>
+      </a>
+      <div className="sm-nav-label">ON THIS PAGE</div>
+      <nav aria-label="Case study sections">
+        <ol className="sm-nav-list">
+          {sections.map(({ id, title }, index) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                className={activeId === id ? 'is-active' : ''}
+                aria-current={activeId === id ? 'location' : undefined}
+              >
+                <span className="sm-nav-number">{String(index + 1).padStart(2, '0')}</span>
+                {title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <a className="sm-back-link" href="/">
+        ← Back to portfolio
+      </a>
+    </aside>
   );
 }
 
-function ImagePlaceholder({ brief, ratio }) {
+function Section({ id, eyebrow, title, intro, children }) {
   return (
-    <div
-      className="cs-placeholder"
-      style={{ aspectRatio: ratio }}
-      role="img"
-      aria-label={`Image placeholder: ${brief}`}
-    >
-      <strong className="cs-placeholder__label">Add image</strong>
-      <span className="cs-placeholder__brief">{brief}</span>
-    </div>
-  );
-}
-
-function Figure({ figure, src = null }) {
-  const { alt, brief, caption, ratio } = figure;
-  return (
-    <figure className="cs-figure">
-      {src ? (
-        <img className="cs-figure__image" src={src} alt={alt} style={{ aspectRatio: ratio }} />
-      ) : (
-        <ImagePlaceholder brief={brief} ratio={ratio} />
-      )}
-      <figcaption className="cs-figure__caption">{caption}</figcaption>
-    </figure>
-  );
-}
-
-function Section({ id, title, children }) {
-  const headingId = `${id}-title`;
-  return (
-    <section id={id} className="cs-section" aria-labelledby={headingId}>
-      <h2 id={headingId} className="cs-section__title">
-        {title}
-      </h2>
+    <section id={id} className="sm-section" aria-labelledby={`${id}-title`}>
+      {eyebrow && <p className="sm-eyebrow">{eyebrow}</p>}
+      <h2 id={`${id}-title`}>{title}</h2>
+      {intro && <p className="sm-section-intro">{intro}</p>}
       {children}
     </section>
   );
 }
 
-function Subheading({ children }) {
-  return <h3 className="cs-subheading">{children}</h3>;
-}
-
-function BulletList({ items }) {
+function Figure({ src, alt, caption, className = '' }) {
+  const [failed, setFailed] = useState(false);
   return (
-    <ul className="cs-list">
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
+    <figure className={`sm-figure ${className}`}>
+      {src && !failed ? (
+        <img src={src} alt={alt} onError={() => setFailed(true)} loading="lazy" />
+      ) : (
+        <div className="sm-image-placeholder" role="img" aria-label={alt}>
+          <span>IMAGE PLACEHOLDER</span>
+          <p>{alt}</p>
+        </div>
+      )}
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
   );
 }
 
-function Paragraphs({ paragraphs }) {
-  return paragraphs.map((text) => (
-    <p key={text} className="cs-prose">
-      {text}
-    </p>
-  ));
-}
-
-function DataTable({ columns, rows }) {
+function MetaItem({ label, children }) {
   return (
-    <div className="cs-table-scroll">
-      <table className="cs-table">
-        <thead>
-          <tr>
-            {columns.map(({ key, label }) => (
-              <th key={key} scope="col">
-                {label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row[columns[0].key]}>
-              {columns.map(({ key, render }) => (
-                <td key={key}>{render ? render(row[key]) : row[key]}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="sm-meta-item">
+      <span>{label}</span>
+      <strong>{children}</strong>
     </div>
   );
 }
 
-function preferredScrollBehavior() {
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  return prefersReducedMotion ? 'auto' : 'smooth';
-}
-
-function scrollToSection(event, sectionId) {
-  event.preventDefault();
-  document
-    .getElementById(sectionId)
-    ?.scrollIntoView({ behavior: preferredScrollBehavior(), block: 'start' });
-}
-
-function SectionNav({ sections, activeId }) {
+function Insight({ number, title, children }) {
   return (
-    <nav className="cs-nav" aria-label="Case study sections">
-      <ol className="cs-nav__list">
-        {sections.map(({ id, title }) => (
-          <li key={id}>
-            <a
-              className="cs-nav__link"
-              href={`#${id}`}
-              onClick={(event) => scrollToSection(event, id)}
-              aria-current={id === activeId ? 'location' : undefined}
-            >
-              {title}
-            </a>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Problem: the five whys                                              */
-/* ------------------------------------------------------------------ */
-
-function WhyStep({ step, depth }) {
-  return (
-    <li className="cs-why" style={{ '--depth': depth }}>
-      <h3 className="cs-why__question">{step.question}</h3>
-      <p className="cs-why__answer">{step.answer}</p>
-      <EvidenceTag status={step.evidence} />
-    </li>
-  );
-}
-
-function WhyChain({ steps }) {
-  return (
-    <ol className="cs-whys">
-      {steps.map((step, depth) => (
-        <WhyStep key={step.question} step={step} depth={depth} />
-      ))}
-    </ol>
-  );
-}
-
-function RootCause({ text }) {
-  return (
-    <p className="cs-root-cause">
-      <strong>Root cause.</strong> {text}
-    </p>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Sections                                                            */
-/* ------------------------------------------------------------------ */
-
-function ProjectFacts({ facts }) {
-  return (
-    <dl className="cs-facts">
-      {facts.map(({ label, value }) => (
-        <div key={label} className="cs-facts__item">
-          <dt>{label}</dt>
-          <dd>{value}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-function OverviewSection() {
-  return (
-    <Section id="overview" title="Overview">
-      <Paragraphs paragraphs={OVERVIEW_CONTEXT} />
-      <Figure figure={FIGURES.hero} src="/SafeMom.png" />
-    </Section>
-  );
-}
-
-function ProblemSection() {
-  return (
-    <Section id="problem" title="Problem">
-      <p className="cs-prose">
-        Mothers at risk of preeclampsia are identified too late. I asked why, five times.
-      </p>
-      <WhyChain steps={FIVE_WHYS} />
-      <RootCause text={ROOT_CAUSE} />
-    </Section>
-  );
-}
-
-function EmpathizeSection() {
-  return (
-    <Section id="empathize" title="Empathize">
-      <Subheading>How we learned</Subheading>
-      <BulletList items={RESEARCH_METHODS} />
-      <p className="cs-prose">{RESEARCH_LIMITATION}</p>
-      <Figure figure={FIGURES.researchSynthesis} />
-      <Subheading>What we heard</Subheading>
-      <DataTable columns={FINDING_COLUMNS} rows={FINDINGS} />
-      <Figure figure={FIGURES.currentWorkflow} src="/review.png" />
-    </Section>
-  );
-}
-
-function DefineSection() {
-  return (
-    <Section id="define" title="Define">
-      <blockquote className="cs-pull">{HOW_MIGHT_WE}</blockquote>
-      <p className="cs-prose">
-        The primary user is the antenatal clinician: doctor, nurse, midwife or community health
-        worker. These requirements follow from the findings. <EvidenceTag status="proposed" />
-      </p>
-      <BulletList items={REQUIREMENTS} />
-      <Figure figure={FIGURES.persona} src="/persona.png" />
-    </Section>
-  );
-}
-
-function JourneyStep({ step }) {
-  return (
-    <li className="cs-journey__step">
-      <strong>{step.title}</strong>
-      <span>{step.detail}</span>
-    </li>
-  );
-}
-
-function DecisionList({ decisions }) {
-  return (
-    <dl className="cs-decisions">
-      {decisions.map(({ decision, reason }) => (
-        <div key={decision}>
-          <dt>{decision}</dt>
-          <dd>{reason}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-function IdeateSection() {
-  return (
-    <Section id="ideate" title="Ideate">
-      <p className="cs-prose">{VALUE_PROPOSITION}</p>
-      <Figure figure={FIGURES.sketches} />
-      <Subheading>The clinician journey</Subheading>
-      <ol className="cs-journey">
-        {JOURNEY_STEPS.map((step) => (
-          <JourneyStep key={step.title} step={step} />
-        ))}
-      </ol>
-      <Figure figure={FIGURES.userJourney} src="/Journey.png" />
-      <Subheading>Three design decisions</Subheading>
-      <DecisionList decisions={DESIGN_DECISIONS} />
-    </Section>
-  );
-}
-
-function PrototypeSection() {
-  return (
-    <Section id="prototype" title="Prototype">
-      <p className="cs-prose">
-        A working web application runs end to end. <EvidenceTag status="prototype" />
-      </p>
-      <BulletList items={PROTOTYPE_CAPABILITIES} />
-      <div className="cs-figure-row">
-        <Figure figure={FIGURES.loginScreen} src="/login.png" />
-        <Figure figure={FIGURES.entryForm} src="/dashboard.png" />
+    <article className="sm-insight">
+      <span className="sm-insight-number">{number}</span>
+      <div>
+        <h3>{title}</h3>
+        <p>{children}</p>
       </div>
-      <Figure figure={FIGURES.architecture} src="/patient.png" />
-    </Section>
+    </article>
   );
 }
 
-function TestSection() {
+function WorkflowStep({ number, title, children }) {
   return (
-    <Section id="test" title="Test">
-      <p className="cs-prose">
-        I reviewed the prototype against usability principles and clinical safety. This was an
-        expert review, not a usability test with clinicians.
-      </p>
-      <DataTable columns={AUDIT_COLUMNS} rows={AUDIT_FINDINGS} />
-      <div className="cs-figure-row">
-        <Figure figure={FIGURES.resultBefore} />
-        <Figure figure={FIGURES.resultAfter} />
+    <div className="sm-workflow-step">
+      <span className="sm-step-number">{number}</span>
+      <div>
+        <h3>{title}</h3>
+        <p>{children}</p>
       </div>
-      <Subheading>What the evidence does not show</Subheading>
-      <BulletList items={EVIDENCE_GAPS} />
-    </Section>
+    </div>
   );
 }
 
-function ReflectionSection() {
+function Decision({ title, children }) {
   return (
-    <Section id="reflection" title="Reflection">
-      <Subheading>What I can claim</Subheading>
-      <p className="cs-prose">
-        A working prototype, six requirements grounded in clinician input, and a result page
-        redesigned from an audit. I make no claim about clinical performance.
-      </p>
-      <Subheading>Next steps</Subheading>
-      <BulletList items={NEXT_STEPS} />
-      <Subheading>What I would do differently</Subheading>
-      <BulletList items={LESSONS} />
-    </Section>
+    <article className="sm-decision">
+      <span className="sm-decision-line" />
+      <h3>{title}</h3>
+      <p>{children}</p>
+    </article>
   );
 }
 
-function SourcesList() {
+function Source({ children, href }) {
   return (
-    <aside className="cs-sources" aria-labelledby="sources-title">
-      <h2 id="sources-title" className="cs-subheading">
-        Sources
-      </h2>
-      <ol>
-        {SOURCES.map((source) => (
-          <li key={source}>{source}</li>
-        ))}
-      </ol>
-    </aside>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Page                                                                */
-/* ------------------------------------------------------------------ */
-
-function CaseStudyHeader() {
-  return (
-    <header className="cs-header">
-      <h1 className="cs-header__title">{PROJECT.title}</h1>
-      <p className="cs-header__summary">{PROJECT.summary}</p>
-      <ProjectFacts facts={PROJECT.facts} />
-    </header>
+    <li>
+      {href ? (
+        <a href={href} target="_blank" rel="noreferrer">
+          {children}
+        </a>
+      ) : (
+        children
+      )}
+    </li>
   );
 }
 
 export default function SafeMomCaseStudy() {
-  const activeId = useActiveSectionId(SECTION_IDS);
+  const activeId = useActiveSection(SECTIONS.map((section) => section.id));
 
   return (
-    <div className="cs-root">
+    <div className="sm-case-study">
       <SectionNav sections={SECTIONS} activeId={activeId} />
-      <main className="cs-main">
-        <CaseStudyHeader />
-        <OverviewSection />
-        <ProblemSection />
-        <EmpathizeSection />
-        <DefineSection />
-        <IdeateSection />
-        <PrototypeSection />
-        <TestSection />
-        <ReflectionSection />
-        <SourcesList />
+
+      <main className="sm-main">
+        <header className="sm-hero" id="overview">
+          <div className="sm-hero-topline">
+            <span>PRODUCT DESIGN / HEALTHCARE AI</span>
+            <span>2024</span>
+          </div>
+          <p className="sm-eyebrow">A KAMILIMU DATA SCIENCE PROJECT</p>
+          <h1>
+            {PROJECT.title}
+            <span className="sm-title-period">.</span>
+          </h1>
+          <p className="sm-hero-subtitle">{PROJECT.subtitle}</p>
+          <p className="sm-hero-summary">{PROJECT.summary}</p>
+
+          <div className="sm-hero-image">
+            <Figure
+              src="/SafeMom.png"
+              alt="SafeMom application interface shown in a product mockup"
+              caption="SafeMom's clinician-facing interface. Replace this image with the clearest available product screenshot."
+            />
+          </div>
+
+          <div className="sm-meta-grid">
+            <MetaItem label="MY ROLE">{PROJECT.role}</MetaItem>
+            <MetaItem label="TEAM">{PROJECT.team}</MetaItem>
+            <MetaItem label="TIMELINE">{PROJECT.timeline}</MetaItem>
+            <MetaItem label="TOOLS">{PROJECT.tools}</MetaItem>
+          </div>
+          <div className="sm-status">
+            <span className="sm-status-dot" />
+            {PROJECT.status}
+          </div>
+        </header>
+
+        <Section
+          id="context"
+          eyebrow="01 / THE CONTEXT"
+          title="A prediction is only useful if it reaches the right decision."
+          intro="SafeMom began with a question: could routine antenatal information help clinicians identify women who may need closer monitoring for preeclampsia, earlier in pregnancy?"
+        >
+          <div className="sm-prose">
+            <p>
+              Preeclampsia is a hypertensive disorder of pregnancy that can affect multiple organ
+              systems and lead to serious complications for both mother and baby. It usually
+              develops after 20 weeks of pregnancy, although its course and severity vary. Earlier
+              identification of risk is therefore an important clinical goal.
+            </p>
+            <p>
+              According to the World Health Organization (WHO), the condition affects approximately
+              3–8% of women who give birth worldwide, while hypertensive disorders of pregnancy were
+              responsible for an estimated 42,000 maternal deaths globally in 2023, accounting for
+              about 16% of all maternal deaths. World Health Organization The wider maternal
+              mortality burden remains particularly severe in low- and middle-income countries: in
+              2023, approximately 260,000 women died from causes related to pregnancy and
+              childbirth, with around 70% of these deaths occurring in sub-Saharan Africa.
+            </p>
+            <p>
+              World Health Organization In Kenya, the estimated maternal mortality ratio was
+              approximately 379 deaths per 100,000 live births in 2023, highlighting the continuing
+              challenge of protecting women during pregnancy and childbirth. datadot +1 Preeclampsia
+              can progress to eclampsia, stroke and organ failure, making early detection and timely
+              treatment essential. Yet identifying women at risk remains a clinical challenge,
+              particularly where access to consistent antenatal monitoring and emergency obstetric
+              care is limited. These figures underscore the need to strengthen early risk assessment
+              and clinical decision-making to help prevent avoidable maternal deaths.
+            </p>
+            <p>
+              But predicting a condition is not the same as diagnosing it. A model can return a
+              classification; it cannot, by that act alone, establish that a patient will or will
+              not develop the condition. Its output must be interpreted in the context of the
+              population, timing, inputs and evidence on which it was developed.
+            </p>
+            <p>
+              This distinction gave the project two connected challenges. The clinical challenge was
+              to define a meaningful risk prediction at a specific point in pregnancy. The product
+              challenge was to make any resulting estimate clear and useful without adding
+              unnecessary work or giving the model more authority than it deserved.
+            </p>
+          </div>
+          <div className="sm-question-panel">
+            <span>THE QUESTION</span>
+            <p>
+              How might a risk estimate fit into an antenatal visit without being mistaken for a
+              diagnosis?
+            </p>
+          </div>
+          <h3 className="sm-subheading">The problem we set out to investigate</h3>
+          <p className="sm-prose">
+            Early project discussions and clinician consultations suggested an opportunity to
+            explore technological support for identifying risk. However, our discovery work did not
+            establish how widespread the problem was across Kenyan facilities or quantify the time
+            spent on existing assessments. I treated the problem as a design hypothesis to
+            investigate—not as a universal claim about antenatal care.
+          </p>
+        </Section>
+
+        <Section
+          id="discovery"
+          eyebrow="02 / DISCOVERY"
+          title="Understanding the people who would use the system."
+          intro="The primary user was the antenatal clinician, not the pregnant woman completing a self-assessment. That choice shaped the task, the language and the responsibility the interface needed to preserve."
+        >
+          <div className="sm-prose">
+            <p>
+              Our early discovery combined clinician interviews in Kenya, a literature review, and
+              consultations with people working in maternal health, obstetrics and health
+              technology. We wanted to understand the existing workflow, identify potential barriers
+              to adoption, and decide what a first version would need to support.
+            </p>
+            <p>
+              The project records do not contain a complete account of the interview sample,
+              recruitment process, consent steps or analysis method. The findings below are
+              therefore presented as early, team-reported insights—not representative evidence about
+              all Kenyan antenatal clinics.
+            </p>
+          </div>
+
+          <div className="sm-insights">
+            <Insight
+              number="01"
+              title="The quality of the output depends on the quality of the input."
+            >
+              A prediction is only as meaningful as the data supplied to the model. The interface
+              needed to make required information clear, surface missing or implausible values, and
+              avoid silently substituting values that could change the result.
+            </Insight>
+            <Insight number="02" title="An extra tool must justify the work it introduces.">
+              The team reported concerns about the time involved in existing assessment processes. A
+              lengthy form could undermine the value of an otherwise useful prediction. Fields
+              therefore needed to be reviewed against the model's actual input requirements.
+            </Insight>
+            <Insight number="03" title="Clinical trust cannot be designed into existence.">
+              A confident-looking result is not proof of accuracy. The product needed neutral
+              language, clear limits around intended use, and an interaction that left clinical
+              judgement with the clinician.
+            </Insight>
+            <Insight number="04" title="Adoption depends on the surrounding workflow.">
+              Connectivity, device constraints, integration with existing records, staff
+              responsibilities and accountability can all affect whether a new workflow is feasible.
+              These became requirements to investigate, not capabilities already proven by the
+              prototype.
+            </Insight>
+          </div>
+
+          <Figure
+            src="/review.png"
+            alt="SafeMom project workflow or research review"
+            caption="Use this space for a real workflow map, interview synthesis or research artefact. Do not present a reconstructed graphic as original interview evidence."
+          />
+
+          <h3 className="sm-subheading">From research to design requirements</h3>
+          <div className="sm-table-wrap">
+            <table className="sm-table">
+              <thead>
+                <tr>
+                  <th>Research implication</th>
+                  <th>Design response</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Missing information can undermine a prediction.</td>
+                  <td>Make required inputs explicit and flag missing or implausible values.</td>
+                </tr>
+                <tr>
+                  <td>Additional data entry can increase workload.</td>
+                  <td>Review which fields are necessary and remove avoidable entry.</td>
+                </tr>
+                <tr>
+                  <td>A risk estimate can be mistaken for a diagnosis.</td>
+                  <td>Use neutral language and explain the limits of the result.</td>
+                </tr>
+                <tr>
+                  <td>Clinicians remain responsible for decisions.</td>
+                  <td>Present output as decision support, not as a treatment instruction.</td>
+                </tr>
+                <tr>
+                  <td>The tool must fit its operating environment.</td>
+                  <td>Investigate device, connectivity and integration requirements.</td>
+                </tr>
+                <tr>
+                  <td>Patient information requires protection.</td>
+                  <td>Limit access, protect credentials and define appropriate data handling.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        <Section
+          id="define"
+          eyebrow="03 / DEFINE"
+          title="Designing around a clinical decision, not an algorithm."
+          intro="The core challenge was to make the output understandable without giving it more authority than it deserved."
+        >
+          <blockquote className="sm-pullquote">
+            How might we help antenatal clinicians identify women who may need closer monitoring
+            through a clear, practical risk-assessment workflow, while preserving clinical judgement
+            and making the limits of the prediction visible?
+          </blockquote>
+          <div className="sm-three-priorities">
+            <article>
+              <span>01</span>
+              <h3>Clarity</h3>
+              <p>
+                The user should understand the result without needing to interpret machine-learning
+                terminology.
+              </p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Efficiency</h3>
+              <p>Data entry should be purposeful, with missing information handled explicitly.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Appropriate authority</h3>
+              <p>
+                The application should support assessment without presenting its output as a
+                diagnosis or a guarantee of safety.
+              </p>
+            </article>
+          </div>
+          <div className="sm-prose">
+            <p>
+              These priorities could conflict. Simplifying a form should not remove information the
+              model requires. Simplifying a result should not conceal uncertainty. And making an
+              interface reassuring should never mean reassuring a patient or clinician without
+              evidence.
+            </p>
+            <p>
+              The primary user was the clinician entering visit information and reviewing the
+              classification. The pregnant woman was the person most affected by the quality of the
+              decision. I used that distinction to guide the language and responsibilities
+              represented in the interface.
+            </p>
+          </div>
+          <Figure
+            src="/persona.png"
+            alt="SafeMom intended-user persona"
+            caption="Intended user: an antenatal clinician. Label this as a proto-persona unless each attribute is supported by documented research."
+          />
+        </Section>
+
+        <Section
+          id="ideation"
+          eyebrow="04 / IDEATION"
+          title="Turning the requirements into a usable workflow."
+          intro="I organised the experience around a simple sequence: access the application, enter visit information, review the classification and make a clinical decision."
+        >
+          <div className="sm-workflow">
+            <WorkflowStep number="01" title="Access">
+              The clinician signs in to the application.
+            </WorkflowStep>
+            <WorkflowStep number="02" title="Record">
+              The clinician enters the information required for the assessment.
+            </WorkflowStep>
+            <WorkflowStep number="03" title="Review">
+              The application returns a risk classification and the context the prototype can
+              provide.
+            </WorkflowStep>
+            <WorkflowStep number="04" title="Decide">
+              The clinician interprets the result alongside clinical assessment and applicable
+              guidance.
+            </WorkflowStep>
+          </div>
+          <Figure
+            src="/Journey.png"
+            alt="SafeMom clinician journey from sign-in to decision"
+            caption="The intended clinician journey. Distinguish steps implemented in the prototype from steps that still require validation."
+          />
+          <h3 className="sm-subheading">Three decisions guided the interface</h3>
+          <div className="sm-decisions">
+            <Decision title="Show a flag, not a verdict.">
+              A negative classification cannot guarantee that a woman is free of risk. The result
+              should be neutral and appropriately qualified rather than falsely reassuring.
+            </Decision>
+            <Decision title="Make data quality visible.">
+              Missing values should not be silently converted to zero. The interface should surface
+              incomplete or implausible information so that the user can review it.
+            </Decision>
+            <Decision title="Keep the clinician responsible.">
+              The application can communicate the model's output, but it should not issue unreviewed
+              treatment instructions or replace professional judgement.
+            </Decision>
+          </div>
+          <Figure
+            src="/review.png"
+            alt="SafeMom early design review"
+            caption="Replace with original sketches or iterations if available. This image path is retained from the supplied component."
+          />
+        </Section>
+
+        <Section
+          id="prototype"
+          eyebrow="05 / PROTOTYPE"
+          title="From interface design to a working application."
+          intro="SafeMom moved beyond static mock-ups into a web application connecting authentication, data entry, record storage and a saved prediction model."
+        >
+          <div className="sm-prose">
+            <p>
+              This mattered because the experience depended on more than visual design. The user had
+              to authenticate, enter information, submit a record and receive the output generated
+              by the model. Bringing those parts together made it possible to review the experience
+              as a connected flow rather than a set of isolated screens.
+            </p>
+          </div>
+          <div className="sm-capability-grid">
+            <article>
+              <span>01</span>
+              <h3>Authentication</h3>
+              <p>Clinician sign-in with hashed passwords.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Data entry</h3>
+              <p>A form containing approximately two dozen fields.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Record storage</h3>
+              <p>Entries stored in association with the signed-in clinician.</p>
+            </article>
+            <article>
+              <span>04</span>
+              <h3>Prediction</h3>
+              <p>A binary risk classification returned by a saved XGBoost model.</p>
+            </article>
+            <article>
+              <span>05</span>
+              <h3>Result display</h3>
+              <p>A result page with explanatory text.</p>
+            </article>
+          </div>
+          <div className="sm-screen-grid">
+            <Figure src="/login.png" alt="SafeMom sign-in screen" caption="01 / Sign in" />
+            <Figure
+              src="/dashboard.png"
+              alt="SafeMom data-entry form"
+              caption="02 / Enter visit information"
+            />
+          </div>
+          <Figure
+            src="/patient.png"
+            alt="SafeMom application or architecture image"
+            caption="System overview. If this file is a patient or dashboard screenshot rather than an architecture diagram, replace the caption to match the actual image."
+          />
+          <div className="sm-note">
+            <strong>Implementation note</strong>
+            <p>
+              This describes the documented prototype, not a production deployment. It does not
+              establish that the application has undergone a security audit, privacy assessment or
+              clinical certification.
+            </p>
+          </div>
+        </Section>
+
+        <Section
+          id="evaluation"
+          eyebrow="06 / REVIEW & EVALUATION"
+          title="When a working result becomes a design problem."
+          intro="A review of the result page surfaced issues that went beyond visual polish. The language and behaviour of the interface could affect how users interpreted a model's output."
+        >
+          <div className="sm-prose">
+            <p>
+              I reviewed the prototype against usability principles and clinical-safety
+              considerations. This was an expert review of the interface, not a formal usability
+              study with clinicians. The review identified several places where the design could
+              imply more certainty than the underlying evidence supported.
+            </p>
+          </div>
+          <div className="sm-before-after">
+            <Figure
+              src="/result-before.png"
+              alt="Original SafeMom result page before review"
+              caption="BEFORE / Original result experience"
+            />
+            <Figure
+              src="/result-after.png"
+              alt="SafeMom result page after proposed redesign"
+              caption="AFTER / Proposed neutral result experience"
+            />
+          </div>
+          <p className="sm-image-help">
+            If your actual result screenshots use different filenames, update the two
+            <code> src</code> values in this section to match your files.
+          </p>
+          <div className="sm-table-wrap">
+            <table className="sm-table">
+              <thead>
+                <tr>
+                  <th>What I identified</th>
+                  <th>Why it mattered</th>
+                  <th>Design response</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A negative result said the user was “doing great”.</td>
+                  <td>It could be interpreted as assurance that no risk remained.</td>
+                  <td>Use neutral, appropriately qualified language.</td>
+                </tr>
+                <tr>
+                  <td>
+                    The result addressed the mother, although the intended user was a clinician.
+                  </td>
+                  <td>The wording did not match the user's role or task.</td>
+                  <td>Rewrite the interface for clinical use.</td>
+                </tr>
+                <tr>
+                  <td>Treatment advice appeared without documented clinical review.</td>
+                  <td>Users could mistake it for an approved recommendation.</td>
+                  <td>Remove it until qualified reviewers assess it against relevant guidance.</td>
+                </tr>
+                <tr>
+                  <td>Positive results showed the same message.</td>
+                  <td>The output provided little context about the classification.</td>
+                  <td>Clarify what the result represents, within the model's limits.</td>
+                </tr>
+                <tr>
+                  <td>Missing values were silently set to zero.</td>
+                  <td>Incorrect inputs could appear to be valid observations.</td>
+                  <td>
+                    Flag missing or implausible data and request correction where appropriate.
+                  </td>
+                </tr>
+                <tr>
+                  <td>The form contained about two dozen fields.</td>
+                  <td>The entry burden had not been assessed through user testing.</td>
+                  <td>
+                    Review field necessity and test a shorter form against model requirements.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="sm-callout">
+            <span>THE DISTINCTION</span>
+            <p>A better interface is not a validated medical tool.</p>
+            <small>
+              Neutral wording can reduce misleading reassurance, and input validation can expose
+              data errors. Neither proves that the model predicts preeclampsia accurately.
+            </small>
+          </div>
+        </Section>
+
+        <Section
+          id="evidence"
+          eyebrow="07 / EVIDENCE & LIMITATIONS"
+          title="Separating technical progress from clinical evidence."
+          intro="The project documentation records a model accuracy figure of 98.75%. Without the evaluation details, that figure cannot establish how the model would perform in a clinical setting."
+        >
+          <div className="sm-metric-warning">
+            <div className="sm-metric-number">98.75%</div>
+            <div>
+              <strong>Reported prototype accuracy</strong>
+              <p>
+                One documented evaluation; sample and evaluation details are insufficiently
+                described.
+              </p>
+            </div>
+          </div>
+          <div className="sm-prose">
+            <p>
+              Accuracy alone can hide missed cases, especially when outcome classes are imbalanced.
+              A credible evaluation needs a clearly defined outcome, a defensible data-splitting
+              strategy, class distribution, and appropriate measures such as sensitivity,
+              specificity, discrimination and calibration. Performance also needs to be examined on
+              data independent of model development before claims about generalisation can be made.
+            </p>
+          </div>
+          <div className="sm-limits">
+            <article>
+              <span>01</span>
+              <div>
+                <h3>Prediction timing</h3>
+                <p>
+                  The project materials refer to a prediction point around week eight, while the
+                  discovery narrative discusses recognition later in pregnancy. The target and
+                  timing need to be reconciled before claiming early prediction.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span>02</span>
+              <div>
+                <h3>Generalisation</h3>
+                <p>
+                  The reported accuracy does not establish performance on an independent population
+                  of pregnant women in Kenyan antenatal clinics.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span>03</span>
+              <div>
+                <h3>Clinical usefulness</h3>
+                <p>
+                  No formal clinician usability sessions or prospective clinical evaluation are
+                  documented.
+                </p>
+              </div>
+            </article>
+          </div>
+          <h3 className="sm-subheading">What would need to happen next?</h3>
+          <div className="sm-next-steps">
+            <p>
+              <b>01</b> Define the outcome, prediction time and permissible inputs.
+            </p>
+            <p>
+              <b>02</b> Test the workflow with clinicians using realistic tasks.
+            </p>
+            <p>
+              <b>03</b> Have qualified professionals review the clinical language and warnings.
+            </p>
+            <p>
+              <b>04</b> Independently evaluate the model and report results transparently.
+            </p>
+          </div>
+        </Section>
+
+        <Section
+          id="reflection"
+          eyebrow="08 / REFLECTION"
+          title="The interface is where a system's assumptions become visible."
+          intro="SafeMom changed how I think about the relationship between product design, software and evidence."
+        >
+          <div className="sm-prose">
+            <p>
+              The initial challenge appeared to be early risk identification. As the work developed,
+              the challenge became broader: how could a clinician-facing application present a
+              model's output without creating false confidence, introducing avoidable data errors or
+              disrupting decisions already being made in a clinical setting?
+            </p>
+            <p>
+              The interface is not a decorative layer placed on top of a technical system. It is
+              where the system's assumptions, limitations and capabilities become visible to the
+              person using it. A model may return a classification, but the product still has to
+              communicate what that classification means. A form may collect information, but the
+              team must establish whether the fields are appropriate and whether users can complete
+              them reliably.
+            </p>
+            <p>
+              The project's value lies in combining technical implementation with critical review.
+              SafeMom became a working prototype and helped identify weaknesses in the result
+              language, data validation and assumptions about the intended workflow. It did not
+              establish clinical accuracy, improved maternal outcomes or readiness for deployment.
+            </p>
+          </div>
+          <h3 className="sm-subheading">What I would do differently</h3>
+          <div className="sm-lessons">
+            <article>
+              <span>01</span>
+              <div>
+                <h3>Document discovery from day one.</h3>
+                <p>
+                  Record recruitment, participant characteristics, interview questions, consent
+                  procedures and the analysis process so findings can be defended.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span>02</span>
+              <div>
+                <h3>Bring clinicians into the design cycle earlier.</h3>
+                <p>
+                  Observe intended users completing realistic tasks before settling the form,
+                  terminology and result presentation.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span>03</span>
+              <div>
+                <h3>Resolve the prediction question first.</h3>
+                <p>
+                  Agree on the target, prediction time, inputs and evaluation strategy before making
+                  claims about early prediction.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span>04</span>
+              <div>
+                <h3>Treat clinical language as part of safety.</h3>
+                <p>
+                  Review messages, warnings and explanations as carefully as model logic and data
+                  handling.
+                </p>
+              </div>
+            </article>
+          </div>
+        </Section>
+
+        <footer className="sm-sources">
+          <p className="sm-eyebrow">FURTHER READING</p>
+          <h2>Sources & references</h2>
+          <p className="sm-sources-intro">
+            These references support the clinical context and the discussion of prediction model
+            reporting. They do not validate the SafeMom model.
+          </p>
+          <ol>
+            <Source href="https://www.who.int/publications/i/item/9789240069251">
+              World Health Organization, UNICEF, UNFPA, World Bank Group, and UNDESA/Population
+              Division. (2023). <em>Trends in maternal mortality 2000 to 2020.</em>
+            </Source>
+            <Source>
+              American College of Obstetricians and Gynecologists. (2020). Gestational hypertension
+              and preeclampsia. <em>Obstetrics &amp; Gynecology, 135</em>(6), e237–e260. Practice
+              Bulletin No. 222.
+            </Source>
+            <Source href="https://doi.org/10.1002/uog.27490">
+              Tiruneh, S. A., et al. (2024). Externally validated prediction models for
+              pre-eclampsia: Systematic review and meta-analysis.{' '}
+              <em>Ultrasound in Obstetrics &amp; Gynecology, 63</em>(5), 592–604.
+            </Source>
+            <Source href="https://www.bmj.com/content/385/bmj-2023-078378">
+              Collins, G. S., et al. (2024). TRIPOD+AI statement: Updated guidance for reporting
+              clinical prediction models that use regression or machine learning methods.{' '}
+              <em>BMJ, 385</em>, e078378.
+            </Source>
+          </ol>
+          <div className="sm-footer-end">
+            <span>SAFEMOM / CASE STUDY</span>
+            <a href="#overview">Back to top ↑</a>
+          </div>
+        </footer>
       </main>
     </div>
   );
