@@ -25,6 +25,21 @@
       ],
       "tags": ["Figma", "User Research", "5 Whys", "Design Thinking"],
       "link": "/#/safemom"
+    },
+    {
+      "id": 3,
+      "title": "PGD Blog",
+      "year": "2026",
+      "image": "./blog.png",
+      "category": "UI/UX & Development",
+      "description": "A digital publishing platform designed and built to help journalism students publish their news stories, showcase their writing skills, and reach readers beyond the classroom.",
+      "features": [
+        "Student login and story publishing workflow",
+        "Public-facing platform for discovering and reading student news stories",
+        "Digital showcase for student journalism and writing portfolios"
+      ],
+      "tags": ["UI/UX Design", "React", "CSS", "Web Development", "Digital Publishing"],
+      "link": "/#/Blog"
     }
   ]
 }

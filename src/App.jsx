@@ -8,6 +8,7 @@ import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import Magazine from './components/Magazine/Magazine';
 import SafeMom from './components/SafeMom/SafeMom';
+import Blog from './components/Blog/Blog';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/magazine" element={<Magazine />} />
           <Route path="/safemom" element={<SafeMom />} />
+          <Route path="/blog" element={<Blog />} />
         </Routes>
       </main>
       <Footer />

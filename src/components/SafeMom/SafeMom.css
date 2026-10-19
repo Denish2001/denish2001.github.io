@@ -671,16 +671,7 @@ body {
     --sm-sidebar-width: 0px;
   }
   .sm-sidebar {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: auto;
-    padding: 10px 16px;
-    flex-direction: row;
-    align-items: center;
-    gap: 18px;
-    border-right: 0;
-    border-bottom: 1px solid var(--sm-line);
+    display: none;
   }
   .sm-brand {
     flex: 0 0 auto;
@@ -741,6 +732,9 @@ body {
   .sm-hero-summary {
     font-size: 14px;
   }
+  .sm-hero-topline {
+    display: none;
+  }
   .sm-section {
     padding-top: 75px;
   }
@@ -777,8 +771,7 @@ body {
 }
 @media (max-width: 430px) {
   .sm-sidebar {
-    gap: 10px;
-    padding-inline: 10px;
+    display: none;
   }
   .sm-brand {
     gap: 7px;
@@ -791,7 +784,7 @@ body {
     padding-inline: 17px;
   }
   .sm-hero-topline {
-    font-size: 8px;
+    display: none;
   }
   .sm-meta-grid {
     grid-template-columns: 1fr 1fr;

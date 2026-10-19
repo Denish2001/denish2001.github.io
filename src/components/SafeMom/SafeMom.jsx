@@ -177,10 +177,6 @@ export default function SafeMomCaseStudy() {
 
       <main className="sm-main">
         <header className="sm-hero" id="overview">
-          <div className="sm-hero-topline">
-            <span>PRODUCT DESIGN / HEALTHCARE AI</span>
-            <span>2024</span>
-          </div>
           <p className="sm-eyebrow">A KAMILIMU DATA SCIENCE PROJECT</p>
           <h1>
             {PROJECT.title}
