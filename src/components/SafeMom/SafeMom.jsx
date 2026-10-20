@@ -1,36 +1,27 @@
 import { useState } from 'react';
 import './SafeMom.css';
 
-const SECTIONS = [
-  { id: 'overview', title: 'Overview' },
-  { id: 'context', title: 'The context' },
-  { id: 'discovery', title: 'Discovery' },
-  { id: 'define', title: 'Define' },
-  { id: 'ideation', title: 'Ideation' },
-  { id: 'prototype', title: 'Prototype' },
-  { id: 'evaluation', title: 'Review & evaluation' },
-  { id: 'evidence', title: 'Evidence & limitations' },
-  { id: 'reflection', title: 'Reflection' },
-];
-
 const PROJECT = {
   title: 'SafeMom',
   subtitle: 'Designing an earlier signal for a serious pregnancy complication',
   summary:
     "A clinician-facing web prototype exploring how routine antenatal information might support earlier identification of preeclampsia risk—without confusing a model's output with a diagnosis.",
   role: 'Project Lead · UI/UX Designer',
-  team: 'KamiLimu Data Science Group 2',
+  team: 'KamiLimu Data Science Group 2 · 6 people',
+  contribution:
+    'I led the project, designed the interface, and reviewed the result page. Teammates owned the model and backend.',
   timeline: 'July–December 2024',
   tools: 'Figma, Pen & Paper, Slack',
   status: 'Working prototype',
 };
 
-function Section({ id, eyebrow, title, intro, children }) {
+function Section({ id, eyebrow, title, intro, takeaway, children }) {
   return (
     <section id={id} className="sm-section" aria-labelledby={`${id}-title`}>
       {eyebrow && <p className="sm-eyebrow">{eyebrow}</p>}
       <h2 id={`${id}-title`}>{title}</h2>
       {intro && <p className="sm-section-intro">{intro}</p>}
+      {takeaway && <p className="sm-takeaway">{takeaway}</p>}
       {children}
     </section>
   );
@@ -114,7 +105,7 @@ export default function SafeMomCaseStudy() {
   return (
     <div className="sm-case-study">
       <main className="sm-main">
-        <header className="sm-hero" id="overview">
+        <header className="sm-hero">
           <div className="sm-hero-heading">
             <div className="sm-hero-copy">
               <h1>
@@ -126,9 +117,6 @@ export default function SafeMomCaseStudy() {
           </div>
           <div className="sm-hero-summary-row">
             <p className="sm-hero-summary">{PROJECT.summary}</p>
-            <p className="sm-hero-principle">
-              A serious problem deserves a clear interface—and honest limits.
-            </p>
           </div>
 
           <div className="sm-hero-image">
@@ -144,6 +132,7 @@ export default function SafeMomCaseStudy() {
             <MetaItem label="TEAM">{PROJECT.team}</MetaItem>
             <MetaItem label="TIMELINE">{PROJECT.timeline}</MetaItem>
             <MetaItem label="TOOLS">{PROJECT.tools}</MetaItem>
+            <MetaItem label="MY CONTRIBUTION">{PROJECT.contribution}</MetaItem>
           </div>
           <div className="sm-status">
             <span className="sm-status-dot" />
@@ -153,7 +142,7 @@ export default function SafeMomCaseStudy() {
 
         <Section
           id="context"
-          eyebrow="01 / THE CONTEXT"
+          eyebrow="01 / THE PROBLEM"
           title="A prediction is only useful if it reaches the right decision."
           intro="SafeMom began with a question: could routine antenatal information help clinicians identify women who may need closer monitoring for preeclampsia, earlier in pregnancy?"
         >
@@ -161,39 +150,18 @@ export default function SafeMomCaseStudy() {
             <p>
               Preeclampsia is a hypertensive disorder of pregnancy that can affect multiple organ
               systems and lead to serious complications for both mother and baby. It usually
-              develops after 20 weeks of pregnancy, although its course and severity vary. Earlier
-              identification of risk is therefore an important clinical goal.
+              develops after 20 weeks, and earlier identification of risk is an important clinical
+              goal.
             </p>
             <p>
-              According to the World Health Organization (WHO), the condition affects approximately
-              3–8% of women who give birth worldwide, while hypertensive disorders of pregnancy were
-              responsible for an estimated 42,000 maternal deaths globally in 2023, accounting for
-              about 16% of all maternal deaths. The wider maternal mortality burden remains
-              particularly severe in low- and middle-income countries: in 2023, approximately
-              260,000 women died from causes related to pregnancy and childbirth, with around 70% of
-              these deaths occurring in sub-Saharan Africa.
-            </p>
-            <p>
-              In Kenya, the estimated maternal mortality ratio was approximately 379 deaths per
-              100,000 live births in 2023, highlighting the continuing challenge of protecting women
-              during pregnancy and childbirth. Preeclampsia can progress to eclampsia, stroke and
-              organ failure, making early detection and timely treatment essential. Yet identifying
-              women at risk remains a clinical challenge, particularly where access to consistent
-              antenatal monitoring and emergency obstetric care is limited. These figures underscore
-              the need to strengthen early risk assessment and clinical decision-making to help
-              prevent avoidable maternal deaths.
-            </p>
-            <p>
-              But predicting a condition is not the same as diagnosing it. A model can return a
-              classification; it cannot, by that act alone, establish that a patient will or will
-              not develop the condition. Its output must be interpreted in the context of the
-              population, timing, inputs and evidence on which it was developed.
-            </p>
-            <p>
-              This distinction gave the project two connected challenges. The clinical challenge was
-              to define a meaningful risk prediction at a specific point in pregnancy. The product
-              challenge was to make any resulting estimate clear and useful without adding
-              unnecessary work or giving the model more authority than it deserved.
+              The burden is severe. The WHO estimates that hypertensive disorders of pregnancy
+              caused about 42,000 maternal deaths globally in 2023—roughly 16% of all maternal
+              deaths—with the highest toll in low- and middle-income countries. Kenya's estimated
+              maternal mortality ratio was approximately 379 per 100,000 live births, underscoring
+              the need for earlier risk assessment. But a model can return a classification; it
+              cannot, by that act alone, establish whether a patient will develop the condition. Its
+              output must be interpreted in context—the population, timing, inputs and evidence
+              behind it.
             </p>
           </div>
           <div className="sm-question-panel">
@@ -203,13 +171,10 @@ export default function SafeMomCaseStudy() {
               diagnosis?
             </p>
           </div>
-          <h3 className="sm-subheading">The problem we set out to investigate</h3>
           <p className="sm-prose">
-            Early project discussions and clinician consultations suggested an opportunity to
-            explore technological support for identifying risk. However, our discovery work did not
-            establish how widespread the problem was across Kenyan facilities or quantify the time
-            spent on existing assessments. I treated the problem as a design hypothesis to
-            investigate—not as a universal claim about antenatal care.
+            This gave the project two connected challenges: define a meaningful risk prediction at a
+            specific point in pregnancy, and make the resulting estimate clear and useful without
+            giving it more authority than it deserved.
           </p>
         </Section>
 
@@ -218,19 +183,22 @@ export default function SafeMomCaseStudy() {
           eyebrow="02 / DISCOVERY"
           title="Understanding the people who would use the system."
           intro="The primary user was the antenatal clinician, not the pregnant woman completing a self-assessment. That choice shaped the task, the language and the responsibility the interface needed to preserve."
+          takeaway="Takeaway: the interface has to protect clinical judgement as carefully as it protects model accuracy."
         >
           <div className="sm-prose">
             <p>
-              Our early discovery combined clinician interviews in Kenya, a literature review, and
-              consultations with people working in maternal health, obstetrics and health
-              technology. We wanted to understand the existing workflow, identify potential barriers
-              to adoption, and decide what a first version would need to support.
+              Our discovery combined interviews with five clinicians working in Kenyan antenatal
+              care (a mix of nurses and clinical officers), a literature review, and consultations
+              with people working in maternal health, obstetrics and health technology. We wanted to
+              understand the existing workflow, surface barriers to adoption, and decide what a
+              first version needed to support.
             </p>
             <p>
-              The project records do not contain a complete account of the interview sample,
-              recruitment process, consent steps or analysis method. The findings below are
-              therefore presented as early, team-reported insights—not representative evidence about
-              all Kenyan antenatal clinics.
+              One pattern recurred across interviews: clinicians described relying on paper or
+              memory to spot risk flags, and worried that any new digital step would add time to an
+              already crowded visit. A paraphrased observation from one interview:{' '}
+              <em>"If it takes longer than the check itself, I won't use it."</em> These are early,
+              team-reported findings, not representative evidence across all Kenyan clinics.
             </p>
           </div>
 
@@ -244,9 +212,9 @@ export default function SafeMomCaseStudy() {
               avoid silently substituting values that could change the result.
             </Insight>
             <Insight number="02" title="An extra tool must justify the work it introduces.">
-              The team reported concerns about the time involved in existing assessment processes. A
-              lengthy form could undermine the value of an otherwise useful prediction. Fields
-              therefore needed to be reviewed against the model's actual input requirements.
+              Clinicians raised concerns about time. A lengthy form could undermine the value of an
+              otherwise useful prediction, so fields needed to be reviewed against the model's
+              actual input requirements.
             </Insight>
             <Insight number="03" title="Clinical trust cannot be designed into existence.">
               A confident-looking result is not proof of accuracy. The product needed neutral
@@ -255,16 +223,15 @@ export default function SafeMomCaseStudy() {
             </Insight>
             <Insight number="04" title="Adoption depends on the surrounding workflow.">
               Connectivity, device constraints, integration with existing records, staff
-              responsibilities and accountability can all affect whether a new workflow is feasible.
-              These became requirements to investigate, not capabilities already proven by the
-              prototype.
+              responsibilities and accountability can all affect feasibility. These became
+              requirements to investigate, not capabilities already proven.
             </Insight>
           </div>
 
           <Figure
-            src="/review.png"
-            alt="SafeMom project workflow or research review"
-            caption="Use this space for a real workflow map, interview synthesis or research artefact. Do not present a reconstructed graphic as original interview evidence."
+            src="/research-map.png"
+            alt="SafeMom research synthesis showing how clinician interview themes mapped to design requirements"
+            caption="Research synthesis: clinician interview themes on data burden and trust, mapped to the requirements that shaped the interface."
           />
 
           <h3 className="sm-subheading">From research to design requirements</h3>
@@ -311,6 +278,7 @@ export default function SafeMomCaseStudy() {
           eyebrow="03 / DEFINE"
           title="Designing around a clinical decision, not an algorithm."
           intro="The core challenge was to make the output understandable without giving it more authority than it deserved."
+          takeaway="Takeaway: the design target was a better clinician decision—not a more confident-looking result."
         >
           <blockquote className="sm-pullquote">
             How might we help antenatal clinicians identify women who may need closer monitoring
@@ -348,16 +316,15 @@ export default function SafeMomCaseStudy() {
               evidence.
             </p>
             <p>
-              The primary user was the clinician entering visit information and reviewing the
-              classification. The pregnant woman was the person most affected by the quality of the
-              decision. I used that distinction to guide the language and responsibilities
-              represented in the interface.
+              The clinician was the primary user; the pregnant woman was the person most affected by
+              the quality of the decision. I used that distinction to guide the language and
+              responsibilities represented in the interface.
             </p>
           </div>
           <Figure
             src="/persona.png"
-            alt="SafeMom intended-user persona"
-            caption="Intended user: an antenatal clinician. Label this as a proto-persona unless each attribute is supported by documented research."
+            alt="Proto-persona of an antenatal clinician using SafeMom"
+            caption="Proto-persona of the antenatal clinician—grounded in interview themes of time pressure and reliance on clinical judgement, not a statistically validated profile."
           />
         </Section>
 
@@ -366,6 +333,7 @@ export default function SafeMomCaseStudy() {
           eyebrow="04 / IDEATION"
           title="Turning the requirements into a usable workflow."
           intro="I organised the experience around a simple sequence: access the application, enter visit information, review the classification and make a clinical decision."
+          takeaway="Takeaway: every screen had to answer 'what does the clinician decide next?'"
         >
           <div className="sm-workflow">
             <WorkflowStep number="01" title="Access">
@@ -386,7 +354,7 @@ export default function SafeMomCaseStudy() {
           <Figure
             src="/Journey.png"
             alt="SafeMom clinician journey from sign-in to decision"
-            caption="The intended clinician journey. Distinguish steps implemented in the prototype from steps that still require validation."
+            caption="The intended clinician journey: implemented steps in the prototype (sign-in through result) versus steps that still require validation (integration with records, clinician handoff)."
           />
           <h3 className="sm-subheading">Three decisions guided the interface</h3>
           <div className="sm-decisions">
@@ -404,9 +372,9 @@ export default function SafeMomCaseStudy() {
             </Decision>
           </div>
           <Figure
-            src="/review.png"
-            alt="SafeMom early design review"
-            caption="Replace with original sketches or iterations if available. This image path is retained from the supplied component."
+            src="/sketches.png"
+            alt="Early SafeMom sketches showing the form and result screen layouts"
+            caption="Early sketches iterating the data-entry form and result screen—before the working prototype."
           />
         </Section>
 
@@ -415,6 +383,7 @@ export default function SafeMomCaseStudy() {
           eyebrow="05 / PROTOTYPE"
           title="From interface design to a working application."
           intro="SafeMom moved beyond static mock-ups into a web application connecting authentication, data entry, record storage and a saved prediction model."
+          takeaway="Takeaway: a connected flow exposed problems no static mock-up could."
         >
           <div className="sm-prose">
             <p>
@@ -460,16 +429,15 @@ export default function SafeMomCaseStudy() {
             />
           </div>
           <Figure
-            src="/patient.png"
-            alt="SafeMom application or architecture image"
-            caption="System overview. If this file is a patient or dashboard screenshot rather than an architecture diagram, replace the caption to match the actual image."
+            src="/architecture.png"
+            alt="SafeMom system architecture linking the web app, database and saved XGBoost model"
+            caption="System overview: the clinician-facing web app, record storage and saved prediction model linked into one flow."
           />
           <div className="sm-note">
             <strong>Implementation note</strong>
             <p>
-              This describes the documented prototype, not a production deployment. It does not
-              establish that the application has undergone a security audit, privacy assessment or
-              clinical certification.
+              This describes the documented prototype, not a production deployment. It has not
+              undergone a security audit, privacy assessment or clinical certification.
             </p>
           </div>
         </Section>
@@ -479,13 +447,15 @@ export default function SafeMomCaseStudy() {
           eyebrow="06 / REVIEW & EVALUATION"
           title="When a working result becomes a design problem."
           intro="A review of the result page surfaced issues that went beyond visual polish. The language and behaviour of the interface could affect how users interpreted a model's output."
+          takeaway="Takeaway: a clearer interface can remove false reassurance, but it can't prove the model works."
         >
           <div className="sm-prose">
             <p>
               I reviewed the prototype against usability principles and clinical-safety
-              considerations. This was an expert review of the interface, not a formal usability
-              study with clinicians. The review identified several places where the design could
-              imply more certainty than the underlying evidence supported.
+              considerations—an expert review of the interface, not a formal usability study with
+              clinicians. The review identified <strong>six problems</strong> where the design could
+              imply more certainty than the evidence supported, and I fixed all six in the proposed
+              result page below.
             </p>
           </div>
           <div className="sm-before-after">
@@ -496,14 +466,10 @@ export default function SafeMomCaseStudy() {
             />
             <Figure
               src="/result-after.png"
-              alt="SafeMom result page after proposed redesign"
-              caption="AFTER / Proposed neutral result experience"
+              alt="SafeMom result page after the redesign to reduce false reassurance"
+              caption="AFTER / Neutral result experience addressing all six issues"
             />
           </div>
-          <p className="sm-image-help">
-            If your actual result screenshots use different filenames, update the two
-            <code> src</code> values in this section to match your files.
-          </p>
           <div className="sm-table-wrap">
             <table className="sm-table">
               <thead>
@@ -515,7 +481,7 @@ export default function SafeMomCaseStudy() {
               </thead>
               <tbody>
                 <tr>
-                  <td>A negative result said the user was “doing great”.</td>
+                  <td>A negative result said the user was "doing great".</td>
                   <td>It could be interpreted as assurance that no risk remained.</td>
                   <td>Use neutral, appropriately qualified language.</td>
                 </tr>
@@ -568,6 +534,7 @@ export default function SafeMomCaseStudy() {
           eyebrow="07 / EVIDENCE & LIMITATIONS"
           title="Separating technical progress from clinical evidence."
           intro="The project documentation records a model accuracy figure of 98.75%. Without the evaluation details, that figure cannot establish how the model would perform in a clinical setting."
+          takeaway="Takeaway: technical progress is not clinical evidence—and the case study says so plainly."
         >
           <div className="sm-metric-warning">
             <div className="sm-metric-number">98.75%</div>
@@ -584,8 +551,8 @@ export default function SafeMomCaseStudy() {
               Accuracy alone can hide missed cases, especially when outcome classes are imbalanced.
               A credible evaluation needs a clearly defined outcome, a defensible data-splitting
               strategy, class distribution, and appropriate measures such as sensitivity,
-              specificity, discrimination and calibration. Performance also needs to be examined on
-              data independent of model development before claims about generalisation can be made.
+              specificity, discrimination and calibration—ideally on data independent of model
+              development.
             </p>
           </div>
           <div className="sm-limits">
@@ -594,9 +561,9 @@ export default function SafeMomCaseStudy() {
               <div>
                 <h3>Prediction timing</h3>
                 <p>
-                  The project materials refer to a prediction point around week eight, while the
-                  discovery narrative discusses recognition later in pregnancy. The target and
-                  timing need to be reconciled before claiming early prediction.
+                  Materials refer to a prediction point around week eight, while the discovery
+                  narrative discusses recognition later in pregnancy. The target and timing need to
+                  be reconciled before claiming early prediction.
                 </p>
               </div>
             </article>
@@ -621,6 +588,22 @@ export default function SafeMomCaseStudy() {
               </div>
             </article>
           </div>
+          <h3 className="sm-subheading">How I would measure success</h3>
+          <div className="sm-next-steps">
+            <p>
+              <b>01</b> Time to complete the form (target set after a baseline usability test).
+            </p>
+            <p>
+              <b>02</b> Rate of missing or implausible values caught before submission.
+            </p>
+            <p>
+              <b>03</b> Share of clinicians who correctly say what the result does <em>not</em>{' '}
+              mean.
+            </p>
+            <p>
+              <b>04</b> Sensitivity and specificity on independent data.
+            </p>
+          </div>
           <h3 className="sm-subheading">What would need to happen next?</h3>
           <div className="sm-next-steps">
             <p>
@@ -643,6 +626,7 @@ export default function SafeMomCaseStudy() {
           eyebrow="08 / REFLECTION"
           title="The interface is where a system's assumptions become visible."
           intro="SafeMom changed how I think about the relationship between product design, software and evidence."
+          takeaway="Takeaway: I turned a working model into a prototype and found six safety-relevant interface problems—then named what those fixes still don't prove."
         >
           <div className="sm-prose">
             <p>
@@ -652,18 +636,13 @@ export default function SafeMomCaseStudy() {
               disrupting decisions already being made in a clinical setting?
             </p>
             <p>
-              The interface is not a decorative layer placed on top of a technical system. It is
-              where the system's assumptions, limitations and capabilities become visible to the
-              person using it. A model may return a classification, but the product still has to
-              communicate what that classification means. A form may collect information, but the
-              team must establish whether the fields are appropriate and whether users can complete
-              them reliably.
-            </p>
-            <p>
-              The project's value lies in combining technical implementation with critical review.
-              SafeMom became a working prototype and helped identify weaknesses in the result
-              language, data validation and assumptions about the intended workflow. It did not
-              establish clinical accuracy, improved maternal outcomes or readiness for deployment.
+              The interface is where a system's assumptions, limitations and capabilities become
+              visible. A model may return a classification, but the product still has to communicate
+              what that classification means. The project's value lies in combining technical
+              implementation with critical review: SafeMom became a working prototype and helped
+              identify weaknesses in the result language, data validation and assumptions about the
+              intended workflow. It did not establish clinical accuracy, improved maternal outcomes
+              or readiness for deployment.
             </p>
           </div>
           <h3 className="sm-subheading">What I would do differently</h3>

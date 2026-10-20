@@ -42,7 +42,7 @@ const MOVIES = [
   { title: 'Squid Game', year: 2021 },
   { title: 'Iron Man', year: 2008 },
   { title: 'Deadpool & Wolverine', year: 2024 },
-  { title: 'The Fantastic Four: First Steps ', year: 2024 },
+  { title: 'The Fantastic Four: First Steps', year: 2024 },
   { title: 'Spider-Man: Brand New Day', year: 2026 },
   { title: 'Thunderbolts*', year: 2025 },
   { title: 'Spider-Man', year: 2002 },
@@ -86,65 +86,86 @@ const WORDS = [
     source: 'Still I Rise',
     stanzas: [
       `You may write me down in history
-      With your bitter, twisted lies,
-      You may trod me in the very dirt
-      But still, like dust, I'll rise.`,
-
+With your bitter, twisted lies,
+You may trod me in the very dirt
+But still, like dust, I'll rise.`,
       `Does my sassiness upset you?
-      Why are you beset with gloom?
-      'Cause I walk like I've got oil wells
-      Pumping in my living room.`,
-
+Why are you beset with gloom?
+'Cause I walk like I've got oil wells
+Pumping in my living room.`,
       `Just like moons and like suns,
-      With the certainty of tides,
-      Just like hopes springing high,
-      Still I'll rise.`,
-
+With the certainty of tides,
+Just like hopes springing high,
+Still I'll rise.`,
       `Did you want to see me broken?
-      Bowed head and lowered eyes?
-      Shoulders falling down like teardrops,
-      Weakened by my soulful cries?`,
-
+Bowed head and lowered eyes?
+Shoulders falling down like teardrops,
+Weakened by my soulful cries?`,
       `Does my haughtiness offend you?
-      Don't you take it awful hard
-      'Cause I laugh like I've got gold mines
-      Diggin' in my own backyard.`,
-
+Don't you take it awful hard
+'Cause I laugh like I've got gold mines
+Diggin' in my own backyard.`,
       `You may shoot me with your words,
-      You may cut me with your eyes,
-      You may kill me with your hatefulness,
-      But still, like air, I'll rise.`,
-
+You may cut me with your eyes,
+You may kill me with your hatefulness,
+But still, like air, I'll rise.`,
       `Does my sexiness upset you?
-      Does it come as a surprise
-      That I dance like I've got diamonds
-      At the meeting of my thighs?`,
-
+Does it come as a surprise
+That I dance like I've got diamonds
+At the meeting of my thighs?`,
       `Out of the huts of history's shame
-      I rise
-      Up from a past that's rooted in pain
-      I rise
-      I'm a black ocean, leaping and wide,
-      Welling and swelling I bear in the tide.`,
-
+I rise
+Up from a past that's rooted in pain
+I rise
+I'm a black ocean, leaping and wide,
+Welling and swelling I bear in the tide.`,
       `Leaving behind nights of terror and fear
-      I rise
-      Into a daybreak that's wondrously clear
-      I rise
-      Bringing the gifts that my ancestors gave,
-      I am the dream and the hope of the slave.
-      I rise
-      I rise
-      I rise.`,
+I rise
+Into a daybreak that's wondrously clear
+I rise
+Bringing the gifts that my ancestors gave,
+I am the dream and the hope of the slave.
+I rise
+I rise
+I rise.`,
     ],
   },
   {
-    id: 'i-smile',
+    id: 'I laugh at myself',
     author: 'Maya Angelou',
-    source: 'I Smile',
+    source: 'I laugh at myself',
     stanzas: [
-      // Paste your authorized poem or performance text here.
-      // Separate each stanza into its own string.
+      `When I think about myself,
+I almost laugh myself to death,
+My life has been one great big joke,
+A dance that's walked
+A song that's spoke,
+I laugh so hard I almost choke
+When I think about myself.`,
+
+      `Sixty years in these folks' world
+The child I works for calls me girl
+I say 'Yes ma'am' for working's sake.
+Too proud to bend
+Too poor to break,
+I laugh until my stomach ache,
+When I think about myself.`,
+
+      `My folks can make me split my side,
+I laughed so hard I nearly died,
+The tales they tell, sound just like lying,
+They grow the fruit,
+But eat the rind,
+I laugh until I start to crying,
+When I think about my folks.`,
+    ],
+  },
+  {
+    id: 'Hard Monologue',
+    author: 'Deborah Vance',
+    source: 'Hard Monologue',
+    stanzas: [
+      `You Have To Scratch And Claw And It Never F*cking Ends. And It Doesn’t Get Better, It Just Gets Harder. So Don’t Complain To Me That I’m Making Your Life Hard. You Don’t Even Know What That Means.`,
     ],
   },
 ];
@@ -175,14 +196,14 @@ function Counter() {
 
         const start = performance.now();
         const tick = (now) => {
-          const t = Math.min((now - start) / 1200, 1);
+          const t = Math.min((now - start) / 1400, 1);
           const eased = 1 - Math.pow(1 - t, 3);
           setCount(Math.round(eased * total));
           if (t < 1) raf.current = requestAnimationFrame(tick);
         };
         raf.current = requestAnimationFrame(tick);
       },
-      { threshold: 0.3 }
+      { threshold: 0.35 }
     );
 
     io.observe(el);
@@ -194,8 +215,8 @@ function Counter() {
 
   return (
     <div className="bw-counter" ref={ref}>
-      <span className="bw-counter__num">{count}</span>
-      <span className="bw-counter__label">films logged</span>
+      <span className="bw-counter__num">{String(count).padStart(2, '0')}</span>
+      <span className="bw-counter__label">titles</span>
     </div>
   );
 }
@@ -210,20 +231,12 @@ function FilmList() {
   const hidden = MOVIES.length - INITIAL_SHOW;
 
   return (
-    <>
-      <ul className="bw-films">
+    <div className="bw-films">
+      <ul className="bw-films__list">
         {visible.map((m) => (
           <li className="bw-film" key={m.title}>
-            <span className="bw-film__title">
-              {m.favorite && (
-                <span className="bw-film__star" aria-label="favourite">
-                  ◆
-                </span>
-              )}
-              {m.title}
-            </span>
+            <span className="bw-film__title">{m.title}</span>
             <span className="bw-film__year">{m.year}</span>
-            {m.note && <span className="bw-film__note">{m.note}</span>}
           </li>
         ))}
       </ul>
@@ -231,14 +244,14 @@ function FilmList() {
       {hidden > 0 && (
         <button
           type="button"
-          className="bw-toggle"
+          className="bw-btn"
           aria-expanded={showAll}
           onClick={() => setShowAll((v) => !v)}
         >
-          {showAll ? 'Show less' : `+ ${hidden} more`}
+          {showAll ? 'Less' : `+${hidden} more`}
         </button>
       )}
-    </>
+    </div>
   );
 }
 
@@ -250,33 +263,36 @@ function WordCard({ item }) {
 
   return (
     <article className="bw-word">
+      <div className="bw-word__meta">
+        <span className="bw-word__author">{item.author}</span>
+        <span className="bw-word__dot" aria-hidden="true">
+          •
+        </span>
+        <span className="bw-word__source">{item.source}</span>
+      </div>
+
       <div className={`bw-word__body${long && !open ? ' bw-word__body--clamped' : ''}`}>
-        {item.stanzas.map((s, i) => (
-          <p className="bw-word__stanza" key={i}>
-            {s}
-          </p>
-        ))}
+        {item.stanzas.length > 0 ? (
+          item.stanzas.map((s, i) => (
+            <p className="bw-word__stanza" key={i}>
+              {s}
+            </p>
+          ))
+        ) : (
+          <p className="bw-word__empty">Nothing yet.</p>
+        )}
       </div>
 
       {long && (
         <button
           type="button"
-          className="bw-toggle"
+          className="bw-btn bw-btn--ghost"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? 'Show less' : 'Read it all'}
+          {open ? 'Collapse' : 'Read more'}
         </button>
       )}
-
-      <p className="bw-word__byline">
-        {item.author}
-        {item.source && (
-          <>
-            , <cite>{item.source}</cite>
-          </>
-        )}
-      </p>
     </article>
   );
 }
@@ -286,25 +302,42 @@ function WordCard({ item }) {
 export default function BesidesWork() {
   return (
     <section className="bw" id="besides-work" aria-labelledby="bw-title">
-      <header className="bw__header">
-        <h2 className="bw__title" id="bw-title">
-          Besides work
-        </h2>
-        <p className="bw__lede">
-          Films I've sat with in the dark, and the lines I keep coming back to.
-        </p>
-      </header>
+      <div className="bw__shell">
+        <aside className="bw__rail">
+          <h2 className="bw__title" id="bw-title">
+            Besides
+            <br />
+            work
+          </h2>
+          <p className="bw__lede">
+            Films I've sat with in the dark, and the lines I keep coming back to.
+          </p>
+        </aside>
 
-      <div className="bw__grid">
-        <div className="bw__col bw__col--films">
-          <Counter />
-          <FilmList />
-        </div>
+        <div className="bw__content">
+          <section className="bw__panel" aria-labelledby="bw-films-title">
+            <div className="bw__panel-head">
+              <h3 className="bw__panel-title" id="bw-films-title">
+                Films i've watched since 2025
+              </h3>
+              <Counter />
+            </div>
+            <FilmList />
+          </section>
 
-        <div className="bw__col bw__col--words">
-          {WORDS.map((item) => (
-            <WordCard item={item} key={item.id} />
-          ))}
+          <section className="bw__panel" aria-labelledby="bw-words-title">
+            <div className="bw__panel-head">
+              <h3 className="bw__panel-title" id="bw-words-title">
+                Favorite Words
+              </h3>
+              <span className="bw__panel-count">{String(WORDS.length).padStart(2, '0')}</span>
+            </div>
+            <div className="bw__words">
+              {WORDS.map((item) => (
+                <WordCard item={item} key={item.id} />
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     </section>
