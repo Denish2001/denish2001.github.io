@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './SafeMom.css';
 
 const SECTIONS = [
@@ -24,64 +24,6 @@ const PROJECT = {
   tools: 'Figma, Pen & Paper, Slack',
   status: 'Working prototype',
 };
-
-function useActiveSection(sectionIds) {
-  const [activeId, setActiveId] = useState(sectionIds[0]);
-
-  useEffect(() => {
-    const nodes = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
-
-    if (!('IntersectionObserver' in window)) return undefined;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveId(visible.target.id);
-      },
-      { rootMargin: '-15% 0px -65% 0px', threshold: [0, 0.1, 0.25, 0.5] }
-    );
-
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [sectionIds]);
-
-  return activeId;
-}
-
-function SectionNav({ sections, activeId }) {
-  return (
-    <aside className="sm-sidebar">
-      <a className="sm-brand" href="#overview" aria-label="SafeMom case study home">
-        <span className="sm-brand-mark">S</span>
-        <span>
-          CASE STUDY <small>HEALTH TECHNOLOGY</small>
-        </span>
-      </a>
-      <div className="sm-nav-label">ON THIS PAGE</div>
-      <nav aria-label="Case study sections">
-        <ol className="sm-nav-list">
-          {sections.map(({ id, title }, index) => (
-            <li key={id}>
-              <a
-                href={`#${id}`}
-                className={activeId === id ? 'is-active' : ''}
-                aria-current={activeId === id ? 'location' : undefined}
-              >
-                <span className="sm-nav-number">{String(index + 1).padStart(2, '0')}</span>
-                {title}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </nav>
-      <a className="sm-back-link" href="/">
-        ← Back to portfolio
-      </a>
-    </aside>
-  );
-}
 
 function Section({ id, eyebrow, title, intro, children }) {
   return (
@@ -169,32 +111,36 @@ function Source({ children, href }) {
 }
 
 export default function SafeMomCaseStudy() {
-  const activeId = useActiveSection(SECTIONS.map((section) => section.id));
-
   return (
     <div className="sm-case-study">
-      <SectionNav sections={SECTIONS} activeId={activeId} />
-
       <main className="sm-main">
         <header className="sm-hero" id="overview">
-          <p className="sm-eyebrow">A KAMILIMU DATA SCIENCE PROJECT</p>
-          <h1>
-            {PROJECT.title}
-            <span className="sm-title-period">.</span>
-          </h1>
-          <p className="sm-hero-subtitle">{PROJECT.subtitle}</p>
-          <p className="sm-hero-summary">{PROJECT.summary}</p>
+          <div className="sm-hero-heading">
+            <div className="sm-hero-copy">
+              <h1>
+                {PROJECT.title}
+                <span className="sm-title-period">.</span>
+              </h1>
+              <p className="sm-hero-subtitle">{PROJECT.subtitle}</p>
+            </div>
+          </div>
+          <div className="sm-hero-summary-row">
+            <p className="sm-hero-summary">{PROJECT.summary}</p>
+            <p className="sm-hero-principle">
+              A serious problem deserves a clear interface—and honest limits.
+            </p>
+          </div>
 
           <div className="sm-hero-image">
             <Figure
               src="/SafeMom.png"
               alt="SafeMom application interface shown in a product mockup"
-              caption="SafeMom's clinician-facing interface. Replace this image with the clearest available product screenshot."
+              caption="SafeMom · Early-stage clinician-facing prototype"
             />
           </div>
 
           <div className="sm-meta-grid">
-            <MetaItem label="MY ROLE">{PROJECT.role}</MetaItem>
+            <MetaItem label="ROLE">{PROJECT.role}</MetaItem>
             <MetaItem label="TEAM">{PROJECT.team}</MetaItem>
             <MetaItem label="TIMELINE">{PROJECT.timeline}</MetaItem>
             <MetaItem label="TOOLS">{PROJECT.tools}</MetaItem>
@@ -230,12 +176,12 @@ export default function SafeMomCaseStudy() {
             <p>
               In Kenya, the estimated maternal mortality ratio was approximately 379 deaths per
               100,000 live births in 2023, highlighting the continuing challenge of protecting women
-              during pregnancy and childbirth. datadot +1 Preeclampsia can progress to eclampsia,
-              stroke and organ failure, making early detection and timely treatment essential. Yet
-              identifying women at risk remains a clinical challenge, particularly where access to
-              consistent antenatal monitoring and emergency obstetric care is limited. These figures
-              underscore the need to strengthen early risk assessment and clinical decision-making
-              to help prevent avoidable maternal deaths.
+              during pregnancy and childbirth. Preeclampsia can progress to eclampsia, stroke and
+              organ failure, making early detection and timely treatment essential. Yet identifying
+              women at risk remains a clinical challenge, particularly where access to consistent
+              antenatal monitoring and emergency obstetric care is limited. These figures underscore
+              the need to strengthen early risk assessment and clinical decision-making to help
+              prevent avoidable maternal deaths.
             </p>
             <p>
               But predicting a condition is not the same as diagnosing it. A model can return a
@@ -795,7 +741,6 @@ export default function SafeMomCaseStudy() {
           </ol>
           <div className="sm-footer-end">
             <span>SAFEMOM / CASE STUDY</span>
-            <a href="#overview">Back to top ↑</a>
           </div>
         </footer>
       </main>

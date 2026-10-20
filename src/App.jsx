@@ -10,6 +10,7 @@ import Magazine from './components/Magazine/Magazine';
 import SafeMom from './components/SafeMom/SafeMom';
 import Blog from './components/Blog/Blog';
 import './App.css';
+import BesidesWork from './components/BesidesWork/BesidesWork';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/magazine" element={<Magazine />} />
           <Route path="/safemom" element={<SafeMom />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/besidework" element={<BesidesWork />} />
         </Routes>
       </main>
       <Footer />

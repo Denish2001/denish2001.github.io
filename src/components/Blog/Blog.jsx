@@ -8,9 +8,6 @@ export default function Blog() {
     <main className="pgd-case-study">
       <header className="pgd-hero">
         <div className="pgd-hero-copy">
-          <p className="pgd-eyebrow">
-            <span className="pgd-dot" /> PRODUCT DESIGN + DEVELOPMENT
-          </p>
           <h1>
             PGD Blog<span className="pgd-title-period">.</span>
           </h1>
