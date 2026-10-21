@@ -117,6 +117,16 @@ export default function SafeMomCaseStudy() {
           </div>
           <div className="sm-hero-summary-row">
             <p className="sm-hero-summary">{PROJECT.summary}</p>
+
+            <a
+              className="sm-prototype-button"
+              href="https://safe-mom-7gqn.onrender.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the SafeMom live prototype in a new tab"
+            >
+              View Live Prototype <span aria-hidden="true">↗</span>
+            </a>
           </div>
 
           <div className="sm-hero-image">

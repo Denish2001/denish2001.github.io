@@ -247,6 +247,67 @@ body {
   font-weight: 600;
   line-height: 1.6;
 }
+
+/* Primary action: use the existing SafeMom accent and editorial typography. */
+.sm-case-study .sm-prototype-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 13px 17px;
+  border: 1px solid var(--sm-accent-dark);
+  background: var(--sm-accent-dark);
+  color: var(--sm-white);
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.015em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.sm-case-study .sm-prototype-button:hover {
+  border-color: var(--sm-ink);
+  background: var(--sm-ink);
+  color: var(--sm-white);
+}
+
+.sm-case-study .sm-prototype-button:focus-visible {
+  outline: 3px solid var(--sm-accent);
+  outline-offset: 4px;
+}
+
+.sm-case-study .sm-prototype-button span {
+  color: var(--sm-white);
+  font-size: 16px;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.sm-case-study .sm-prototype-button:hover span {
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 640px) {
+  .sm-case-study .sm-prototype-button {
+    width: fit-content;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sm-case-study .sm-prototype-button,
+  .sm-case-study .sm-prototype-button span {
+    transition: none;
+  }
+}
+
 .sm-status {
   display: flex;
   align-items: center;
