@@ -131,7 +131,7 @@ export default function SafeMomCaseStudy() {
 
           <div className="sm-hero-image">
             <Figure
-              src="/SafeMom.png"
+              src="/sm.png"
               alt="SafeMom application interface shown in a product mockup"
               caption="SafeMom · Early-stage clinician-facing prototype"
             />
@@ -439,7 +439,7 @@ export default function SafeMomCaseStudy() {
             />
           </div>
           <Figure
-            src="/architecture.png"
+            src="/prototype.png"
             alt="SafeMom system architecture linking the web app, database and saved XGBoost model"
             caption="System overview: the clinician-facing web app, record storage and saved prediction model linked into one flow."
           />

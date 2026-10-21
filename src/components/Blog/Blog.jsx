@@ -1,5 +1,6 @@
 import React from 'react';
 import './Blog.css';
+import blogImage from '/blog.png';
 
 export default function Blog() {
   const liveUrl = 'https://pgdblog.netlify.app/';
@@ -41,7 +42,7 @@ export default function Blog() {
           </div>
         </div>
 
-        <div className="pgd-browser" aria-label="Decorative preview of the PGD Blog website">
+        <div className="pgd-browser" aria-label="Preview of the PGD Blog website">
           <div className="pgd-browser-bar">
             <div className="pgd-window-dots">
               <i />
@@ -53,41 +54,17 @@ export default function Blog() {
               •••
             </span>
           </div>
-          <div className="pgd-preview">
-            <div className="pgd-preview-top">
-              <div className="pgd-preview-logo">
-                PGD<span>BLOG</span>
-                <b>.</b>
-              </div>
-              <div className="pgd-preview-links">
-                <span>Home</span>
-                <span>Stories</span>
-                <span>About</span>
-              </div>
-              <span className="pgd-preview-login">Log in ↗</span>
-            </div>
-            <div className="pgd-preview-body">
-              <div className="pgd-preview-kicker">
-                <span /> STUDENT JOURNALISM
-              </div>
-              <div className="pgd-preview-heading">
-                Stories worth
-                <br />
-                sharing<span>.</span>
-              </div>
-              <p>
-                A space for emerging voices, fresh perspectives, and stories from the next
-                generation of journalists.
-              </p>
-              <div className="pgd-preview-cta">
-                Discover stories <span>↗</span>
-              </div>
-              <div className="pgd-preview-bottom">
-                <span>REPORTING · PERSPECTIVES · PEOPLE</span>
-                <span>01 / OPEN PUBLICATION</span>
-              </div>
-            </div>
+
+          <div className="pgd-screenshot-viewport">
+            <img
+              src={blogImage}
+              alt="Screenshot of the PGD Blog homepage"
+              className="pgd-screenshot"
+              loading="eager"
+            />
+            <div className="pgd-screenshot-fade" aria-hidden="true" />
           </div>
+
           <div className="pgd-browser-caption">A publishing space for emerging journalists</div>
         </div>
       </header>
@@ -518,6 +495,338 @@ export default function Blog() {
         <a className="pgd-button pgd-button-light" href={liveUrl} target="_blank" rel="noreferrer">
           Explore PGD Blog <span aria-hidden="true">↗</span>
         </a>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────── */}
+      {/* 10 / DESIGN SYSTEM — new section                               */}
+      {/* ───────────────────────────────────────────────────────────── */}
+      <section className="pgd-design-system">
+        <div className="pgd-design-system-header">
+          <div className="pgd-section-label">
+            <span>10</span> DESIGN SYSTEM
+          </div>
+          <div>
+            <h2>Restrained editorial design, built for reading.</h2>
+            <p className="pgd-lead">
+              The PGD Blog leans into a digital-newspaper feel: a black navigation bar, a white
+              reading surface, compact sans-serif typography, a single functional blue accent, and
+              photography that carries the visual weight. It is closer to a publication than a
+              conventional blog.
+            </p>
+            <p>
+              Its strength is consistency. The interface supplies order so the stories can carry the
+              personality.
+            </p>
+          </div>
+        </div>
+
+        {/* Colour palette */}
+        <div className="pgd-ds-block">
+          <div className="pgd-ds-block-label">
+            <span>01</span> COLOUR PALETTE
+          </div>
+          <div className="pgd-ds-block-body">
+            <h3>Monochromatic surfaces, one functional accent.</h3>
+            <p>
+              Neutral tones dominate the interface, with blue reserved for actions, links, and
+              category labels. The small multicoloured logo is the only other source of colour, and
+              photography supplies the rest.
+            </p>
+            <div className="pgd-swatch-grid">
+              <article className="pgd-swatch">
+                <span className="pgd-swatch-chip" style={{ background: '#1B1B1B' }} />
+                <div>
+                  <strong>Charcoal black</strong>
+                  <code>#1B1B1B</code>
+                  <p>Navigation, footer, dark surfaces</p>
+                </div>
+              </article>
+              <article className="pgd-swatch">
+                <span className="pgd-swatch-chip" style={{ background: '#FFFFFF' }} />
+                <div>
+                  <strong>White</strong>
+                  <code>#FFFFFF</code>
+                  <p>Main background, cards, text contrast</p>
+                </div>
+              </article>
+              <article className="pgd-swatch">
+                <span className="pgd-swatch-chip" style={{ background: '#F5F5F5' }} />
+                <div>
+                  <strong>Light grey</strong>
+                  <code>#F5F5F5</code>
+                  <p>Article pages, topic sections, subtle separation</p>
+                </div>
+              </article>
+              <article className="pgd-swatch">
+                <span className="pgd-swatch-chip" style={{ background: '#0069D9' }} />
+                <div>
+                  <strong>Bright blue</strong>
+                  <code>#0069D9</code>
+                  <p>Subscribe buttons, links, category labels</p>
+                </div>
+              </article>
+              <article className="pgd-swatch">
+                <span className="pgd-swatch-chip" style={{ background: '#777777' }} />
+                <div>
+                  <strong>Medium grey</strong>
+                  <code>#777777</code>
+                  <p>Metadata, dates, author names, footer copy</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        {/* Typography */}
+        <div className="pgd-ds-block">
+          <div className="pgd-ds-block-label">
+            <span>02</span> TYPOGRAPHY
+          </div>
+          <div className="pgd-ds-block-body">
+            <h3>One clean sans-serif, weighted for hierarchy.</h3>
+            <p>
+              The interface uses a single neutral sans-serif throughout (Inter, Arial, or a close
+              equivalent). Hierarchy comes from size and weight rather than from font changes — a
+              heavier headline weight for stories, and regular weight for body copy.
+            </p>
+
+            <div className="pgd-type-scale">
+              <div className="pgd-type-row pgd-type-hero">
+                <span className="pgd-type-meta">HERO HEADLINE · 28–36px · 700</span>
+                <span className="pgd-type-sample">Kibera MP Fined</span>
+              </div>
+              <div className="pgd-type-row pgd-type-heading">
+                <span className="pgd-type-meta">PAGE HEADING · 24–30px · 500–600</span>
+                <span className="pgd-type-sample">Recent Stories</span>
+              </div>
+              <div className="pgd-type-row pgd-type-article">
+                <span className="pgd-type-meta">ARTICLE HEADLINE · 15–18px · 600–700</span>
+                <span className="pgd-type-sample">
+                  Mutai Escapes Ouster as Impeachment Bid Fails
+                </span>
+              </div>
+              <div className="pgd-type-row pgd-type-body">
+                <span className="pgd-type-meta">BODY TEXT · 14–16px · 400</span>
+                <span className="pgd-type-sample">
+                  The opening paragraph introduces the main development and its context.
+                </span>
+              </div>
+              <div className="pgd-type-row pgd-type-meta-row">
+                <span className="pgd-type-meta">METADATA · 10–12px · 400–500</span>
+                <span className="pgd-type-sample">Ronny Choge · October 21, 2025 · 2 min read</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Layout & composition */}
+        <div className="pgd-ds-block">
+          <div className="pgd-ds-block-label">
+            <span>03</span> LAYOUT & COMPOSITION
+          </div>
+          <div className="pgd-ds-block-body">
+            <h3>Six building blocks that structure the homepage.</h3>
+            <p>
+              Each section has a clear job: navigate, feature, browse, classify, contextualise, and
+              retain. The homepage optimises for browsing; the article page optimises for reading.
+            </p>
+            <div className="pgd-layout-grid">
+              <article>
+                <span>01</span>
+                <h4>Compact dark navigation</h4>
+                <p>
+                  Slim header, logo left, links right. A dark bar separates navigation from content.
+                </p>
+              </article>
+              <article>
+                <span>02</span>
+                <h4>Full-width hero story</h4>
+                <p>
+                  Large photograph, dark overlay, white headline, author, and call-to-action.
+                  Carousel dots signal more.
+                </p>
+              </article>
+              <article>
+                <span>03</span>
+                <h4>Four-column story grid</h4>
+                <p>
+                  Consistent cards with image, category, date, headline, and author. Thin borders
+                  keep it tidy.
+                </p>
+              </article>
+              <article>
+                <span>04</span>
+                <h4>Topic navigation</h4>
+                <p>
+                  Rectangular cards for Politics, Technology, Education, and Human Interest turn
+                  topics into navigation.
+                </p>
+              </article>
+              <article>
+                <span>05</span>
+                <h4>About section</h4>
+                <p>
+                  Two-column layout pairs institutional copy with a visual block, breaking the grid
+                  repetition.
+                </p>
+              </article>
+              <article>
+                <span>06</span>
+                <h4>Dark footer</h4>
+                <p>
+                  Class information, navigation, and an email subscription form, separated from the
+                  copyright line.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        {/* Cards, borders, shapes */}
+        <div className="pgd-ds-block">
+          <div className="pgd-ds-block-label">
+            <span>04</span> CARDS, BORDERS & SHAPES
+          </div>
+          <div className="pgd-ds-block-body">
+            <h3>Simple geometry over decoration.</h3>
+            <p>
+              Structure comes from thin lines, consistent corners, and spacing — not shadows or
+              ornament.
+            </p>
+            <ul className="pgd-ds-list">
+              <li>
+                <strong>Corners</strong> — slightly rounded cards and image containers.
+              </li>
+              <li>
+                <strong>Borders</strong> — thin pale-grey outlines instead of heavy shadows.
+              </li>
+              <li>
+                <strong>Buttons</strong> — rectangular with modest rounding; black for about, blue
+                for subscriptions.
+              </li>
+              <li>
+                <strong>Images</strong> — consistent card dimensions and cropped thumbnails.
+              </li>
+              <li>
+                <strong>Dividers</strong> — subtle horizontal rules between sections and metadata.
+              </li>
+              <li>
+                <strong>Icons</strong> — small and functional rather than decorative.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Principles at work */}
+        <div className="pgd-ds-block">
+          <div className="pgd-ds-block-label">
+            <span>05</span> PRINCIPLES AT WORK
+          </div>
+          <div className="pgd-ds-block-body">
+            <h3>Why it reads as a publication.</h3>
+            <div className="pgd-principles-grid">
+              <article>
+                <span>Hierarchy</span>
+                <p>
+                  Hero headline first, then story headlines, then images, categories, and metadata.
+                </p>
+              </article>
+              <article>
+                <span>Proximity</span>
+                <p>
+                  Each category, date, and headline sits close to its image so readers can group
+                  information.
+                </p>
+              </article>
+              <article>
+                <span>Repetition</span>
+                <p>
+                  Every story card shares the same structure, so the page becomes predictable and
+                  easy to scan.
+                </p>
+              </article>
+              <article>
+                <span>Contrast</span>
+                <p>
+                  White against charcoal separates structure from content; blue separates actions
+                  from text.
+                </p>
+              </article>
+              <article>
+                <span>Alignment</span>
+                <p>
+                  Consistent grid columns and headings create order; the large hero balances the
+                  denser grid below.
+                </p>
+              </article>
+              <article>
+                <span>Whitespace</span>
+                <p>
+                  Generous spacing around sections and within article pages gives content room to
+                  breathe.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        {/* Article-page pattern */}
+        <div className="pgd-ds-block pgd-ds-block-last">
+          <div className="pgd-ds-block-label">
+            <span>06</span> ARTICLE-PAGE PATTERN
+          </div>
+          <div className="pgd-ds-block-body">
+            <h3>The homepage browses. The article page reads.</h3>
+            <p>
+              The article page reuses the same visual language but changes the composition: a narrow
+              central reading column, a prominent lead photograph, and generous vertical spacing
+              over a light-grey background.
+            </p>
+            <div className="pgd-article-pattern">
+              <div className="pgd-article-stage">
+                <span className="pgd-article-stage-meta">STAGE 01</span>
+                <div className="pgd-article-stage-sample">Category label</div>
+              </div>
+              <div className="pgd-article-stage">
+                <span className="pgd-article-stage-meta">STAGE 02</span>
+                <div className="pgd-article-stage-sample pgd-article-heading-sample">
+                  Article headline with clear hierarchy
+                </div>
+              </div>
+              <div className="pgd-article-stage">
+                <span className="pgd-article-stage-meta">STAGE 03</span>
+                <div className="pgd-article-stage-sample pgd-article-meta-sample">
+                  Ronny Choge · October 21, 2025 · 2 min read
+                </div>
+              </div>
+              <div className="pgd-article-stage">
+                <span className="pgd-article-stage-meta">STAGE 04</span>
+                <div
+                  className="pgd-article-stage-sample pgd-article-image-sample"
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="pgd-article-stage">
+                <span className="pgd-article-stage-meta">STAGE 05</span>
+                <div className="pgd-article-stage-sample pgd-article-body-sample">
+                  Opening paragraph introduces the main development and its context. Subsequent
+                  paragraphs explain the details in a single, readable column.
+                </div>
+              </div>
+              <div className="pgd-article-stage">
+                <span className="pgd-article-stage-meta">STAGE 06</span>
+                <div className="pgd-article-stage-sample pgd-article-cta-sample">
+                  View all stories ↗
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p className="pgd-small-note pgd-ds-note">
+          Colour and type values are approximate, based on the live implementation. They are a
+          starting point for the design system, not measured CSS values.
+        </p>
       </section>
 
       <footer className="pgd-case-footer">
