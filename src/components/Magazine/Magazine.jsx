@@ -1,7 +1,7 @@
 // Magazine.jsx
 import React, { useState } from 'react';
 import { FiDownload, FiPlus, FiMinus } from 'react-icons/fi';
-import './MagazineShowCase.css';
+import './MagazineShowcase.css';
 
 const DOWNLOAD_URL =
   'https://drive.google.com/file/d/1xX-1NFq3T21pt4pi_2JNgzKtgjmeeGNB/view?usp=drive_link';
