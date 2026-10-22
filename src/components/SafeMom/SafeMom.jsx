@@ -134,6 +134,8 @@ export default function SafeMomCaseStudy() {
               src="/sm.png"
               alt="SafeMom application interface shown in a product mockup"
               caption="SafeMom · Early-stage clinician-facing prototype"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -242,6 +244,8 @@ export default function SafeMomCaseStudy() {
             src="/research-map.png"
             alt="SafeMom research synthesis showing how clinician interview themes mapped to design requirements"
             caption="Research synthesis: clinician interview themes on data burden and trust, mapped to the requirements that shaped the interface."
+            loading="lazy"
+            decoding="async"
           />
 
           <h3 className="sm-subheading">From research to design requirements</h3>
@@ -335,6 +339,8 @@ export default function SafeMomCaseStudy() {
             src="/persona.png"
             alt="Proto-persona of an antenatal clinician using SafeMom"
             caption="Proto-persona of the antenatal clinician—grounded in interview themes of time pressure and reliance on clinical judgement, not a statistically validated profile."
+            loading="lazy"
+            decoding="async"
           />
         </Section>
 
@@ -365,6 +371,8 @@ export default function SafeMomCaseStudy() {
             src="/Journey.png"
             alt="SafeMom clinician journey from sign-in to decision"
             caption="The intended clinician journey: implemented steps in the prototype (sign-in through result) versus steps that still require validation (integration with records, clinician handoff)."
+            loading="lazy"
+            decoding="async"
           />
           <h3 className="sm-subheading">Three decisions guided the interface</h3>
           <div className="sm-decisions">
@@ -436,6 +444,8 @@ export default function SafeMomCaseStudy() {
               src="/dashboard.png"
               alt="SafeMom data-entry form"
               caption="02 / Enter visit information"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <Figure
@@ -473,11 +483,15 @@ export default function SafeMomCaseStudy() {
               src="/result-before.png"
               alt="Original SafeMom result page before review"
               caption="BEFORE / Original result experience"
+              loading="lazy"
+              decoding="async"
             />
             <Figure
               src="/result-after.png"
               alt="SafeMom result page after the redesign to reduce false reassurance"
               caption="AFTER / Neutral result experience addressing all six issues"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="sm-table-wrap">
