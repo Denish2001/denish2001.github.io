@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+import { FiArrowUpRight } from 'react-icons/fi';
 import './BesidesWork.css';
 
-/* ---------- data ---------- */
+/* ==========================================================
+   DATA
+   ========================================================== */
 
 const MOVIES = [
   { title: 'The Big Bang Theory', year: 2007 },
@@ -131,7 +134,7 @@ I rise.`,
     ],
   },
   {
-    id: 'I laugh at myself',
+    id: 'i-laugh-at-myself',
     author: 'Maya Angelou',
     source: 'I laugh at myself',
     stanzas: [
@@ -142,7 +145,6 @@ A dance that's walked
 A song that's spoke,
 I laugh so hard I almost choke
 When I think about myself.`,
-
       `Sixty years in these folks' world
 The child I works for calls me girl
 I say 'Yes ma'am' for working's sake.
@@ -150,7 +152,6 @@ Too proud to bend
 Too poor to break,
 I laugh until my stomach ache,
 When I think about myself.`,
-
       `My folks can make me split my side,
 I laughed so hard I nearly died,
 The tales they tell, sound just like lying,
@@ -161,27 +162,86 @@ When I think about my folks.`,
     ],
   },
   {
-    id: 'Hard Monologue',
+    id: 'hard-monologue',
     author: 'Deborah Vance',
     source: 'Hard Monologue',
     stanzas: [
-      `You Have To Scratch And Claw And It Never F*cking Ends. And It Doesn’t Get Better, It Just Gets Harder. So Don’t Complain To Me That I’m Making Your Life Hard. You Don’t Even Know What That Means.`,
+      `You have to scratch and claw and it never f*cking ends. And it doesn’t get better, it just gets harder. So don’t complain to me that I’m making your life hard. You don’t even know what that means.`,
     ],
   },
 ];
 
-/* ---------- counter ---------- */
+const BOOKS = [
+  {
+    title: 'On Writing Well',
+    by: 'William Zinsser',
+    note: 'The clearest book on writing plainly. Everything I know about cutting clutter started here.',
+    image:
+      'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=70',
+    alt: 'Open book on a wooden surface',
+  },
+  {
+    title: 'The Design of Everyday Things',
+    by: 'Don Norman',
+    note: 'Why a door can be wrong. The foundation of my instinct for interface design.',
+    image:
+      'https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=70',
+    alt: 'Minimalist design objects',
+  },
+  {
+    title: 'The Elements of Style',
+    by: 'Strunk & White',
+    note: 'Small, stern, and still right. Omit needless words.',
+    image:
+      'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=70',
+    alt: 'Stack of classic books',
+  },
+  {
+    title: 'Thinking, Fast and Slow',
+    by: 'Daniel Kahneman',
+    note: 'A reminder that the mind takes shortcuts, and interfaces should help it.',
+    image:
+      'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=900&q=70',
+    alt: 'Reading corner with warm light',
+  },
+];
 
-function Counter() {
+const SPOTIFY_EMBEDS = [
+  {
+    id: 'lemonade',
+    title: 'Lemonade by Beyoncé',
+    src: 'https://open.spotify.com/embed/album/7dK54iZuOxXFarGhXwEXfF?utm_source=generator&si=bf158a9dbc5e445e',
+  },
+  {
+    id: 'tpab',
+    title: 'To Pimp a Butterfly by Kendrick Lamar',
+    src: 'https://open.spotify.com/embed/album/6FJxoadUE4JNVwWHghBwnb?utm_source=generator&si=221cc495f285499a',
+  },
+  {
+    id: 'beyonce',
+    title: 'Beyoncé on Spotify',
+    src: 'https://open.spotify.com/embed/artist/310NKKgwvfe3k3nf9ug5TZ?utm_source=generator&si=6dba18a66cdc4a1f',
+  },
+  {
+    id: 'renaissance',
+    title: 'Renaissance by Beyoncé',
+    src: 'https://open.spotify.com/embed/album/48i37aZTC1prDr4EcpQeEa?utm_source=generator&si=99a16fa690a04645',
+  },
+];
+
+/* ==========================================================
+   COUNTER
+   ========================================================== */
+
+function Counter({ total }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const raf = useRef(0);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el) return undefined;
 
-    const total = MOVIES.length;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const io = new IntersectionObserver(
@@ -211,19 +271,20 @@ function Counter() {
       io.disconnect();
       cancelAnimationFrame(raf.current);
     };
-  }, []);
+  }, [total]);
 
   return (
-    <div className="bw-counter" ref={ref}>
-      <span className="bw-counter__num">{String(count).padStart(2, '0')}</span>
-      <span className="bw-counter__label">titles</span>
-    </div>
+    <span className="bw__count" ref={ref}>
+      {String(count).padStart(2, '0')}
+    </span>
   );
 }
 
-/* ---------- films ---------- */
+/* ==========================================================
+   FILMS
+   ========================================================== */
 
-const INITIAL_SHOW = 6;
+const INITIAL_SHOW = 8;
 
 function FilmList() {
   const [showAll, setShowAll] = useState(false);
@@ -248,14 +309,16 @@ function FilmList() {
           aria-expanded={showAll}
           onClick={() => setShowAll((v) => !v)}
         >
-          {showAll ? 'Less' : `+${hidden} more`}
+          {showAll ? 'Show less' : `Show all ${MOVIES.length}`}
         </button>
       )}
     </div>
   );
 }
 
-/* ---------- words ---------- */
+/* ==========================================================
+   WORDS
+   ========================================================== */
 
 function WordCard({ item }) {
   const [open, setOpen] = useState(false);
@@ -266,7 +329,7 @@ function WordCard({ item }) {
       <div className="bw-word__meta">
         <span className="bw-word__author">{item.author}</span>
         <span className="bw-word__dot" aria-hidden="true">
-          •
+          ·
         </span>
         <span className="bw-word__source">{item.source}</span>
       </div>
@@ -297,47 +360,116 @@ function WordCard({ item }) {
   );
 }
 
-/* ---------- section ---------- */
+/* ==========================================================
+   PANEL
+   ========================================================== */
+
+function Panel({ id, title, count, actions, children }) {
+  return (
+    <section className="bw__panel" aria-labelledby={`bw-${id}`}>
+      <header className="bw__panel-head">
+        <h3 className="bw__panel-title" id={`bw-${id}`}>
+          {title}
+        </h3>
+        <div className="bw__panel-side">
+          {actions}
+          {typeof count === 'number' && (
+            <span className="bw__count-static">{String(count).padStart(2, '0')}</span>
+          )}
+        </div>
+      </header>
+      {children}
+    </section>
+  );
+}
+
+/* ==========================================================
+   BOOK TILE
+   ========================================================== */
+
+function BookTile({ item }) {
+  return (
+    <article className="bw-tile">
+      <div className="bw-tile__media">
+        <img
+          src={item.image}
+          alt={item.alt}
+          loading="lazy"
+          decoding="async"
+          className="bw-tile__image"
+        />
+        <span className="bw-tile__arrow" aria-hidden="true">
+          <FiArrowUpRight size={14} />
+        </span>
+      </div>
+      <div className="bw-tile__body">
+        <h4 className="bw-tile__title">{item.title}</h4>
+        {item.by && <p className="bw-tile__meta">{item.by}</p>}
+        {item.note && <p className="bw-tile__note">{item.note}</p>}
+      </div>
+    </article>
+  );
+}
+
+/* ==========================================================
+   PAGE
+   ========================================================== */
 
 export default function BesidesWork() {
   return (
     <section className="bw" id="besides-work" aria-labelledby="bw-title">
       <div className="bw__shell">
         <aside className="bw__rail">
-          <h2 className="bw__title" id="bw-title">
-            Besides
-            <br />
-            work
-          </h2>
+          <h1 className="bw__title" id="bw-title">
+            Besides work
+            <span className="bw__title-period">.</span>
+          </h1>
           <p className="bw__lede">
-            Films I've sat with in the dark, and the lines I keep coming back to.
+            The films I keep coming back to, the words that stay with me, the books I return to, and
+            the records that shaped how I build.
           </p>
         </aside>
 
         <div className="bw__content">
-          <section className="bw__panel" aria-labelledby="bw-films-title">
-            <div className="bw__panel-head">
-              <h3 className="bw__panel-title" id="bw-films-title">
-                Films i've watched since 2025
-              </h3>
-              <Counter />
-            </div>
+          <Panel
+            id="films"
+            title="Films I’ve watched since 2025"
+            actions={<Counter total={MOVIES.length} />}
+          >
             <FilmList />
-          </section>
-
-          <section className="bw__panel" aria-labelledby="bw-words-title">
-            <div className="bw__panel-head">
-              <h3 className="bw__panel-title" id="bw-words-title">
-                Favorite Words
-              </h3>
-              <span className="bw__panel-count">{String(WORDS.length).padStart(2, '0')}</span>
+          </Panel>
+          <Panel id="listening" title="Listening" count={SPOTIFY_EMBEDS.length}>
+            <div className="bw-embeds">
+              {SPOTIFY_EMBEDS.map((item) => (
+                <div className="bw-embed" key={item.id}>
+                  <iframe
+                    title={item.title}
+                    src={item.src}
+                    width="100%"
+                    height="352"
+                    frameBorder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
+          </Panel>
+          <Panel id="words" title="Favorite words" count={WORDS.length}>
             <div className="bw__words">
               {WORDS.map((item) => (
                 <WordCard item={item} key={item.id} />
               ))}
             </div>
-          </section>
+          </Panel>
+
+          <Panel id="reading" title="Reading" count={BOOKS.length}>
+            <div className="bw-tiles bw-tiles--books">
+              {BOOKS.map((item) => (
+                <BookTile item={item} key={item.title} />
+              ))}
+            </div>
+          </Panel>
         </div>
       </div>
     </section>

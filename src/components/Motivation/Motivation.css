@@ -1,0 +1,205 @@
+/* =========================================================
+   MOTIVATION — scroll-expand essay card
+   Charcoal card on whitesmoke page. No glass, no glow.
+   Inherits tokens from index.css.
+   ========================================================= */
+
+.motivation {
+  background: var(--color-whitesmoke);
+  padding: var(--spacing-3xl) 0;
+  font-family: var(--font-family);
+}
+
+.motivation__container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* ---------- Card ---------- */
+
+.motivation__card {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.75rem, 5vw, 3.5rem);
+  background: var(--color-charcoal-dark);
+  color: var(--color-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+
+  /* Collapsed state */
+  max-height: 520px;
+  transition:
+    max-height 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.6s ease;
+}
+
+.motivation__card.is-expanded {
+  max-height: 4000px; /* enough for the full essay */
+}
+
+/* ---------- Fade-out when collapsed ---------- */
+
+.motivation__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 180px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(34, 34, 34, 0) 0%,
+    rgba(34, 34, 34, 0.7) 45%,
+    rgba(34, 34, 34, 1) 100%
+  );
+}
+
+/* ---------- Header ---------- */
+
+.motivation__header {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.motivation__title {
+  font-family: var(--heading-font);
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: var(--letter-tighter);
+  color: var(--color-white);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.motivation__title-period {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.motivation__deck {
+  font-family: var(--heading-font);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+/* ---------- Body ---------- */
+
+.motivation__body {
+  max-width: 62ch;
+}
+
+.motivation__body p {
+  font-family: var(--font-family);
+  font-size: clamp(0.98rem, 1.15vw, 1.05rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 var(--spacing-md);
+}
+
+.motivation__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Beat lines — display font, no background, no border */
+.motivation__beat {
+  font-family: var(--heading-font) !important;
+  font-size: clamp(1.15rem, 2vw, 1.4rem) !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: var(--letter-tight);
+  color: var(--color-white) !important;
+  margin: var(--spacing-lg) 0 !important;
+  padding: 0 !important;
+}
+
+/* Opening paragraph slightly larger */
+.motivation__body > p:first-child {
+  font-size: clamp(1.05rem, 1.3vw, 1.15rem);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* ---------- Sign-off ---------- */
+
+.motivation__signoff {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.motivation__signoff-line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .motivation {
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .motivation__container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .motivation__card {
+    border-radius: var(--radius-md);
+  }
+
+  .motivation__card {
+    max-height: 420px;
+  }
+
+  .motivation__fade {
+    height: 140px;
+  }
+
+  .motivation__body p {
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 480px) {
+  .motivation__container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .motivation__card {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .motivation__signoff {
+    font-size: 0.65rem;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .motivation__card {
+    max-height: none;
+    transition: none !important;
+  }
+  .motivation__fade {
+    display: none;
+  }
+}
