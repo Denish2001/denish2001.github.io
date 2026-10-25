@@ -1,6 +1,6 @@
 // Work.jsx
 import React, { useMemo, useState } from 'react';
-import { FiExternalLink, FiGithub, FiPlus, FiMinus } from 'react-icons/fi';
+import { FiExternalLink, FiGithub, FiPlus, FiMinus, FiPlay } from 'react-icons/fi';
 import projectsData from '../../utils/projects.json';
 import designsData from '../../utils/designs.json';
 import certData from '../../utils/Certifications.json';
@@ -20,8 +20,64 @@ const flattenDesigns = (data) => {
 const experienceItems = experienceData?.work_experience ?? [];
 
 /* ------------------------------------------------------------------
+   Motion pictures (videos)
+   Add / remove entries here. Supported `source`: 'youtube' | 'drive'.
+   ------------------------------------------------------------------ */
+
+const videosData = [
+  {
+    title: 'Affordable Housing Project',
+    role: 'Lighting',
+    source: 'drive',
+    url: 'https://drive.google.com/file/d/1BJyuvG8gTN2JfmKvW3PMYfB2OjTTdeTh/view?usp=sharing',
+    // Optional: set a custom thumbnail in /public to override the fallback
+    // thumbnail: '/affordable-housing-thumb.jpg',
+    description:
+      'A short documentary on affordable housing initiatives. Responsible for lighting design and on-set lighting setup.',
+  },
+  {
+    title: 'The Business of Building Businesses',
+    role: 'Producer & Editor',
+    source: 'youtube',
+    url: 'https://youtu.be/V4cSu5PNTS8?si=UH55IRPP5Z0zYRlv',
+    description:
+      'Produced and edited this piece on entrepreneurship and business-building. Handled end-to-end production and post-production.',
+  },
+];
+
+/* Derive an embeddable URL + thumbnail from the raw share link */
+const driveIdFromUrl = (url = '') => {
+  const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  return m ? m[1] : null;
+};
+
+const youtubeIdFromUrl = (url = '') => {
+  const m = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
+  return m ? m[1] : null;
+};
+
+const getVideoEmbed = (video) => {
+  if (video.source === 'youtube') {
+    const id = youtubeIdFromUrl(video.url);
+    if (!id) return null;
+    return {
+      embed: `https://www.youtube.com/embed/${id}`,
+      thumbnail: video.thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+    };
+  }
+  if (video.source === 'drive') {
+    const id = driveIdFromUrl(video.url);
+    if (!id) return null;
+    return {
+      embed: `https://drive.google.com/file/d/${id}/preview`,
+      thumbnail: video.thumbnail || '/Videos.jpg',
+    };
+  }
+  return null;
+};
+
+/* ------------------------------------------------------------------
    Stock imagery — one per section.
-   Swap the URLs for local /public images whenever you want.
    ------------------------------------------------------------------ */
 
 const SECTION_STOCK = {
@@ -40,7 +96,7 @@ const SECTION_STOCK = {
   certification: {
     label: 'Certifications',
     index: '03',
-    image: 'cert.jpg',
+    image: '/cert.jpg',
     alt: 'Desk with printed certificates',
   },
   project: {
@@ -56,9 +112,15 @@ const SECTION_STOCK = {
     image: '/design.jpg',
     alt: 'Designer sketching wireframes',
   },
+  video: {
+    label: 'Motion pictures',
+    index: '06',
+    image: '/Videos.jpg',
+    alt: 'Film production still',
+  },
 };
 
-const SECTION_ORDER = ['education', 'experience', 'certification', 'project', 'design'];
+const SECTION_ORDER = ['education', 'experience', 'certification', 'project', 'design', 'video'];
 
 const buildItems = () => ({
   education: eduData.map((e, i) => ({
@@ -81,10 +143,14 @@ const buildItems = () => ({
     ...d,
     _id: `dsn-${i}-${d.title ?? 'item'}`,
   })),
+  video: videosData.map((v, i) => ({
+    ...v,
+    _id: `vid-${i}-${v.title ?? 'item'}`,
+  })),
 });
 
 /* ------------------------------------------------------------------
-   Primary link — always-visible, button-like CTA
+   Primary link
    ------------------------------------------------------------------ */
 
 function PrimaryLink({ href, label = 'View', icon = 'external' }) {
@@ -221,6 +287,34 @@ function ItemBody({ item, category }) {
     );
   }
 
+  if (category === 'video') {
+    const media = getVideoEmbed(item);
+    return (
+      <>
+        {item.role && (
+          <p className="item__line">
+            <span>Role</span> {item.role}
+          </p>
+        )}
+        {item.description && <p className="item__desc">{item.description}</p>}
+        {media?.embed && (
+          <div className="item__video">
+            <iframe
+              src={media.embed}
+              title={item.title}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        )}
+        <div className="item__actions">
+          <PrimaryLink href={item.url} label="Watch film" icon="play" />
+        </div>
+      </>
+    );
+  }
+
   /* design */
   return (
     <>
@@ -251,7 +345,7 @@ function ItemBody({ item, category }) {
 function ZigzagSection({ sectionKey, items, index }) {
   const isEven = index % 2 === 0;
   const meta = SECTION_STOCK[sectionKey];
-  const isInteractive = sectionKey === 'project' || sectionKey === 'design';
+  const isInteractive = ['project', 'design', 'video'].includes(sectionKey);
 
   return (
     <section
