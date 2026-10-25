@@ -169,6 +169,16 @@ When I think about my folks.`,
       `You have to scratch and claw and it never f*cking ends. And it doesn’t get better, it just gets harder. So don’t complain to me that I’m making your life hard. You don’t even know what that means.`,
     ],
   },
+  {
+    id: 'experience-learning',
+    author: 'Andy Lane',
+    source: 'Learning by Experience',
+    stanzas: [
+      `Learning by experience is a familiar idea but it implies two activities: learning and experiencing. Both activities need to happen if I am to say that learning from experience has happened. Experiencing seems to have two components. The first is the quality of attention that allows me to notice the experience and its components. The second is memory. Calling experience to mind allows me to examine the experience and to think about it in ways that were not possible at the time. Learning is what I take away from that process that influences my behaviour or thinking in the future.
+
+But huge amounts of experience escape without being consciously experienced; I am insufficiently aware at the time to notice what’s going on. Later I am too busy to recall the experience and so little conscious learning takes place. Of course, it’s useful to carry out familiar activities ‘on auto-pilot’ – without conscious attention. It’s easy to miss out on important learning from unfamiliar activities too. I may become wrapped up in the activity itself or simply not notice the range and quality of the experience. Either way, a conscious attempt to recall the experience and to think about it, gives the opportunity to learn from the experience.`,
+    ],
+  },
 ];
 
 const BOOKS = [
