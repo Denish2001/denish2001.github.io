@@ -1160,3 +1160,158 @@
     animation: none !important;
   }
 }
+/* ---------- Figure trigger ---------- */
+.sm-figure__trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  position: relative;
+  border-radius: inherit;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.sm-figure__trigger img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.35s ease;
+}
+
+.sm-figure__trigger:hover img,
+.sm-figure__trigger:focus-visible img {
+  transform: scale(1.015);
+}
+
+.sm-figure__trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Expand badge shown on hover/focus */
+.sm-figure__expand {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  pointer-events: none;
+}
+
+.sm-figure__trigger:hover .sm-figure__expand,
+.sm-figure__trigger:focus-visible .sm-figure__expand {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Lightbox ---------- */
+.sm-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(4px);
+  animation: sm-fade-in 0.18s ease-out;
+  cursor: zoom-out;
+}
+
+.sm-lightbox__figure {
+  margin: 0;
+  max-width: min(1200px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: default;
+}
+
+.sm-lightbox__img {
+  max-width: 100%;
+  max-height: calc(100vh - 120px);
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  object-fit: contain;
+  background: #fff;
+}
+
+.sm-lightbox__caption {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: center;
+  max-width: 80ch;
+}
+
+.sm-lightbox__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sm-lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sm-lightbox__close:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@keyframes sm-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sm-figure__trigger img,
+  .sm-figure__expand,
+  .sm-lightbox,
+  .sm-lightbox__close {
+    transition: none;
+    animation: none;
+  }
+  .sm-figure__trigger:hover img,
+  .sm-figure__trigger:focus-visible img {
+    transform: none;
+  }
+}

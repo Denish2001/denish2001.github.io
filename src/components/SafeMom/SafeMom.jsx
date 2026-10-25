@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { FiArrowUpRight, FiDownload, FiPlus, FiMinus } from 'react-icons/fi';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { FiArrowUpRight, FiDownload, FiPlus, FiMinus, FiX, FiMaximize2 } from 'react-icons/fi';
 import './SafeMom.css';
 
 const PROJECT = {
@@ -64,20 +64,119 @@ function Section({ id, number, label, title, intro, takeaway, children }) {
   );
 }
 
+/* ==========================================================
+   LIGHTBOX + FIGURE
+   ========================================================== */
+
+function Lightbox({ image, onClose }) {
+  const closeRef = useRef(null);
+  const dialogRef = useRef(null);
+  const previouslyFocused = useRef(null);
+
+  // Lock scroll, remember focus, wire Esc, restore on close.
+  useEffect(() => {
+    if (!image) return;
+
+    previouslyFocused.current = document.activeElement;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKey);
+
+    // Move focus into the dialog.
+    closeRef.current?.focus();
+
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = originalOverflow;
+      if (previouslyFocused.current instanceof HTMLElement) {
+        previouslyFocused.current.focus();
+      }
+    };
+  }, [image, onClose]);
+
+  if (!image) return null;
+
+  return (
+    <div
+      className="sm-lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label={image.alt || 'Enlarged image'}
+      onClick={(e) => {
+        // Click on the backdrop (not the image) closes.
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <button
+        ref={closeRef}
+        type="button"
+        className="sm-lightbox__close"
+        onClick={onClose}
+        aria-label="Close image"
+      >
+        <FiX size={20} aria-hidden="true" />
+      </button>
+
+      <figure className="sm-lightbox__figure" ref={dialogRef}>
+        <img src={image.src} alt={image.alt} className="sm-lightbox__img" draggable={false} />
+        {image.caption && <figcaption className="sm-lightbox__caption">{image.caption}</figcaption>}
+      </figure>
+    </div>
+  );
+}
+
 function Figure({ src, alt, caption }) {
   const [failed, setFailed] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const canExpand = src && !failed;
+
+  const handleKey = useCallback((e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setOpen(true);
+    }
+  }, []);
+
   return (
-    <figure className="sm-figure">
-      {src && !failed ? (
-        <img src={src} alt={alt} onError={() => setFailed(true)} loading="lazy" decoding="async" />
-      ) : (
-        <div className="sm-figure-placeholder" role="img" aria-label={alt}>
-          <span>IMAGE UNAVAILABLE</span>
-          <p>{alt}</p>
-        </div>
+    <>
+      <figure className="sm-figure">
+        {canExpand ? (
+          <button
+            type="button"
+            className="sm-figure__trigger"
+            onClick={() => setOpen(true)}
+            onKeyDown={handleKey}
+            aria-label={`Expand image: ${alt}`}
+          >
+            <img
+              src={src}
+              alt={alt}
+              onError={() => setFailed(true)}
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="sm-figure__expand" aria-hidden="true">
+              <FiMaximize2 size={14} />
+            </span>
+          </button>
+        ) : (
+          <div className="sm-figure-placeholder" role="img" aria-label={alt}>
+            <span>IMAGE UNAVAILABLE</span>
+            <p>{alt}</p>
+          </div>
+        )}
+        {caption && <figcaption>{caption}</figcaption>}
+      </figure>
+
+      {canExpand && open && (
+        <Lightbox image={{ src, alt, caption }} onClose={() => setOpen(false)} />
       )}
-      {caption && <figcaption>{caption}</figcaption>}
-    </figure>
+    </>
   );
 }
 
@@ -412,6 +511,13 @@ export default function SafeMom() {
             </tbody>
           </table>
         </div>
+
+        <p>
+          Those requirements only make sense in context. Before sketching any screen, I mapped the
+          antenatal visit as a journey — the clinician's goals, the points where risk flags are
+          currently caught or missed, and the moments where an added digital step would either help
+          or get in the way. That map is shown in the next section.
+        </p>
       </Section>
 
       {/* ============================================================ */}
@@ -460,27 +566,45 @@ export default function SafeMom() {
         intro="I organised the experience around a simple sequence. Access the application, enter visit information, review the classification, and make a clinical decision."
         takeaway="Every screen had to answer a single question. What does the clinician decide next?"
       >
-        <div className="sm-steps">
-          <Step number="01" title="Access">
-            The clinician signs in to the application.
-          </Step>
-          <Step number="02" title="Record">
-            The clinician enters the information required for the assessment.
-          </Step>
-          <Step number="03" title="Review">
-            The application returns a risk classification and the context the prototype can provide.
-          </Step>
-          <Step number="04" title="Decide">
-            The clinician interprets the result alongside clinical assessment and applicable
-            guidance.
-          </Step>
-        </div>
+        <h3 className="sm-h3">The user journey</h3>
+        <p>
+          I mapped the clinician's end-to-end journey to understand where SafeMom sits inside a real
+          antenatal visit — not just inside the app. The journey below traces the stages, the
+          clinician's goal at each stage, the friction points surfaced in interviews, and where the
+          prototype currently intervenes versus where it still depends on the surrounding workflow.
+        </p>
 
         <Figure
-          src="/Journey.png"
-          alt="SafeMom clinician journey from sign-in to decision"
-          caption="The intended clinician journey. Implemented steps in the prototype, from sign-in through result, versus steps that still require validation: integration with records, clinician handoff."
+          src="/userjourney.png"
+          alt="SafeMom user journey map showing the antenatal clinician's stages from patient intake through risk assessment, result interpretation, and clinical decision"
+          caption="User journey map. Stages, clinician goals, friction points, and where SafeMom intervenes in the antenatal workflow."
         />
+
+        <p>
+          The journey made the design brief concrete: the product had to fit a small number of
+          moments inside a crowded visit, and it had to hand the clinician back to their own
+          judgement at the end. That reframed the interface as a step inside the workflow, not the
+          workflow itself.
+        </p>
+
+        <div className="sm-steps">
+          <Step number="01" title="Access — sign in">
+            The clinician signs in. The journey starts before the app, at the point the clinician
+            decides to use a digital aid at all.
+          </Step>
+          <Step number="02" title="Record — enter visit information">
+            The clinician enters the information required for the assessment, with missing or
+            implausible values surfaced rather than silently filled.
+          </Step>
+          <Step number="03" title="Review — interpret the classification">
+            The application returns a risk classification within the limits the prototype can
+            honestly describe.
+          </Step>
+          <Step number="04" title="Decide — act on clinical judgement">
+            The clinician interprets the result alongside clinical assessment and applicable
+            guidance. The journey continues outside the app.
+          </Step>
+        </div>
 
         <h3 className="sm-h3">Three decisions guided the interface</h3>
         <div className="sm-decisions">

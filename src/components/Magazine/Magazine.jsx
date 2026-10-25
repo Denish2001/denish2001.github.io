@@ -1,10 +1,13 @@
 // Magazine.jsx
 import React, { useState } from 'react';
-import { FiDownload, FiPlus, FiMinus } from 'react-icons/fi';
+import { FiDownload, FiPlus, FiMinus, FiExternalLink, FiBookOpen } from 'react-icons/fi';
 import './MagazineShowcase.css';
 
 const DOWNLOAD_URL =
   'https://drive.google.com/file/d/1xX-1NFq3T21pt4pi_2JNgzKtgjmeeGNB/view?usp=drive_link';
+
+// Heyzine flip-book edition of The Trend, 2026.
+const FLIP_URL = 'https://heyzine.com/flip-book/5e31f7d5a9.html';
 
 const STORIES = [
   {
@@ -197,7 +200,12 @@ export default function Magazine() {
         {/* ---------- HERO / SPREAD ---------- */}
         <header className="mag__spread">
           <figure className="mag__cover">
-            <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
+            <a
+              href={FLIP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the flip edition of The Trend, 2026 issue"
+            >
               <img
                 src="/trend.jpg"
                 alt="Cover of The Trend magazine, 2026 issue"
@@ -237,16 +245,94 @@ export default function Magazine() {
               </p>
             </div>
 
-            <a
-              className="mag__download"
-              href={DOWNLOAD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download the issue <FiDownload size={14} aria-hidden="true" />
-            </a>
+            <div className="mag__actions">
+              <a
+                className="mag__cta mag__cta--primary"
+                href={FLIP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FiBookOpen size={16} aria-hidden="true" />
+                Read the flip edition
+              </a>
+              <a
+                className="mag__cta mag__cta--ghost"
+                href={DOWNLOAD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download PDF
+                <FiDownload size={14} aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </header>
+
+        {/* ---------- READ THE ISSUE (FLIP-BOOK HIGHLIGHT) ---------- */}
+        <section className="mag__read" aria-labelledby="mag-read">
+          <div className="mag__read-copy">
+            <h2 id="mag-read" className="mag__h2">
+              Read it the way it was designed to be read.
+            </h2>
+            <p className="mag__read-lede">
+              The print issue is reproduced as an interactive flip-book. Spreads open, pages turn,
+              and the typography and grid behave exactly as they do in the physical edition —
+              without installing anything.
+            </p>
+
+            <ul className="mag__read-points">
+              <li>
+                <strong>Full spreads.</strong> Every double-page feature opens as it would on press.
+              </li>
+              <li>
+                <strong>Zoom to read.</strong> Cover lines, pull quotes, and captions stay legible.
+              </li>
+              <li>
+                <strong>No download.</strong> Works in any modern browser, desktop or mobile.
+              </li>
+            </ul>
+
+            <div className="mag__read-actions">
+              <a
+                className="mag__cta mag__cta--primary"
+                href={FLIP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FiBookOpen size={16} aria-hidden="true" />
+                Open the flip edition
+              </a>
+              <a
+                className="mag__cta mag__cta--ghost"
+                href={DOWNLOAD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download the PDF
+                <FiDownload size={14} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+
+          <figure className="mag__read-media">
+            <a
+              href={FLIP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the flip edition of The Trend"
+            >
+              <img
+                src="/trend-flip.png"
+                alt="The Trend 2026 issue shown as an interactive flip-book spread"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <figcaption>
+              Interactive flip-book edition of <em>The Trend</em>, 2026.
+            </figcaption>
+          </figure>
+        </section>
 
         {/* ---------- GUIDELINES ---------- */}
         <section className="mag__guidelines" aria-labelledby="mag-guides">
@@ -307,14 +393,28 @@ export default function Magazine() {
         {/* ---------- CLOSING ---------- */}
         <footer className="mag__footer">
           <p className="mag__footer-title">Designed and laid out by Denish Awajo Otieno.</p>
-          <a
-            className="mag__footer-link"
-            href={DOWNLOAD_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open the full issue <FiDownload size={14} aria-hidden="true" />
-          </a>
+
+          <div className="mag__footer-actions">
+            <a
+              className="mag__cta mag__cta--primary"
+              href={FLIP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FiBookOpen size={16} aria-hidden="true" />
+              Read the flip edition
+              <FiExternalLink size={12} aria-hidden="true" />
+            </a>
+            <a
+              className="mag__cta mag__cta--ghost"
+              href={DOWNLOAD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download the PDF
+              <FiDownload size={14} aria-hidden="true" />
+            </a>
+          </div>
         </footer>
       </div>
     </section>
